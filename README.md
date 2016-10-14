@@ -8,10 +8,10 @@ WeatherView is an Android Library that helps you make a cool weather animation f
 Add this to your **build.gradle**:
 ``` 
 repositories {
-        maven { url = 'https://jitpack.io' }
-    }
+	maven { url = 'https://jitpack.io' }
+}
 dependencies {
-    compile 'com.github.MatteoBattilana:WeatherView:1.0'
+	compile 'com.github.MatteoBattilana:WeatherView:1.0'
 }
 
 ```
