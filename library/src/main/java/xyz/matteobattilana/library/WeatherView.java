@@ -26,7 +26,9 @@ public class WeatherView extends View {
         mActivity = (Activity) getContext();
     }
 
-    public void changeWeather(weatherStatus status) {
+    public void setWeather(weatherStatus status) {
+        if(ps!=null)
+            ps.cancel();
         currentWeather = status;
         switch (status) {
             case RAIN:
