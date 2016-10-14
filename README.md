@@ -35,22 +35,8 @@ public class MainActivity extends Activity {
 
 Include into activity_main.xml
 ``` Xml
-public class MainActivity extends Activity {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        WeatherView mWeatherView = (WeatherView) findViewById(R.id.weather);
-        mWeatherView.setWeather(WeatherView.weatherStatus.RAIN);
-        mWeatherView.startAnimation();
-    }
-}
+    <xyz.matteobattilana.library.WeatherView
+        android:id="@+id/weather"
+        android:layout_width="match_parent"
+        android:layout_height="1dp" />
 ```
-
-
-
-
-
-
