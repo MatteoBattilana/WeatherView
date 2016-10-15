@@ -32,9 +32,10 @@ dependencies {
 
 ###Basic usage
 
-> Note that the ParticleSystem checks the position of the anchor view when oneShot (or emit) is called, so it requires the views to be measured. This means that ParticleSystem won't work properly if you call oneShot or emit during onCreate.
-
-Open an Activity:
+Open an Activity and link the WeatherView. By default is set to SUN, no animation is showed.
+It is possible to change or initialize the weather status with **setWeather(weatherStatus)** method.
+The animation is stopped by default and must be started with **startAnimation()**. When the animation is playing and the previus method is called the animation is stopped and must be restarted.
+You can check the <a href="https://github.com/MatteoBattilana/WeatherView/tree/master/app/">WeatherView Demo Library source code</a>.
 ``` Java
 public class MainActivity extends Activity {
 
