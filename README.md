@@ -34,7 +34,7 @@ dependencies {
 
 By default the WeatherView is set to SUN, no animation is showed.
 It is possible to change or initialize the weather status with the **setWeather(weatherStatus)** method.<br/>
-The animation is stopped by default and must be started with **startAnimation()**. When the animation is playing and the previous method is called the animation is stopped and must be restarted.
+The animation is stopped by default and must be started with **startAnimation()**. When the animation is playing and the previous method is called the animation is stopped and must be restarted.WeatherView requires minSDK 14.
 <br/>
 You can check the <a href="https://github.com/MatteoBattilana/WeatherView/tree/master/app/">WeatherView Demo Library source code</a>.
 
@@ -95,9 +95,22 @@ Available methods for the configuration are:
 * *resetConfiguration()*
 * *restartWithNewConfiguration()*
 
-##Other details
+##License details
+Copyright 2016 Matteo Battilana
+<br/><br/>
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
 
-WeatherView requires minSDK 14.<br/><br>
+     http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+
+
 The library is Free Software, you can use it, extended with no requirement to open source your changes. You can also make paid apps using it.
 
 ##Screenshot
