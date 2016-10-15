@@ -32,7 +32,7 @@ dependencies {
 
 ###Basic usage
 
-By default is set to SUN, no animation is showed.
+By default the WeatherView is set to SUN, no animation is showed.
 It is possible to change or initialize the weather status with the **setWeather(weatherStatus)** method.
 The animation is stopped by default and must be started with **startAnimation()**. When the animation is playing and the previous method is called the animation is stopped and must be restarted.
 You can check the <a href="https://github.com/MatteoBattilana/WeatherView/tree/master/app/">WeatherView Demo Library source code</a>.
