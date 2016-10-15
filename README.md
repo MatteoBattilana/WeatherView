@@ -7,7 +7,7 @@ Or you can download <a href="https://github.com/MatteoBattilana/WeatherView/raw/
 #WeatherView
 
 WeatherView is an Android Library that helps you make a cool weather animation for your app.
-This library is based on <a href="https://github.com/plattysoft/Leonids">Leonids</a> library.
+This library is based on this <a href="https://github.com/plattysoft/Leonids">Leonids</a> library.
 
 
 
@@ -31,6 +31,9 @@ dependencies {
 ```
 
 ###Basic usage
+
+> Note that the ParticleSystem checks the position of the anchor view when oneShot (or emit) is called, so it requires the views to be measured. This means that ParticleSystem won't work properly if you call oneShot or emit during onCreate.
+
 Open an Activity:
 ``` Java
 public class MainActivity extends Activity {
