@@ -91,6 +91,7 @@ Available methods for the configuration are:
 * *setRainTime(int rainTime)*
 * *setSnowTime(int snowTime)*
 * *setFadeOutTime(int fadeOutTime)*
+* *resetConfiguration()*
 
 ##Other details
 
