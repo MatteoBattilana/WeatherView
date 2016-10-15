@@ -1,5 +1,6 @@
 <p>Sample App:</p>
 <a href="https://play.google.com/store/apps/developer?id=Matteo+Battilana"><img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/images/apps/en-play-badge-border.png" width="300" /></a>
+<a href="https://github.com/MatteoBattilana/WeatherView/blob/master/app/app-release.apk"><img alt="Get the apk" src="" width="300" /></a>
 
 #WeatherView
 
