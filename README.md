@@ -31,21 +31,13 @@ dependencies {
 }
 ```
 
+###Basic usage
 Open an Activity:
 ``` Java
-public class MainActivity extends Activity {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
         WeatherView mWeatherView = (WeatherView) findViewById(R.id.weather);
         //Optional
         mWeatherView.setWeather(WeatherView.weatherStatus.RAIN);
         mWeatherView.startAnimation();
-    }
-}
 ```
 
 Include into activity_main.xml
