@@ -32,10 +32,12 @@ dependencies {
 
 ###Basic usage
 
-Open an Activity and link the WeatherView. By default is set to SUN, no animation is showed.
+By default is set to SUN, no animation is showed.
 It is possible to change or initialize the weather status with **setWeather(weatherStatus)** method.
 The animation is stopped by default and must be started with **startAnimation()**. When the animation is playing and the previus method is called the animation is stopped and must be restarted.
 You can check the <a href="https://github.com/MatteoBattilana/WeatherView/tree/master/app/">WeatherView Demo Library source code</a>.
+
+Here a basic example:
 ``` Java
 public class MainActivity extends Activity {
 
@@ -64,6 +66,14 @@ Include into WeatherView View into activity_main.xml
         app:startingWeather="RAIN" />
 ```
 
+
+It also allow xml customization with the follow attributes:
+
+``` Xml
+		app:fadeOutTime="int"
+        app:liveTime="int"
+        app:startingWeather="{RAIN,SNOW,SUN}"
+```
 ###Screenshot
 
 A set of screenshot from the demo application.
