@@ -17,8 +17,7 @@ WeatherView is an Android Library that helps you make a cool weather animation f
 
 
 
-##Usage
-###Basic usage
+##Setup
 Add this to your **build.gradle**:
 
 ``` 
