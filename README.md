@@ -92,6 +92,7 @@ Available methods for the configuration are:
 * *setSnowTime(int snowTime)*
 * *setFadeOutTime(int fadeOutTime)*
 * *resetConfiguration()*
+* *restartWithNewConfiguration()*
 
 ##Other details
 
