@@ -12,13 +12,7 @@ This library is based on <a href="https://github.com/plattysoft/Leonids">Leonids
 
 
 <div  align="center" width="100%">
-<img src="https://github.com/MatteoBattilana/WeatherView/blob/master/Screenshot/home.gif" width="250">
-<img src="https://github.com/MatteoBattilana/WeatherView/blob/master/Screenshot/device-2016-10-15-152953.png" width="250">
-<img src="https://github.com/MatteoBattilana/WeatherView/blob/master/Screenshot/device-2016-10-15-153044.png" width="250">
-<!--<img src="https://github.com/MatteoBattilana/WeatherView/blob/master/Screenshot/device-2016-10-15-153100.png" width="250">-->
-</div>
-
-
+<img src="https://github.com/MatteoBattilana/WeatherView/blob/master/Screenshot/home.gif" width="250"></div>
 
 
 ##Setup
@@ -64,3 +58,9 @@ Include into activity_main.xml
         app:liveTime="3000"
         app:startingWeather="RAIN" />
 ```
+###Screenshot
+<div  align="center" width="100%">
+<img src="https://github.com/MatteoBattilana/WeatherView/blob/master/Screenshot/device-2016-10-15-152953.png" width="250">
+<img src="https://github.com/MatteoBattilana/WeatherView/blob/master/Screenshot/device-2016-10-15-153044.png" width="250">
+<img src="https://github.com/MatteoBattilana/WeatherView/blob/master/Screenshot/device-2016-10-15-153100.png" width="250">
+</div>
