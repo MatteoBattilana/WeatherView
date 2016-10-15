@@ -6,12 +6,16 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@drawable/background"
     tools:context="xyz.matteobattilana.weatherview.MainActivity">
 
     <xyz.matteobattilana.library.WeatherView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/weater"
         android:layout_width="match_parent"
-        android:layout_height="1dp"/>
+        android:layout_height="1dp"
+        app:startingWeather="RAIN"
+        app:liveTime="3000"
+        app:fadeOutTime="1000"/>
 
 </RelativeLayout>

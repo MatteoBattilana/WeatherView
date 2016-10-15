@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="WeatherView">
+        <attr name="startingWeather" format="enum">
+            <enum name="SUN" value="1"/>
+            <enum name="RAIN" value="0"/>
+            <enum name="SNOW" value="2"/>
+        </attr>
+        <attr name="liveTime" format="integer"/>
+        <attr name="fadeOutTime" format="integer"/>
+    </declare-styleable>
+</resources>

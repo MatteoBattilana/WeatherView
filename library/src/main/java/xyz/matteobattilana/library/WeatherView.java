@@ -3,51 +3,92 @@ package xyz.matteobattilana.library;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 
 import com.plattysoft.leonids.ParticleSystem;
 
+import xyz.matteobattilana.library.Common.Constants;
+
 /**
  * Created by MatteoB on 14/10/2016.
  */
 public class WeatherView extends View {
+    private int rainTime = Constants.rainTime;
+    private int snowTime = Constants.snowTime;
+    private int fadeOutTime = Constants.fadeOutTime;
+
     private ParticleSystem ps;
-    public static enum weatherStatus {RAIN, SUN, SNOW};
-    private weatherStatus currentWeather = weatherStatus.SUN;
+    private Constants.weatherStatus currentWeather = Constants.weatherStatus.SUN;
     Context mContext;
     Activity mActivity;
 
     public WeatherView(Context context, AttributeSet attrs) {
         super(context, attrs);
         mContext = context;
-        if(!isInEditMode()){
+        if (!isInEditMode()) {
             mActivity = (Activity) getContext();
-            setWeather(weatherStatus.SUN);
+            setWeather(Constants.weatherStatus.SUN);
+            initOptions(context, attrs);
         }
     }
 
-    public void setWeather(weatherStatus status) {
-        if(ps!=null)
-            ps.cancel();
+    private void initOptions(Context context, AttributeSet attrs) {
+        TypedArray typedArray = context.getTheme().obtainStyledAttributes(attrs, R.styleable.WeatherView, 0, 0);
+        int startingWeather, liveTime;
+        try {
+            startingWeather = typedArray.getInt(R.styleable.WeatherView_startingWeather, 0);
+            liveTime = typedArray.getInt(R.styleable.WeatherView_liveTime, -1);
+            fadeOutTime = typedArray.getInt(R.styleable.WeatherView_fadeOutTime, -1);
+            fadeOutTime = fadeOutTime != -1 ? fadeOutTime : Constants.fadeOutTime;
+
+            loadWeather(startingWeather, liveTime);
+        } finally {
+            typedArray.recycle();
+        }
+    }
+
+    private void loadWeather(int startingWeather, int liveTime) {
+        setWeather(Constants.weatherStatus.values()[startingWeather], liveTime);
+    }
+
+    public void setWeather(Constants.weatherStatus status, int liveTime) {
         currentWeather = status;
+
+        if (ps != null)
+            ps.cancel();
         switch (status) {
             case RAIN:
-                ps = new ParticleSystem(mActivity, 100, R.drawable.rain, 2200);
+                rainTime = liveTime != -1 ? liveTime : rainTime;
+                ps = new ParticleSystem(mActivity, 100, R.drawable.rain, rainTime);
                 ps.setAcceleration(0.00013f, 96);
                 ps.setSpeedByComponentsRange(0f, 0f, 0.05f, 0.1f);
-                ps.setFadeOut(200, new AccelerateInterpolator());
+                ps.setFadeOut(fadeOutTime, new AccelerateInterpolator());
                 break;
             case SNOW:
-                ps = new ParticleSystem(mActivity, 100, R.drawable.snow, 4400);
+                snowTime = liveTime != -1 ? liveTime : snowTime;
+                ps = new ParticleSystem(mActivity, 100, R.drawable.snow, snowTime);
                 ps.setSpeedByComponentsRange(0f, 0f, 0.05f, 0.1f);
-                ps.setFadeOut(200, new AccelerateInterpolator());
+                ps.setFadeOut(fadeOutTime, new AccelerateInterpolator());
                 break;
             default:
                 break;
         }
+    }
+
+    public void setWeather(Constants.weatherStatus status) {
+        int liveTime = Constants.rainTime;
+        switch (status) {
+            case SNOW:
+                liveTime = Constants.snowTime;
+                break;
+        }
+        setWeather(status, liveTime);
+
     }
 
     /**
