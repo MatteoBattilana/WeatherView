@@ -89,7 +89,7 @@ Available methods for the configuration are:
 * *startAnimation()*
 * *stopAnimation()*
 
-###Screenshot
+##Screenshot
 
 A set of screenshot from the demo application.
 
