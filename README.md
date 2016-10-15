@@ -5,6 +5,9 @@
 
 WeatherView is an Android Library that helps you make a cool weather animation for your app.
 
+<img src="https://github.com/MatteoBattilana/WeatherView/blob/master/Screenshot/device-2016-10-15-152953.png" width="300">
+<img src="https://github.com/MatteoBattilana/WeatherView/blob/master/Screenshot/device-2016-10-15-153044.png" width="300">
+<img src="https://github.com/MatteoBattilana/WeatherView/blob/master/Screenshot/device-2016-10-15-153100.png" width="300">
 
 
 
