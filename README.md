@@ -88,6 +88,11 @@ Available methods for the configuration are:
 * *setWeather(weatherStatus mWeatherStatus)*: RAIN, SUN or SNOW.
 * *startAnimation()*
 * *stopAnimation()*
+* *setRainTime(int rainTime)*
+* *setSnowTime(int snowTime)*
+* *setFadeOutTime(int fadeOutTime)*
+
+##Other details
 
 ##Screenshot
 
