@@ -45,8 +45,7 @@ public class WeatherView extends View {
             liveTime = typedArray.getInt(R.styleable.WeatherView_liveTime, -1);
             fadeOutTime = typedArray.getInt(R.styleable.WeatherView_fadeOutTime, -1);
 
-
-            setWeather(Constants.weatherStatus.values()[startingWeather], liveTime, Constants.fadeOutTime);
+            setWeather(Constants.weatherStatus.values()[startingWeather], liveTime, fadeOutTime);
         } finally {
             typedArray.recycle();
         }
@@ -87,7 +86,6 @@ public class WeatherView extends View {
                 break;
         }
         setWeather(status, liveTime,Constants.fadeOutTime);
-
     }
 
     public void setWeather(Constants.weatherStatus status, int liveTime){
