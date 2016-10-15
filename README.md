@@ -48,7 +48,7 @@ public class MainActivity extends Activity {
 }
 ```
 
-Include into activity_main.xml
+Include into WeatherView View into activity_main.xml
 ``` Xml
 <xyz.matteobattilana.library.WeatherView
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -61,6 +61,9 @@ Include into activity_main.xml
 ```
 
 ###Screenshot
+
+A set of screenshot from the demo application.
+
 <div  align="center" width="100%">
 <img src="https://github.com/MatteoBattilana/WeatherView/blob/master/Screenshot/device-2016-10-15-152953.png" width="250">
 <img src="https://github.com/MatteoBattilana/WeatherView/blob/master/Screenshot/device-2016-10-15-153044.png" width="250">
