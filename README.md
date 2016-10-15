@@ -75,7 +75,7 @@ It also allows xml customization with the follow attributes:
         app:startingWeather="{RAIN,SNOW,SUN}"
 ```
 
-* **liveTime** is the falling time of the single particle. After this time the particle stop exist.
+* **liveTime** is the falling time of a single particle. After this time the particle stop exist.
 * **fadeOutTime** when liveTime is finished the particle starts to fade out. This fade out animation lasts the specified duration.
 * **startingWeather** you can specify the stating weather status but **startAnimation()** MUST BE CALLED.
 
