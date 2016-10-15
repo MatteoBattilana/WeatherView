@@ -77,7 +77,17 @@ It also allows xml customization with the follow attributes:
 
 * **liveTime** is the falling time of a single particle. After this time the particle stop exist.
 * **fadeOutTime** when liveTime is finished the particle starts to fade out. This fade out animation lasts the specified duration.
-* **startingWeather** you can specify the stating weather status but **startAnimation()** MUST BE CALLED.
+* **startingWeather** you can specify the stat	ing weather status but **startAnimation()** MUST BE CALLED.
+
+##Available Methods
+List of the methods available on the class WeatherView.
+###Configuration
+Available methods for the configuration are:
+* *setWeather(weatherStatus mWeatherStatus)*: RAIN, SUN or SNOW.
+* *setWeather(weatherStatus mWeatherStatus, int liveTime)*
+* *setWeather(weatherStatus mWeatherStatus, int liveTime, int fadeOutTime)*
+* *startAnimation()*
+* *stopAnimation()*
 
 ###Screenshot
 
