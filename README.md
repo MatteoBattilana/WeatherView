@@ -7,6 +7,7 @@ Or you can download <a href="https://github.com/MatteoBattilana/WeatherView/raw/
 #WeatherView
 
 WeatherView is an Android Library that helps you make a cool weather animation for your app.
+This library is based on <a href="https://github.com/plattysoft/Leonids">Leonids</a> library.
 
 <img src="https://github.com/MatteoBattilana/WeatherView/blob/master/Screenshot/home.gif" width="500">
 
@@ -34,10 +35,19 @@ dependencies {
 ###Basic usage
 Open an Activity:
 ``` Java
+public class MainActivity extends Activity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
         WeatherView mWeatherView = (WeatherView) findViewById(R.id.weather);
         //Optional
         mWeatherView.setWeather(WeatherView.weatherStatus.RAIN);
         mWeatherView.startAnimation();
+    }
+}
 ```
 
 Include into activity_main.xml
