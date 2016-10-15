@@ -10,10 +10,11 @@ WeatherView is an Android Library that helps you make a cool weather animation f
 This library is based on <a href="https://github.com/plattysoft/Leonids">Leonids</a> library.
 <!--
 <img src="https://github.com/MatteoBattilana/WeatherView/blob/master/Screenshot/home.gif" width="500">-->
-
+<div  align="center" width="100%">
 <img src="https://github.com/MatteoBattilana/WeatherView/blob/master/Screenshot/device-2016-10-15-152953.png" width="250">
 <img src="https://github.com/MatteoBattilana/WeatherView/blob/master/Screenshot/device-2016-10-15-153044.png" width="250">
 <img src="https://github.com/MatteoBattilana/WeatherView/blob/master/Screenshot/device-2016-10-15-153100.png" width="250">
+</div>
 
 
 
