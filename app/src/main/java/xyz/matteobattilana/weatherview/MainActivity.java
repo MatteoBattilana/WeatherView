@@ -16,13 +16,13 @@ import xyz.matteobattilana.library.WeatherView;
 
 
 public class MainActivity extends AppCompatActivity {
-
+    WeatherView mWeatherView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        final WeatherView mWeatherView = (WeatherView) findViewById(R.id.weater);
-        //mWeatherView.setWeather(WeatherView.weatherStatus.RAIN);
+        mWeatherView = (WeatherView) findViewById(R.id.weater);
+        mWeatherView.setWeather(Constants.weatherStatus.RAIN);
         mWeatherView.startAnimation();
 
         final HoloTextView text = (HoloTextView)findViewById(R.id.weatherText);

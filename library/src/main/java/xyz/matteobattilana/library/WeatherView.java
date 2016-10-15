@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
@@ -53,28 +54,29 @@ public class WeatherView extends View {
 
 
     public void setWeather(Constants.weatherStatus status, int liveTime, int fadeOutTime) {
-        fadeOutTime = fadeOutTime != -1 ? fadeOutTime : Constants.fadeOutTime;
+        setFadeOutTime(fadeOutTime);
         currentWeather = status;
 
         if (ps != null)
             ps.stopEmitting();
         switch (status) {
             case RAIN:
-                rainTime = liveTime != -1 ? liveTime : rainTime;
+                setRainTime(liveTime);
                 ps = new ParticleSystem(mActivity, 100, R.drawable.rain, rainTime);
                 ps.setAcceleration(0.00013f, 96);
                 ps.setSpeedByComponentsRange(0f, 0f, 0.05f, 0.1f);
-                ps.setFadeOut(fadeOutTime, new AccelerateInterpolator());
+                ps.setFadeOut(this.fadeOutTime, new AccelerateInterpolator());
                 break;
             case SNOW:
-                snowTime = liveTime != -1 ? liveTime : snowTime;
+                setSnowTime(liveTime);
                 ps = new ParticleSystem(mActivity, 100, R.drawable.snow, snowTime);
                 ps.setSpeedByComponentsRange(0f, 0f, 0.05f, 0.1f);
-                ps.setFadeOut(fadeOutTime, new AccelerateInterpolator());
+                ps.setFadeOut(this.fadeOutTime, new AccelerateInterpolator());
                 break;
             default:
                 break;
         }
+        Log.e("INFO",fadeOutTime+" "+snowTime+" "+rainTime);
     }
 
     public void setWeather(Constants.weatherStatus status) {
@@ -90,6 +92,11 @@ public class WeatherView extends View {
 
     public void setWeather(Constants.weatherStatus status, int liveTime){
         setWeather(status,liveTime,Constants.fadeOutTime);
+    }
+
+    public void restartWithNewConfiguration(){
+        setWeather(currentWeather,currentWeather== Constants.weatherStatus.RAIN?rainTime:snowTime,fadeOutTime);
+        startAnimation();
     }
 
     /**
@@ -127,5 +134,23 @@ public class WeatherView extends View {
         if (ps != null) {
             ps.cancel();
         }
+    }
+
+    public void setRainTime(int rainTime){
+        this.rainTime = rainTime != -1 ? rainTime : Constants.rainTime;
+    }
+
+    public void setFadeOutTime(int fadeOutTime) {
+        this.fadeOutTime = fadeOutTime != -1 ? fadeOutTime : Constants.fadeOutTime;
+    }
+
+    public void setSnowTime(int snowTime){
+        this.snowTime=snowTime!=-1?snowTime: Constants.snowTime;
+    }
+
+    public void resetConfiguration(){
+        this.snowTime=Constants.snowTime;
+        this.rainTime=Constants.rainTime;
+        this.fadeOutTime=Constants.fadeOutTime;
     }
 }
