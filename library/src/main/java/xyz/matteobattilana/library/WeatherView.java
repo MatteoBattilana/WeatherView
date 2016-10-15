@@ -23,7 +23,10 @@ public class WeatherView extends View {
     public WeatherView(Context context, AttributeSet attrs) {
         super(context, attrs);
         mContext = context;
-        mActivity = (Activity) getContext();
+        if(!isInEditMode()){
+            mActivity = (Activity) getContext();
+            setWeather(weatherStatus.SUN);
+        }
     }
 
     public void setWeather(weatherStatus status) {
