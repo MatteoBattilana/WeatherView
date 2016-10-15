@@ -1,12 +1,12 @@
+#WeatherView
+
+WeatherView is an Android Library that helps you make a cool weather animation for your app.
+
 ## <p>Sample App:</p>
 <a href="https://play.google.com/store/apps/developer?id=Matteo+Battilana"><img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/images/apps/en-play-badge-border.png" width="300" /></a>
 
 
 Or you can download <a href="https://github.com/MatteoBattilana/WeatherView/raw/master/app/app-release.apk">WeaterView Library Demo apk</a> to check out what can be done with it.
-
-#WeatherView
-
-WeatherView is an Android Library that helps you make a cool weather animation for your app.
 
 <img src="https://github.com/MatteoBattilana/WeatherView/blob/master/Screenshot/home.gif" width="500">
 
