@@ -83,9 +83,9 @@ It also allows xml customization with the follow attributes:
 List of the methods available on the class WeatherView.
 ###Configuration
 Available methods for the configuration are:
-* *setWeather(weatherStatus mWeatherStatus)*: RAIN, SUN or SNOW.
-* *setWeather(weatherStatus mWeatherStatus, int liveTime)*
 * *setWeather(weatherStatus mWeatherStatus, int liveTime, int fadeOutTime)*
+* *setWeather(weatherStatus mWeatherStatus, int liveTime)*
+* *setWeather(weatherStatus mWeatherStatus)*: RAIN, SUN or SNOW.
 * *startAnimation()*
 * *stopAnimation()*
 
