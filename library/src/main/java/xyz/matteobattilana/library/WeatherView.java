@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
@@ -44,23 +43,21 @@ public class WeatherView extends View {
             startingWeather = typedArray.getInt(R.styleable.WeatherView_startingWeather, 0);
             liveTime = typedArray.getInt(R.styleable.WeatherView_liveTime, -1);
             fadeOutTime = typedArray.getInt(R.styleable.WeatherView_fadeOutTime, -1);
-            fadeOutTime = fadeOutTime != -1 ? fadeOutTime : Constants.fadeOutTime;
 
-            loadWeather(startingWeather, liveTime);
+
+            setWeather(Constants.weatherStatus.values()[startingWeather], liveTime, Constants.fadeOutTime);
         } finally {
             typedArray.recycle();
         }
     }
 
-    private void loadWeather(int startingWeather, int liveTime) {
-        setWeather(Constants.weatherStatus.values()[startingWeather], liveTime);
-    }
 
-    public void setWeather(Constants.weatherStatus status, int liveTime) {
+    public void setWeather(Constants.weatherStatus status, int liveTime, int fadeOutTime) {
+        fadeOutTime = fadeOutTime != -1 ? fadeOutTime : Constants.fadeOutTime;
         currentWeather = status;
 
         if (ps != null)
-            ps.cancel();
+            ps.stopEmitting();
         switch (status) {
             case RAIN:
                 rainTime = liveTime != -1 ? liveTime : rainTime;
@@ -87,8 +84,12 @@ public class WeatherView extends View {
                 liveTime = Constants.snowTime;
                 break;
         }
-        setWeather(status, liveTime);
+        setWeather(status, liveTime,Constants.fadeOutTime);
 
+    }
+
+    public void setWeather(Constants.weatherStatus status, int liveTime){
+        setWeather(status,liveTime,Constants.fadeOutTime);
     }
 
     /**

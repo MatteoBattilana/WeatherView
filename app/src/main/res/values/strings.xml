@@ -1,3 +1,14 @@
 <resources>
-    <string name="app_name">WeatherView</string>
+    <string name="app_name">WeatherView Demo Library</string>
+    <string name="rain">It\'s raining</string>
+    <string name="sun">It\'s a sunny day</string>
+    <string name="snow">It\'s snowing</string>
+
+    <string-array name="weatherList">
+        <item>Rain</item>
+        <item>Snow</item>
+        <item>Sun</item>
+    </string-array>
+
+    <string name="git_icon">&#xf09b;</string>
 </resources>

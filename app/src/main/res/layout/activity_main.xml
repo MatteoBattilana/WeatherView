@@ -3,19 +3,69 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
     android:background="@drawable/background"
     tools:context="xyz.matteobattilana.weatherview.MainActivity">
 
-    <xyz.matteobattilana.library.WeatherView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <xyz.matteobattilana.library.WeatherView xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/weater"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        app:startingWeather="RAIN"
+        app:fadeOutTime="1000"
         app:liveTime="3000"
-        app:fadeOutTime="1000"/>
+        app:startingWeather="RAIN" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:orientation="vertical">
+
+        <xyz.matteobattilana.weatherview.HoloTextView
+            android:id="@+id/weatherText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:gravity="center"
+            android:text="@string/rain"
+            android:textColor="@android:color/white"
+            android:textSize="38sp" />
+
+        <xyz.matteobattilana.weatherview.HoloPicker
+            android:id="@+id/picker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></xyz.matteobattilana.weatherview.HoloPicker>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:clickable="true"
+        android:id="@+id/linear_git"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp">
+
+        <xyz.matteobattilana.weatherview.HoloTextView
+            android:layout_width="wrap_content"
+            android:clickable="false"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="MatteoBattilana"/>
+        <Button
+            android:id="@+id/btn_git"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:text="@string/git_icon"
+            android:clickable="false"
+            android:textColor="@android:color/white"
+            android:textSize="70dp" />
+    </LinearLayout>
+
 
 </RelativeLayout>

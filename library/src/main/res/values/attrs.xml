@@ -2,9 +2,9 @@
 <resources>
     <declare-styleable name="WeatherView">
         <attr name="startingWeather" format="enum">
-            <enum name="SUN" value="1"/>
+            <enum name="SUN" value="2"/>
             <enum name="RAIN" value="0"/>
-            <enum name="SNOW" value="2"/>
+            <enum name="SNOW" value="1"/>
         </attr>
         <attr name="liveTime" format="integer"/>
         <attr name="fadeOutTime" format="integer"/>
