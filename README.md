@@ -33,8 +33,8 @@ dependencies {
 ###Basic usage
 
 By default is set to SUN, no animation is showed.
-It is possible to change or initialize the weather status with **setWeather(weatherStatus)** method.
-The animation is stopped by default and must be started with **startAnimation()**. When the animation is playing and the previus method is called the animation is stopped and must be restarted.
+It is possible to change or initialize the weather status with the **setWeather(weatherStatus)** method.
+The animation is stopped by default and must be started with **startAnimation()**. When the animation is playing and the previous method is called the animation is stopped and must be restarted.
 You can check the <a href="https://github.com/MatteoBattilana/WeatherView/tree/master/app/">WeatherView Demo Library source code</a>.
 
 Here a basic example:
@@ -54,7 +54,7 @@ public class MainActivity extends Activity {
 }
 ```
 
-Include into WeatherView View into activity_main.xml
+Include WeatherView into activity_main.xml
 ``` Xml
 <xyz.matteobattilana.library.WeatherView
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -67,13 +67,18 @@ Include into WeatherView View into activity_main.xml
 ```
 
 
-It also allow xml customization with the follow attributes:
+It also allows xml customization with the follow attributes:
 
 ``` Xml
 		app:fadeOutTime="int"
         app:liveTime="int"
         app:startingWeather="{RAIN,SNOW,SUN}"
 ```
+
+-**liveTime** is the falling time of the single particle. After this time the particle stop exist.
+-**fadeOutTime** when liveTime is finished the particle starts to fade out. This fade out animation lasts the specified duration.
+-**startingWeather** you can specify the stating weather status but **startAnimation()** MUST BE CALLED.
+
 ###Screenshot
 
 A set of screenshot from the demo application.
