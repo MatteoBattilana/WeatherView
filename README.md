@@ -96,7 +96,7 @@ Available methods for the configuration are:
 
 ##Other details
 
-WeatherView requires minSDK 14.
+WeatherView requires minSDK 14.→→
 The library is Free Software, you can use it, extended with no requirement to open source your changes. You can also make paid apps using it.
 
 ##Screenshot
