@@ -1,4 +1,4 @@
-<p>Sample App:</p>
+## <p>Sample App:</p>
 <a href="https://play.google.com/store/apps/developer?id=Matteo+Battilana"><img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/images/apps/en-play-badge-border.png" width="300" /></a>
 
 
