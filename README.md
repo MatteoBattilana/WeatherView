@@ -6,7 +6,7 @@ Or you can download <a href="https://github.com/MatteoBattilana/WeatherView/raw/
 
 #WeatherView
 
-WeatherView is an Android Library that helps you make a cool weather animation for your app.
+WeatherView is an Android Library that helps you make a cool weather animation for your app.<br/>
 This library is based on this <a href="https://github.com/plattysoft/Leonids">Leonids</a> library.
 
 
@@ -33,8 +33,9 @@ dependencies {
 ###Basic usage
 
 By default the WeatherView is set to SUN, no animation is showed.
-It is possible to change or initialize the weather status with the **setWeather(weatherStatus)** method.
+It is possible to change or initialize the weather status with the **setWeather(weatherStatus)** method.<br/>
 The animation is stopped by default and must be started with **startAnimation()**. When the animation is playing and the previous method is called the animation is stopped and must be restarted.
+<br/><br/>
 You can check the <a href="https://github.com/MatteoBattilana/WeatherView/tree/master/app/">WeatherView Demo Library source code</a>.
 
 Here a basic example:
@@ -96,7 +97,7 @@ Available methods for the configuration are:
 
 ##Other details
 
-WeatherView requires minSDK 14.<br/>
+WeatherView requires minSDK 14.<br/><br>
 The library is Free Software, you can use it, extended with no requirement to open source your changes. You can also make paid apps using it.
 
 ##Screenshot
