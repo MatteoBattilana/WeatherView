@@ -48,7 +48,7 @@ public class MainActivity extends Activity {
 
         WeatherView mWeatherView = (WeatherView) findViewById(R.id.weather);
         //Optional
-        mWeatherView.setWeather(WeatherView.weatherStatus.RAIN);
+        mWeatherView.setWeather(Constants.weatherStatus.RAIN);
         mWeatherView.startAnimation();
     }
 }
