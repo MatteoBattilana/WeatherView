@@ -15,7 +15,7 @@ This library is based on <a href="https://github.com/plattysoft/Leonids">Leonids
 <img src="https://github.com/MatteoBattilana/WeatherView/blob/master/Screenshot/home.gif" width="250">
 <img src="https://github.com/MatteoBattilana/WeatherView/blob/master/Screenshot/device-2016-10-15-152953.png" width="250">
 <img src="https://github.com/MatteoBattilana/WeatherView/blob/master/Screenshot/device-2016-10-15-153044.png" width="250">
-<img src="https://github.com/MatteoBattilana/WeatherView/blob/master/Screenshot/device-2016-10-15-153100.png" width="250">
+<!--<img src="https://github.com/MatteoBattilana/WeatherView/blob/master/Screenshot/device-2016-10-15-153100.png" width="250">-->
 </div>
 
 
