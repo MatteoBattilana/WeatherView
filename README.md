@@ -39,8 +39,12 @@ public class MainActivity extends Activity {
 
 Include into activity_main.xml
 ``` Xml
-    <xyz.matteobattilana.library.WeatherView
-        android:id="@+id/weather"
+<xyz.matteobattilana.library.WeatherView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/weater"
         android:layout_width="match_parent"
-        android:layout_height="1dp" />
+        android:layout_height="1dp"
+        app:fadeOutTime="1000"
+        app:liveTime="3000"
+        app:startingWeather="RAIN" />
 ```
