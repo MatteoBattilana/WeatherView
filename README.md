@@ -1,9 +1,11 @@
+<p>Sample App:</p>
+<a href="https://play.google.com/store/apps/developer?id=Matteo+Battilana"><img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/images/apps/en-play-badge-border.png" width="300" /></a>
+
 #WeatherView
 
 WeatherView is an Android Library that helps you make a cool weather animation for your app.
 
-<p>Sample App:</p>
-<a href="https://play.google.com/store/apps/developer?id=Matteo+Battilana"><img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/images/apps/en-play-badge-border.png" width="300" /></a>
+
 
 
 
@@ -17,7 +19,7 @@ repositories {
 }
 
 dependencies {
-	compile 'com.github.MatteoBattilana:WeatherView:1.0.2'
+	compile 'com.github.MatteoBattilana:WeatherView:1.0.5'
 }
 ```
 
