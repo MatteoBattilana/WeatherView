@@ -26,7 +26,7 @@ repositories {
 }
 
 dependencies {
-	compile 'com.github.MatteoBattilana:WeatherView:1.0.6'
+	compile 'com.github.MatteoBattilana:WeatherView:1.0.7'
 }
 ```
 
@@ -63,7 +63,7 @@ Include WeatherView into activity_main.xml
         android:layout_width="match_parent"
         android:layout_height="1dp"
         app:fadeOutTime="1000"
-        app:liveTime="3000"
+        app:lifeTime="3000"
         app:startingWeather="RAIN" />
 ```
 
@@ -72,20 +72,20 @@ It also allows xml customization with the follow attributes:
 
 ``` Xml
 		app:fadeOutTime="int"
-        app:liveTime="int"
+        app:lifeTime="int"
         app:startingWeather="{RAIN,SNOW,SUN}"
 ```
 
-* **liveTime** is the falling time of a single particle. After this time the particle stop exist.
-* **fadeOutTime** when liveTime is finished the particle starts to fade out. This fade out animation lasts the specified duration.
+* **lifeTime** is the falling time of a single particle. After this time the particle stop exist.
+* **fadeOutTime** during lifeTime the particle starts to fade out. This fade out animation lasts the specified duration.
 * **startingWeather** you can specify the stat	ing weather status but **startAnimation()** MUST BE CALLED.
 
 ##Available Methods
 List of the methods available on the class WeatherView.
 ###Configuration
 Available methods for the configuration are:
-* *setWeather(weatherStatus mWeatherStatus, int liveTime, int fadeOutTime)*
-* *setWeather(weatherStatus mWeatherStatus, int liveTime)*
+* *setWeather(weatherStatus mWeatherStatus, int lifeTime, int fadeOutTime)*
+* *setWeather(weatherStatus mWeatherStatus, int lifeTime)*
 * *setWeather(weatherStatus mWeatherStatus)*: RAIN, SUN or SNOW.
 * *startAnimation()*
 * *stopAnimation()*
