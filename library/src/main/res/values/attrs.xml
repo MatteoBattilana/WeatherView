@@ -6,7 +6,7 @@
             <enum name="RAIN" value="0"/>
             <enum name="SNOW" value="1"/>
         </attr>
-        <attr name="liveTime" format="integer"/>
+        <attr name="lifeTime" format="integer"/>
         <attr name="fadeOutTime" format="integer"/>
     </declare-styleable>
 </resources>

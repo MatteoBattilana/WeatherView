@@ -39,20 +39,20 @@ public class WeatherView extends View {
 
     private void initOptions(Context context, AttributeSet attrs) {
         TypedArray typedArray = context.getTheme().obtainStyledAttributes(attrs, R.styleable.WeatherView, 0, 0);
-        int startingWeather, liveTime;
+        int startingWeather, lifeTime;
         try {
             startingWeather = typedArray.getInt(R.styleable.WeatherView_startingWeather, 0);
-            liveTime = typedArray.getInt(R.styleable.WeatherView_liveTime, -1);
+            lifeTime = typedArray.getInt(R.styleable.WeatherView_lifeTime, -1);
             fadeOutTime = typedArray.getInt(R.styleable.WeatherView_fadeOutTime, -1);
 
-            setWeather(Constants.weatherStatus.values()[startingWeather], liveTime, fadeOutTime);
+            setWeather(Constants.weatherStatus.values()[startingWeather], lifeTime, fadeOutTime);
         } finally {
             typedArray.recycle();
         }
     }
 
 
-    public void setWeather(Constants.weatherStatus status, int liveTime, int fadeOutTime) {
+    public void setWeather(Constants.weatherStatus status, int lifeTime, int fadeOutTime) {
         setFadeOutTime(fadeOutTime);
         currentWeather = status;
 
@@ -60,14 +60,14 @@ public class WeatherView extends View {
             ps.stopEmitting();
         switch (status) {
             case RAIN:
-                setRainTime(liveTime);
+                setRainTime(lifeTime);
                 ps = new ParticleSystem(mActivity, 100, R.drawable.rain, rainTime);
                 ps.setAcceleration(0.00013f, 96);
                 ps.setSpeedByComponentsRange(0f, 0f, 0.05f, 0.1f);
                 ps.setFadeOut(this.fadeOutTime, new AccelerateInterpolator());
                 break;
             case SNOW:
-                setSnowTime(liveTime);
+                setSnowTime(lifeTime);
                 ps = new ParticleSystem(mActivity, 100, R.drawable.snow, snowTime);
                 ps.setSpeedByComponentsRange(0f, 0f, 0.05f, 0.1f);
                 ps.setFadeOut(this.fadeOutTime, new AccelerateInterpolator());
@@ -79,17 +79,17 @@ public class WeatherView extends View {
     }
 
     public void setWeather(Constants.weatherStatus status) {
-        int liveTime = Constants.rainTime;
+        int lifeTime = Constants.rainTime;
         switch (status) {
             case SNOW:
-                liveTime = Constants.snowTime;
+                lifeTime = Constants.snowTime;
                 break;
         }
-        setWeather(status, liveTime,Constants.fadeOutTime);
+        setWeather(status, lifeTime,Constants.fadeOutTime);
     }
 
-    public void setWeather(Constants.weatherStatus status, int liveTime){
-        setWeather(status,liveTime,Constants.fadeOutTime);
+    public void setWeather(Constants.weatherStatus status, int lifeTime){
+        setWeather(status,lifeTime,Constants.fadeOutTime);
     }
 
     public void restartWithNewConfiguration(){

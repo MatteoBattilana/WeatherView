@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         app:fadeOutTime="1000"
-        app:liveTime="3000"
+        app:lifeTime="3000"
         app:startingWeather="RAIN" />
 
     <LinearLayout
