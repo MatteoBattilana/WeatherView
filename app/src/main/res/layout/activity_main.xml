@@ -12,6 +12,7 @@
         android:layout_height="1dp"
         app:fadeOutTime="1000"
         app:lifeTime="3000"
+        app:numParticles="100"
         app:startingWeather="RAIN" />
 
     <LinearLayout
