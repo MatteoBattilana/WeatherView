@@ -1,3 +1,9 @@
+package it.unitn;
+
+/**
+ *
+ * @author matteo.battilana
+ */
 package xyz.matteobattilana.library;
 
 
@@ -16,32 +22,54 @@ import xyz.matteobattilana.library.Common.Constants;
 
 /**
  * Created by MatteoB on 14/10/2016.
+ * This is an extended View. 
  */
 public class WeatherView extends View {
     private int rainTime = Constants.rainTime;
     private int snowTime = Constants.snowTime;
     private int fadeOutTime = Constants.fadeOutTime;
-
+    
+    
     private ParticleSystem ps;
     private Constants.weatherStatus currentWeather = Constants.weatherStatus.SUN;
     Context mContext;
     Activity mActivity;
-
+    
+    /**
+     * This method initialize the WeatherView to SUN. No animation is showed.
+     * If you want to start the animation after set a different weather with the
+     * setWeather(weatherStatus mWeatherStatus) method you must call 
+     * startAnimation().
+     * @param context Context from the application
+     * @param attrs Attributes
+     */
     public WeatherView(Context context, AttributeSet attrs) {
         super(context, attrs);
         mContext = context;
+        //Used to avoid issue during the design
         if (!isInEditMode()) {
             mActivity = (Activity) getContext();
+            //set the default to SUN
             setWeather(Constants.weatherStatus.SUN);
             initOptions(context, attrs);
         }
     }
 
+    /**
+     * This method can set the startingWeather, lifeTime and fadeOutTime from
+     * the xml configuration. 
+     * See https://github.com/MatteoBattilana/WeatherView#basic-usage
+     * @param context Context from the constructor
+     * @param attrs Attributest from the constructor
+     */
     private void initOptions(Context context, AttributeSet attrs) {
         TypedArray typedArray = context.getTheme().obtainStyledAttributes(attrs, R.styleable.WeatherView, 0, 0);
-        int startingWeather, lifeTime;
+        int startingWeather, lifeTime,fadeOutTime;
         try {
+            //Defatul 0 --> SUN
             startingWeather = typedArray.getInt(R.styleable.WeatherView_startingWeather, 0);
+            //If there is not a lifeTime and/or fadeOutTime it reset to 
+            //default. If -1 it reset the value
             lifeTime = typedArray.getInt(R.styleable.WeatherView_lifeTime, -1);
             fadeOutTime = typedArray.getInt(R.styleable.WeatherView_fadeOutTime, -1);
 
@@ -51,7 +79,15 @@ public class WeatherView extends View {
         }
     }
 
-
+    /**
+     * This constructor set the weather specifying the type, the life time and
+     * the fade out time
+     * @param status set the weatherStatus {RAIN,SUN,SNOW}
+     * @param lifeTime must be greater or equals than 0, if set to a negative
+     * value it is set to the default value.
+     * @param fadeOutTime must be greater or equals than 0, if set to a negative
+     * value it is set to the default value.
+     */
     public void setWeather(Constants.weatherStatus status, int lifeTime, int fadeOutTime) {
         setFadeOutTime(fadeOutTime);
         currentWeather = status;
@@ -77,7 +113,11 @@ public class WeatherView extends View {
         }
         Log.e("INFO",fadeOutTime+" "+snowTime+" "+rainTime);
     }
-
+    
+    /**
+     * This constructor set the weather specifying the type
+     * @param status set the weatherStatus {RAIN,SUN,SNOW}
+     */
     public void setWeather(Constants.weatherStatus status) {
         int lifeTime = Constants.rainTime;
         switch (status) {
@@ -88,18 +128,28 @@ public class WeatherView extends View {
         setWeather(status, lifeTime,Constants.fadeOutTime);
     }
 
+    /**
+     * This constructor set the weather specifying the type and the life time
+     * @param status set the weatherStatus {RAIN,SUN,SNOW}
+     * @param lifeTime must be greater or equals than 0, if set to a negative
+     * value it is set to the default value.
+     */
     public void setWeather(Constants.weatherStatus status, int lifeTime){
         setWeather(status,lifeTime,Constants.fadeOutTime);
     }
 
+    /**
+     * If the animation is playing the new configuration is loaded stopping the
+     * current animation. Then automatically restart the animation
+     */
     public void restartWithNewConfiguration(){
         setWeather(currentWeather,currentWeather== Constants.weatherStatus.RAIN?rainTime:snowTime,fadeOutTime);
         startAnimation();
     }
 
     /**
-     * Added a Runnable in order to avoid error during the animation. This method wait until the
-     * view is loaded and then it shows the animation
+     * Added a Runnable in order to avoid error during the animation. This method 
+     * wait until the view is loaded and then it plays the animation
      */
     public void startAnimation() {
         if (ps != null) {
@@ -115,6 +165,9 @@ public class WeatherView extends View {
         }
     }
 
+    /**
+     * Internal method for start the animation
+     */
     private void emitParticles() {
         switch (currentWeather) {
             case RAIN:
@@ -128,27 +181,67 @@ public class WeatherView extends View {
         }
     }
 
+    /**
+     * Stop the animation.
+     */
     public void stopAnimation() {
         if (ps != null) {
             ps.cancel();
         }
     }
-
+    
+    /**
+     * Pause the animation. If there are some particles playing the animation
+     * they would not stopped by this method.
+     */
+    public void pauseAnimation() {
+        if (ps != null) {
+            ps.stopEmitting();
+        }
+    }
+    
+    /**
+     * This method set the rain life time of the animation. If the animation is
+     * playing, it must stopped with stopAnimation() method or call
+     * restartWithNewConfiguration(). After called restartWithNewConfiguration()
+     * the animation is automatically restarted.
+     * @param rainTime must be greater or equal than 0, if set to a negative
+     * value it is set to Constants.rainTime
+     */
     public void setRainTime(int rainTime){
-        this.rainTime = rainTime != -1 ? rainTime : Constants.rainTime;
+        this.rainTime = rainTime >= 0 ? rainTime : Constants.rainTime;
     }
 
+    /**
+     * This method set the fade out time of the animation. If the animation is
+     * playing, it must stopped with stopAnimation() method or call
+     * restartWithNewConfiguration(). After called one of this method the
+     * animation must be restarted manually.
+     * @param fadeOutTime must be greater or equal than 0, if set to a negative
+     * value it is set to Constants.fadeOutTime
+     */
     public void setFadeOutTime(int fadeOutTime) {
-        this.fadeOutTime = fadeOutTime != -1 ? fadeOutTime : Constants.fadeOutTime;
+        this.fadeOutTime = fadeOutTime >= 0 ? fadeOutTime : Constants.fadeOutTime;
     }
 
+      /**
+     * This method set the snow life time of the animation. If the animation is
+     * playing, it must stopped with stopAnimation() method or call
+     * restartWithNewConfiguration(). After called one of this method the
+     * animation must be restarted manually.
+     * @param snowTime must be greater or equal than 0, if set to a negative
+     * value it is set to Constants.snowTime
+     */
     public void setSnowTime(int snowTime){
-        this.snowTime=snowTime!=-1?snowTime: Constants.snowTime;
+        this.snowTime = snowTime >= 0 ? snowTime : Constants.snowTime;
     }
 
+    /**
+     * Restore to the default configuration settings
+     */
     public void resetConfiguration(){
-        this.snowTime=Constants.snowTime;
-        this.rainTime=Constants.rainTime;
-        this.fadeOutTime=Constants.fadeOutTime;
+        setRainTime(-1);
+        setFadeOutTime(-1);
+        setSnowTime(-1);
     }
 }
