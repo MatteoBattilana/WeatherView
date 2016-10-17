@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mWeatherView = (WeatherView) findViewById(R.id.weater);
         mWeatherView.setWeather(Constants.weatherStatus.RAIN);
+        mWeatherView.setRainParticles(Constants.rainParticles);
         mWeatherView.startAnimation();
 
         final HoloTextView text = (HoloTextView) findViewById(R.id.weatherText);

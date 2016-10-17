@@ -26,7 +26,7 @@ repositories {
 }
 
 dependencies {
-	compile 'com.github.MatteoBattilana:WeatherView:1.0.8'
+	compile 'com.github.MatteoBattilana:WeatherView:1.0.9'
 }
 ```
 
@@ -73,17 +73,20 @@ It also allows xml customization with the follow attributes:
 ``` Xml
 		app:fadeOutTime="int"
         app:lifeTime="int"
+		app:numParticles="int"
         app:startingWeather="{RAIN,SNOW,SUN}"
 ```
 
 * **lifeTime** is the falling time of a single particle. After this time the particle stop exist.
 * **fadeOutTime** during lifeTime the particle starts to fade out. This fade out animation lasts the specified duration.
-* **startingWeather** you can specify the stat	ing weather status but **startAnimation()** MUST BE CALLED.
+* **numParticles** number of particle for a second.
+* **startingWeather** you can specify the stating weather status but **startAnimation()** MUST BE CALLED.
 
 ##Available Methods
 List of the methods available on the class WeatherView.
 ###Configuration
 Available methods for the configuration are:
+* *setWeather(weatherStatus mWeatherStatus, int lifeTime, int fadeOutTime, int numParticles)*
 * *setWeather(weatherStatus mWeatherStatus, int lifeTime, int fadeOutTime)*
 * *setWeather(weatherStatus mWeatherStatus, int lifeTime)*
 * *setWeather(weatherStatus mWeatherStatus)*: RAIN, SUN or SNOW.
@@ -93,8 +96,11 @@ Available methods for the configuration are:
 * *setRainTime(int rainTime)*
 * *setSnowTime(int snowTime)*
 * *setFadeOutTime(int fadeOutTime)*
+* *setRainParticles()*
+* *setSnowParticles()*
 * *resetConfiguration()*
 * *restartWithNewConfiguration()*
+* *isPlaying()*
 
 ##License details
 Copyright 2016 Matteo Battilana

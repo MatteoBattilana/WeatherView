@@ -63,16 +63,19 @@ public class WeatherView extends View {
      */
     private void initOptions(Context context, AttributeSet attrs) {
         TypedArray typedArray = context.getTheme().obtainStyledAttributes(attrs, R.styleable.WeatherView, 0, 0);
-        int startingWeather, lifeTime, fadeOutTime;
+        int startingWeather, lifeTime, fadeOutTime, numParticles;
         try {
             //Defatul 0 --> SUN
             startingWeather = typedArray.getInt(R.styleable.WeatherView_startingWeather, 0);
-            //If there is not a lifeTime and/or fadeOutTime it reset to 
+            //If there is not a lifeTime and/or fadeOutTime it reset to
             //default. If -1 it reset the value
             lifeTime = typedArray.getInt(R.styleable.WeatherView_lifeTime, -1);
             fadeOutTime = typedArray.getInt(R.styleable.WeatherView_fadeOutTime, -1);
 
-            setWeather(Constants.weatherStatus.values()[startingWeather], lifeTime, fadeOutTime);
+            numParticles = typedArray.getInt(R.styleable.WeatherView_numParticles, -1);
+
+
+            setWeather(Constants.weatherStatus.values()[startingWeather], lifeTime, fadeOutTime,numParticles);
         } finally {
             typedArray.recycle();
         }
@@ -162,6 +165,18 @@ public class WeatherView extends View {
     }
 
     /**
+     * Reload configuration. If the animation was playing it continue the animation
+     * with the new configuration. Used only in setRainParticles() and
+     * setSnowParticles()
+     */
+    private void reloadNewConfiguration() {
+        boolean wasPlaying = isPlaying();
+        setWeather(currentWeather, currentWeather == Constants.weatherStatus.RAIN ? rainTime : snowTime, fadeOutTime, currentWeather == Constants.weatherStatus.RAIN ? rainParticles : snowParticles);
+        if (wasPlaying)
+            startAnimation();
+    }
+
+    /**
      * Added a Runnable in order to avoid error during the animation. This method
      * wait until the view is loaded and then it plays the animation
      */
@@ -183,6 +198,7 @@ public class WeatherView extends View {
      * Internal method for start the animation
      */
     private void emitParticles() {
+        //Must check particle
         switch (currentWeather) {
             case RAIN:
                 ps.emitWithGravity(this, Gravity.BOTTOM, rainParticles);
@@ -254,7 +270,7 @@ public class WeatherView extends View {
      */
     public void setSnowTime(int snowTime) {
         this.snowTime = snowTime >= 0 ? snowTime : Constants.snowTime;
-        //MUST RELOAD --> avoid issue
+
     }
 
     /**
@@ -267,8 +283,12 @@ public class WeatherView extends View {
      *                      value it is set to Constants.rainParticles
      */
     public void setRainParticles(int rainParticles) {
+        int prev = this.rainParticles;
         this.rainParticles = rainParticles >= 0 ? rainParticles : Constants.rainParticles;
         //MUST RELOAD --> avoid issue
+        if (prev != this.rainParticles)
+            reloadNewConfiguration();
+
     }
 
     /**
@@ -281,7 +301,20 @@ public class WeatherView extends View {
      *                      value it is set to Constants.rainParticles
      */
     public void setSnowParticles(int snowParticles) {
+        int prev = this.snowParticles;
         this.snowParticles = snowParticles >= 0 ? snowParticles : Constants.snowParticles;
+        //MUST RELOAD --> avoid issue
+        if (prev != this.snowParticles)
+            reloadNewConfiguration();
+    }
+
+    /**
+     * This method return true if animation is playing.
+     *
+     * @return if animation is playing
+     */
+    public boolean isPlaying() {
+        return isPlaying;
     }
 
     /**
