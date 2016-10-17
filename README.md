@@ -9,6 +9,8 @@ You can also download <a href="https://github.com/MatteoBattilana/WeatherView/ra
 WeatherView is an Android Library that helps you make a cool weather animation for your app.<br/>
 This library is based on this <a href="https://github.com/plattysoft/Leonids">Leonids</a> library.
 
+If you are interested in the beta versione please pay attention to the <a href="https://github.com/MatteoBattilana/WeatherView#beta">WeatherView Beta</a> version.
+
 
 
 <div  align="center" width="100%">
