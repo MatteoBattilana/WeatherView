@@ -8,5 +8,7 @@
         </attr>
         <attr name="lifeTime" format="integer"/>
         <attr name="fadeOutTime" format="integer"/>
+
+        <attr name="numParticles" format="integer"/>
     </declare-styleable>
 </resources>

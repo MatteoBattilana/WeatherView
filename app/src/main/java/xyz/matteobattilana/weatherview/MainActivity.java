@@ -3,9 +3,8 @@ package xyz.matteobattilana.weatherview;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -17,6 +16,7 @@ import xyz.matteobattilana.library.WeatherView;
 
 public class MainActivity extends AppCompatActivity {
     WeatherView mWeatherView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,15 +25,16 @@ public class MainActivity extends AppCompatActivity {
         mWeatherView.setWeather(Constants.weatherStatus.RAIN);
         mWeatherView.startAnimation();
 
-        final HoloTextView text = (HoloTextView)findViewById(R.id.weatherText);
+        final HoloTextView text = (HoloTextView) findViewById(R.id.weatherText);
 
-        HoloPicker mHoloPicker = (HoloPicker)findViewById(R.id.picker);
+        HoloPicker mHoloPicker = (HoloPicker) findViewById(R.id.picker);
         mHoloPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
                 mWeatherView.setWeather(Constants.weatherStatus.values()[newVal]);
+
                 mWeatherView.startAnimation();
-                switch (Constants.weatherStatus.values()[newVal]){
+                switch (Constants.weatherStatus.values()[newVal]) {
                     case RAIN:
                         text.setText(getString(R.string.rain));
                         break;
@@ -47,11 +48,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button git = (Button)findViewById(R.id.btn_git);
+        Button git = (Button) findViewById(R.id.btn_git);
         Typeface fontawesome = Typeface.createFromAsset(getResources().getAssets(), "fontawesome-webfont.ttf");
         git.setTypeface(fontawesome);
 
-        LinearLayout linear_git = (LinearLayout)findViewById(R.id.linear_git);
+        LinearLayout linear_git = (LinearLayout) findViewById(R.id.linear_git);
         linear_git.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
