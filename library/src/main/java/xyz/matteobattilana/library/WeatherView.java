@@ -81,7 +81,7 @@ public class WeatherView extends View {
 
     /**
      * This constructor set the weather specifying the type, the life time and
-     * the fade out time
+     * the fade out time. The animation is stoppend when this method is called
      * @param status set the weatherStatus {RAIN,SUN,SNOW}
      * @param lifeTime must be greater or equals than 0, if set to a negative
      * value it is set to the default value.
