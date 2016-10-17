@@ -122,7 +122,7 @@ Copyright 2016 Matteo Battilana
 
 > The library is Free Software, you can use it, extended with no requirement to open source your changes. You can also make paid apps using it.
 
-##Beta
+#Beta
 
 ###Android Studio / grandle
 
