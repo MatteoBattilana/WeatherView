@@ -145,7 +145,7 @@ still undergoing final testing. It may contains bugs.
 
 It seems "TIMMERTASK_INTERVAL" in ParticaleSystem in Leonids library is set with a value to high. In this **beta** it is set to 33, about 30fps.
 
-Now is possible to set the animation fps with the **setFPS(int fps)** method. It is possible to set it in the xml:
+Now is possible to set the animation fps with the **setFPS(int fps)** method. It is possible also to set it in the xml:
 
 ``` Xml
  <xyz.matteobattilana.library.WeatherView
