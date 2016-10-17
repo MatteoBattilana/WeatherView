@@ -12,7 +12,6 @@ This library is based on this <a href="https://github.com/plattysoft/Leonids">Le
 If you are interested in the beta versione please pay attention to the <a href="https://github.com/MatteoBattilana/WeatherView#beta">WeatherView Beta</a> version.
 
 
-
 <div  align="center" width="100%">
 <img src="https://github.com/MatteoBattilana/WeatherView/blob/master/Screenshot/home.gif" width="250"/>
 </div>
