@@ -16,7 +16,6 @@ import xyz.matteobattilana.library.WeatherView;
 
 public class MainActivity extends AppCompatActivity {
     WeatherView mWeatherView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,13 +24,12 @@ public class MainActivity extends AppCompatActivity {
         mWeatherView.startAnimation();
 
         final HoloTextView text = (HoloTextView) findViewById(R.id.weatherText);
-
         HoloPicker mHoloPicker = (HoloPicker) findViewById(R.id.picker);
         mHoloPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                mWeatherView.setWeather(Constants.weatherStatus.values()[newVal]);
 
+                mWeatherView.setWeather(Constants.weatherStatus.values()[newVal]);
                 mWeatherView.startAnimation();
                 switch (Constants.weatherStatus.values()[newVal]) {
                     case RAIN:

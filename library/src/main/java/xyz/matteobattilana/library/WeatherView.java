@@ -4,7 +4,12 @@ package xyz.matteobattilana.library;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
@@ -17,7 +22,7 @@ import xyz.matteobattilana.library.Common.Constants;
  * Created by MatteoB on 14/10/2016.
  * This is an extended View.
  */
-public class WeatherView extends View {
+public class WeatherView extends View implements SensorEventListener {
     private int rainTime = Constants.rainTime;
     private int snowTime = Constants.snowTime;
     private int fadeOutTime = Constants.fadeOutTime;
@@ -29,8 +34,12 @@ public class WeatherView extends View {
     private Constants.weatherStatus currentWeather = Constants.weatherStatus.SUN;
     Context mContext;
     Activity mActivity;
-
     boolean isPlaying = false;
+
+    //the Sensor Manager
+    private SensorManager mSensorManager;
+    private Sensor accelerometer;
+    private Sensor magnetometer;
 
     /**
      * This method initialize the WeatherView to SUN. No animation is showed.
@@ -47,11 +56,23 @@ public class WeatherView extends View {
         //Used to avoid issue during the design
         if (!isInEditMode()) {
             mActivity = (Activity) getContext();
+            mSensorManager = (SensorManager) mActivity.getSystemService(mActivity.SENSOR_SERVICE);
+            accelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+            magnetometer = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+            initListeners();
             //set the default to SUN
             setWeather(Constants.weatherStatus.SUN);
             initOptions(context, attrs);
         }
     }
+
+    private void initListeners()
+    {
+        mSensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_FASTEST);
+        mSensorManager.registerListener(this, magnetometer, SensorManager.SENSOR_DELAY_FASTEST);
+    }
+
+
 
     /**
      * This method can set the startingWeather, lifeTime and fadeOutTime from
@@ -71,15 +92,14 @@ public class WeatherView extends View {
             //default. If -1 it reset the value
             lifeTime = typedArray.getInt(R.styleable.WeatherView_lifeTime, -1);
             fadeOutTime = typedArray.getInt(R.styleable.WeatherView_fadeOutTime, -1);
-
             numParticles = typedArray.getInt(R.styleable.WeatherView_numParticles, -1);
 
-
-            setWeather(Constants.weatherStatus.values()[startingWeather], lifeTime, fadeOutTime,numParticles);
+            setWeather(Constants.weatherStatus.values()[startingWeather], lifeTime, fadeOutTime, numParticles);
         } finally {
             typedArray.recycle();
         }
     }
+
 
     /**
      * This constructor set the weather specifying the type, the life time,
@@ -95,11 +115,11 @@ public class WeatherView extends View {
      *                     value it is set to the default value.
      */
     public void setWeather(Constants.weatherStatus status, int lifeTime, int fadeOutTime, int numParticles) {
-        setFadeOutTime(fadeOutTime);
-
         currentWeather = status;
 
+        setFadeOutTime(fadeOutTime);
         stopAnimation();
+
         switch (status) {
             case RAIN:
                 setRainTime(lifeTime);
@@ -327,4 +347,29 @@ public class WeatherView extends View {
         setRainParticles(-1);
         setSnowParticles(-1);
     }
+
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        if (event.sensor != accelerometer)
+            return;
+
+        double aX= event.values[0];
+        double aY= event.values[1];
+        //aZ= event.values[2];
+        double angle = Math.atan2(aX, aY)/(Math.PI/180);
+        angle=angle>0?angle:angle*-1;
+        angle+=90;
+        ps.setSpeedModuleAndAngleRange(0f, 0.3f, (int)angle, (int)angle);
+        Log.e("sadsa",angle+ " asd");
+    }
+
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+        //Do nothing.
+
+    }
+
+
 }
