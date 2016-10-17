@@ -4,15 +4,12 @@ package xyz.matteobattilana.library;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
+
 
 import com.plattysoft.leonids.ParticleSystem;
 
@@ -22,7 +19,7 @@ import xyz.matteobattilana.library.Common.Constants;
  * Created by MatteoB on 14/10/2016.
  * This is an extended View.
  */
-public class WeatherView extends View implements SensorEventListener {
+public class WeatherView extends View {
     private int rainTime = Constants.rainTime;
     private int snowTime = Constants.snowTime;
     private int fadeOutTime = Constants.fadeOutTime;
@@ -36,10 +33,6 @@ public class WeatherView extends View implements SensorEventListener {
     Activity mActivity;
     boolean isPlaying = false;
 
-    //the Sensor Manager
-    private SensorManager mSensorManager;
-    private Sensor accelerometer;
-    private Sensor magnetometer;
 
     /**
      * This method initialize the WeatherView to SUN. No animation is showed.
@@ -53,26 +46,16 @@ public class WeatherView extends View implements SensorEventListener {
     public WeatherView(Context context, AttributeSet attrs) {
         super(context, attrs);
         mContext = context;
+
         //Used to avoid issue during the design
         if (!isInEditMode()) {
             mActivity = (Activity) getContext();
-            mSensorManager = (SensorManager) mActivity.getSystemService(mActivity.SENSOR_SERVICE);
-            accelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-            magnetometer = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
-            initListeners();
+
             //set the default to SUN
             setWeather(Constants.weatherStatus.SUN);
             initOptions(context, attrs);
         }
     }
-
-    private void initListeners()
-    {
-        mSensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_FASTEST);
-        mSensorManager.registerListener(this, magnetometer, SensorManager.SENSOR_DELAY_FASTEST);
-    }
-
-
 
     /**
      * This method can set the startingWeather, lifeTime and fadeOutTime from
@@ -84,7 +67,7 @@ public class WeatherView extends View implements SensorEventListener {
      */
     private void initOptions(Context context, AttributeSet attrs) {
         TypedArray typedArray = context.getTheme().obtainStyledAttributes(attrs, R.styleable.WeatherView, 0, 0);
-        int startingWeather, lifeTime, fadeOutTime, numParticles;
+        int startingWeather, lifeTime, fadeOutTime, numParticles, fps;
         try {
             //Defatul 0 --> SUN
             startingWeather = typedArray.getInt(R.styleable.WeatherView_startingWeather, 0);
@@ -93,8 +76,11 @@ public class WeatherView extends View implements SensorEventListener {
             lifeTime = typedArray.getInt(R.styleable.WeatherView_lifeTime, -1);
             fadeOutTime = typedArray.getInt(R.styleable.WeatherView_fadeOutTime, -1);
             numParticles = typedArray.getInt(R.styleable.WeatherView_numParticles, -1);
+            fps = typedArray.getInt(R.styleable.WeatherView_fps,-1);
+
 
             setWeather(Constants.weatherStatus.values()[startingWeather], lifeTime, fadeOutTime, numParticles);
+            setFPS(fps);
         } finally {
             typedArray.recycle();
         }
@@ -312,6 +298,19 @@ public class WeatherView extends View implements SensorEventListener {
     }
 
     /**
+     * Set The fps of the animation. Default is 30
+     * Max settable is 99 and min is 8
+     * @param fps number of fps
+     */
+    public void setFPS(int fps){
+        if((fps>7 && fps<100) && ps!=null) {
+            ps.setFPS(fps);
+            restartWithNewConfiguration();
+        }
+
+    }
+
+    /**
      * This method set the snow particles for second. If the animation is
      * playing, it must stopped with stopAnimation() method or call
      * restartWithNewConfiguration(). After called one of this method the
@@ -346,29 +345,6 @@ public class WeatherView extends View implements SensorEventListener {
         setSnowTime(-1);
         setRainParticles(-1);
         setSnowParticles(-1);
-    }
-
-
-    @Override
-    public void onSensorChanged(SensorEvent event) {
-        if (event.sensor != accelerometer)
-            return;
-
-        double aX= event.values[0];
-        double aY= event.values[1];
-        //aZ= event.values[2];
-        double angle = Math.atan2(aX, aY)/(Math.PI/180);
-        angle=angle>0?angle:angle*-1;
-        angle+=90;
-        ps.setSpeedModuleAndAngleRange(0f, 0.3f, (int)angle, (int)angle);
-        Log.e("sadsa",angle+ " asd");
-    }
-
-
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-        //Do nothing.
-
     }
 
 

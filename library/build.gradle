@@ -20,7 +20,9 @@ android {
 }
 
 dependencies {
-    compile 'com.plattysoft.leonids:LeonidsLib:1.3.2'
+    //compile 'com.plattysoft.leonids:LeonidsLib:1.3.2'
+
+    compile project(path: ':leonids')
 }
 task sourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
