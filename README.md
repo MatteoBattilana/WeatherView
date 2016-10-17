@@ -88,7 +88,8 @@ Available methods for the configuration are:
 * *setWeather(weatherStatus mWeatherStatus, int lifeTime)*
 * *setWeather(weatherStatus mWeatherStatus)*: RAIN, SUN or SNOW.
 * *startAnimation()*
-* *stopAnimation()*
+* *stopAnimation()* Stops the emission of new particles, the active ones are stopped and cancelled.
+* *pauseAnimation()* Stops the emission of new particles, but the active ones are updated.
 * *setRainTime(int rainTime)*
 * *setSnowTime(int snowTime)*
 * *setFadeOutTime(int fadeOutTime)*
