@@ -92,8 +92,7 @@ public class WeatherView extends View {
         setFadeOutTime(fadeOutTime);
         currentWeather = status;
 
-        if (ps != null)
-            ps.stopEmitting();
+        stopAnimation();
         switch (status) {
             case RAIN:
                 setRainTime(lifeTime);
@@ -184,7 +183,7 @@ public class WeatherView extends View {
     /**
      * Stop the animation.
      */
-    public void stopAnimation() {
+    public void cancelAnimation() {
         if (ps != null) {
             ps.cancel();
         }
@@ -194,7 +193,7 @@ public class WeatherView extends View {
      * Pause the animation. If there are some particles playing the animation
      * they would not stopped by this method.
      */
-    public void pauseAnimation() {
+    public void stopAnimation() {
         if (ps != null) {
             ps.stopEmitting();
         }
