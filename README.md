@@ -96,11 +96,14 @@ Available methods for the configuration are:
 * *setRainTime(int rainTime)*
 * *setSnowTime(int snowTime)*
 * *setFadeOutTime(int fadeOutTime)*
-* *setRainParticles()*
-* *setSnowParticles()*
+* *setRainParticles(int rainParticles)*
+* *setSnowParticles(int snowParticles)*
 * *resetConfiguration()*
 * *restartWithNewConfiguration()*
 * *isPlaying()*
+
+Only with **setSnowParticles(int snowParticles)** and **setRainParticles(int rainParticles)** the animation is restarted if was playing.
+The other setter must be reloaded on the animation with **restartWithNewConfiguration()** method.
 
 ##License details
 Copyright 2016 Matteo Battilana
