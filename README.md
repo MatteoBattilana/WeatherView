@@ -122,6 +122,44 @@ Copyright 2016 Matteo Battilana
 
 > The library is Free Software, you can use it, extended with no requirement to open source your changes. You can also make paid apps using it.
 
+##Beta
+
+###Android Studio / grandle
+
+Add the following dependency to the **build.gradle** of your project:
+
+``` 
+repositories {
+    maven { url = 'https://jitpack.io' }
+}
+
+dependencies {
+    compile 'com.github.MatteoBattilana:WeatherView:1.0.10.3'
+}
+```
+
+> Please note that this is a beta version which is
+still undergoing final testing. It may contains bugs.
+
+###New feature
+
+It seems "TIMMERTASK_INTERVAL" in ParticaleSystem in Leonids library is set with a value to high. In this **beta** it is set to 33, about 30fps.
+
+Now is possible to set the animation fps with the **setFPS(int fps)** method. It is possible to set it in the xml:
+
+``` Xml
+ <xyz.matteobattilana.library.WeatherView
+ 		xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/weater"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        app:fadeOutTime="1000"
+        app:fps="40"
+        app:lifeTime="2200"
+        app:startingWeather="RAIN" />
+```
+
+
 ##Screenshot
 
 A set of screenshot from the demo application.
