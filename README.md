@@ -163,6 +163,7 @@ Now is possible to set the animation fps with the **setFPS(int fps)** method. It
 **Changed**:
 * *reloadNewConfiguration()* stop the animation and does not resume it.
 * *resetConfiguration()* now it set the fps to the default value.
+
 **Added**:
 * *getFadeOutTime()*
 * *getLifeTime()*
