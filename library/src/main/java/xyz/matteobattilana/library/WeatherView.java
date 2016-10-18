@@ -11,10 +11,9 @@ import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 
 
+import com.plattysoft.leonids.ParticleSystem;
 
 import xyz.matteobattilana.library.Common.Constants;
-import xyz.matteobattilana.library.leonids.ParticleSystem;
-
 /**
  * Created by MatteoB on 14/10/2016.
  * This is an extended View.
