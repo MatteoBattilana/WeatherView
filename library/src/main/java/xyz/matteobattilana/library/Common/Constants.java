@@ -9,6 +9,8 @@ public class Constants {
     public static int snowTime = 4000;
     public static int fadeOutTime = 200;
 
-    public static int rainParticles = 34;//34
+    public static int rainParticles = 34;
     public static int snowParticles = 15;
+
+    public static int fps = 30;
 }

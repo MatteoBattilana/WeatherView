@@ -9,24 +9,60 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
 import xyz.matteobattilana.library.Common.Constants;
 import xyz.matteobattilana.library.WeatherView;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener {
     WeatherView mWeatherView;
+    SeekBar fps, fadeOutTime, lifeTime, particles;
+    TextView fpsText, fadeOutTimeText, lifeTimeText, particlesText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mWeatherView = (WeatherView) findViewById(R.id.weater);
-        //mWeatherView.setFPS(8);
-        mWeatherView.startAnimation();
 
+        init();
+    }
+
+    private void init() {
+        //WeatherView
+        mWeatherView = (WeatherView) findViewById(R.id.weater);
+
+        //SeekBar
+        fps = (SeekBar) findViewById(R.id.fps);
+        fadeOutTime = (SeekBar) findViewById(R.id.fadeOutTime);
+        lifeTime = (SeekBar) findViewById(R.id.lifeTime);
+        particles = (SeekBar) findViewById(R.id.particles);
+
+        //TextView
         final HoloTextView text = (HoloTextView) findViewById(R.id.weatherText);
+        fpsText = (TextView) findViewById(R.id.fpsText);
+        fadeOutTimeText = (TextView) findViewById(R.id.fadeOutTimeText);
+        lifeTimeText = (TextView) findViewById(R.id.lifeTimeText);
+        particlesText = (TextView) findViewById(R.id.particlesTest);
+
+        //Button
+        Button git = (Button) findViewById(R.id.btn_git);
+        Typeface fontawesome = Typeface.createFromAsset(getResources().getAssets(), "fontawesome-webfont.ttf");
+        git.setTypeface(fontawesome);
+
+        //Picker
         HoloPicker mHoloPicker = (HoloPicker) findViewById(R.id.picker);
+
+        //Layout
+        LinearLayout linear_git = (LinearLayout) findViewById(R.id.linear_git);
+
+
+        //Init
+        mWeatherView.startAnimation();
+        reloadSeek();
+
+
         mHoloPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
@@ -44,14 +80,11 @@ public class MainActivity extends AppCompatActivity {
                         text.setText(getString(R.string.sun));
                         break;
                 }
+                reloadSeek();
             }
         });
 
-        Button git = (Button) findViewById(R.id.btn_git);
-        Typeface fontawesome = Typeface.createFromAsset(getResources().getAssets(), "fontawesome-webfont.ttf");
-        git.setTypeface(fontawesome);
 
-        LinearLayout linear_git = (LinearLayout) findViewById(R.id.linear_git);
         linear_git.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,6 +92,61 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(browserIntent);
             }
         });
+
+        fps.setOnSeekBarChangeListener(this);
+        fadeOutTime.setOnSeekBarChangeListener(this);
+        lifeTime.setOnSeekBarChangeListener(this);
+        particles.setOnSeekBarChangeListener(this);
+    }
+
+    private void reloadSeek() {
+        //Set initial progress
+        fps.setProgress(mWeatherView.getFPS()-8);
+        fadeOutTime.setProgress(mWeatherView.getFadeOutTime());
+        lifeTime.setProgress(mWeatherView.getLifeTime());
+        particles.setProgress(mWeatherView.getParticles());
+
+        //set seekbar text
+        fadeOutTimeText.setText("fadeOutTime: "+mWeatherView.getFadeOutTime() + " ms\t");
+        fpsText.setText("FPS: "+mWeatherView.getFPS()+"\t");
+        lifeTimeText.setText("lifeTime: "+mWeatherView.getLifeTime() + " ms\t");
+        particlesText.setText("particles: "+mWeatherView.getParticles() + "\t");
+
+    }
+
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+    }
+
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {
+
+    }
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {
+        switch (seekBar.getId()) {
+            case R.id.fps:
+                mWeatherView.setFPS(seekBar.getProgress()+8);
+                break;
+
+            case R.id.fadeOutTime:
+                mWeatherView.setFadeOutTime(seekBar.getProgress());
+                break;
+
+            case R.id.lifeTime:
+                mWeatherView.setRainTime(seekBar.getProgress());
+                mWeatherView.setSnowTime(seekBar.getProgress());
+                break;
+            case R.id.particles:
+                mWeatherView.setRainParticles(seekBar.getProgress());
+                mWeatherView.setSnowParticles(seekBar.getProgress());
+                break;
+        }
+        mWeatherView.restartWithNewConfiguration();
+
+        reloadSeek();
 
     }
 }
