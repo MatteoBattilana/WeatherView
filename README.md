@@ -163,12 +163,14 @@ Now is possible to set the animation fps with the **setFPS(int fps)** method. It
 **Changed**:
 * *reloadNewConfiguration()* stop the animation and does not resume it.
 * *resetConfiguration()* now it set the fps to the default value.
+* *setFPS(int fps)* once you call this method the animation is stopped by default. Like on the other setters in order to restart the animation you must call **restartWithNewConfiguration()**.
 
 **Added**:
 * *getFadeOutTime()*
 * *getLifeTime()*
 * *getParticles()*
 * *getFPS()*
+* *setFPS(int fps)*
 * *getCurrentWeather()*
 
 ##Screenshot
