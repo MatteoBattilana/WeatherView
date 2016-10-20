@@ -12,7 +12,7 @@
         android:layout_height="1dp"
         app:fadeOutTime="1000"
         app:fps="40"
-        app:angle="70"
+        app:angle="15"
         app:lifeTime="2200"
         app:startingWeather="RAIN" />
 
@@ -155,6 +155,25 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/linearLayout"
                 android:max="400" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/angleText"
+                android:layout_width="110dp"
+
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white" />
+
+            <SeekBar
+                android:id="@+id/angle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearLayout"
+                android:max="60" />
         </LinearLayout>
 
     </LinearLayout>

@@ -18,8 +18,8 @@ import xyz.matteobattilana.library.WeatherView;
 
 public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener {
     WeatherView mWeatherView;
-    SeekBar fps, fadeOutTime, lifeTime, particles;
-    TextView fpsText, fadeOutTimeText, lifeTimeText, particlesText;
+    SeekBar fps, fadeOutTime, lifeTime, particles, angle;
+    TextView fpsText, fadeOutTimeText, lifeTimeText, particlesText, angleText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         fadeOutTime = (SeekBar) findViewById(R.id.fadeOutTime);
         lifeTime = (SeekBar) findViewById(R.id.lifeTime);
         particles = (SeekBar) findViewById(R.id.particles);
+        angle= (SeekBar)findViewById(R.id.angle);
 
         //TextView
         final HoloTextView text = (HoloTextView) findViewById(R.id.weatherText);
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         fadeOutTimeText = (TextView) findViewById(R.id.fadeOutTimeText);
         lifeTimeText = (TextView) findViewById(R.id.lifeTimeText);
         particlesText = (TextView) findViewById(R.id.particlesTest);
+        angleText =(TextView)findViewById(R.id.angleText);
 
         //Button
         Button git = (Button) findViewById(R.id.btn_git);
@@ -97,6 +99,8 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         fadeOutTime.setOnSeekBarChangeListener(this);
         lifeTime.setOnSeekBarChangeListener(this);
         particles.setOnSeekBarChangeListener(this);
+        angle.setOnSeekBarChangeListener(this);
+
     }
 
     private void reloadSeek() {
@@ -105,12 +109,14 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         fadeOutTime.setProgress(mWeatherView.getFadeOutTime());
         lifeTime.setProgress(mWeatherView.getLifeTime());
         particles.setProgress(mWeatherView.getParticles());
+        angle.setProgress(mWeatherView.getAngle()+30);
 
         //set seekbar text
         fadeOutTimeText.setText("fadeOutTime: "+mWeatherView.getFadeOutTime() + " ms\t");
         fpsText.setText("FPS: "+mWeatherView.getFPS()+"\t");
         lifeTimeText.setText("lifeTime: "+mWeatherView.getLifeTime() + " ms\t");
         particlesText.setText("particles: "+mWeatherView.getParticles() + "\t");
+        angleText.setText("Angle: "+mWeatherView.getAngle()+" °\t");
 
     }
 
@@ -142,6 +148,10 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
             case R.id.particles:
                 mWeatherView.setRainParticles(seekBar.getProgress());
                 mWeatherView.setSnowParticles(seekBar.getProgress());
+                break;
+            case R.id.angle:
+                mWeatherView.setRainAngle(seekBar.getProgress()-30);
+                mWeatherView.setSnowAngle(seekBar.getProgress()-30);
                 break;
         }
         mWeatherView.restartWithNewConfiguration();

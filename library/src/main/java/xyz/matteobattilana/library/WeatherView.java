@@ -120,7 +120,8 @@ public class WeatherView extends View {
                 setRainParticles(numParticles);
                 setRainAngle(angle);
                 ps = new ParticleSystem(mActivity, rainParticles * rainTime / 1000,  R.drawable.rain, rainTime)
-                        .setAcceleration(0.00013f, rainAngle)
+                        .setAcceleration(0.00013f, 90-rainAngle)
+                        .setInitialRotation(-rainAngle)
                         .setSpeedByComponentsRange(0f, 0f, 0.05f, 0.1f)
                         .setFadeOut(this.fadeOutTime, new AccelerateInterpolator());
                 break;
@@ -130,7 +131,7 @@ public class WeatherView extends View {
                 setSnowAngle(angle);
                 ps = new ParticleSystem(mActivity, snowParticles * snowTime / 1000, R.drawable.snow, snowTime)
                         .setSpeedByComponentsRange(0f, 0f, 0.05f, 0.1f)
-                        .setAcceleration(0.0f, snowAngle)
+                        .setInitialRotation(-snowAngle)
                         .setFadeOut(this.fadeOutTime, new AccelerateInterpolator());
                 break;
             default:
@@ -334,6 +335,15 @@ public class WeatherView extends View {
      */
     public int getParticles() {
         return (currentWeather == Constants.weatherStatus.RAIN ? rainParticles : snowParticles);
+    }
+
+
+    /**
+     * Return angle of current animation
+     * @return angle of current animation
+     */
+    public int getAngle() {
+        return (currentWeather == Constants.weatherStatus.RAIN ? rainAngle : snowAngle);
     }
 
     /**
