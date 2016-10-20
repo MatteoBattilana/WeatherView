@@ -13,4 +13,7 @@ public class Constants {
     public static int snowParticles = 15;
 
     public static int fps = 30;
+
+    public static int rainAngle = 96;
+    public static int snowAngle = 90;
 }

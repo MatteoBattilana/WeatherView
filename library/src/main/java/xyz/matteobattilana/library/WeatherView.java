@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
@@ -12,6 +13,7 @@ import android.view.animation.AccelerateInterpolator;
 import com.plattysoft.leonids.ParticleSystem;
 
 import xyz.matteobattilana.library.Common.Constants;
+import xyz.matteobattilana.library.Common.Helper;
 
 /**
  * Created by MatteoB on 14/10/2016.
@@ -26,6 +28,8 @@ public class WeatherView extends View {
     private int snowParticles = Constants.snowParticles;
 
     private int fps = Constants.fps;
+    private int rainAngle = Constants.rainAngle;
+    private int snowAngle = Constants.snowAngle;
 
     private ParticleSystem ps;
     private Constants.weatherStatus currentWeather = Constants.weatherStatus.SUN;
@@ -67,7 +71,7 @@ public class WeatherView extends View {
      */
     private void initOptions(Context context, AttributeSet attrs) {
         TypedArray typedArray = context.getTheme().obtainStyledAttributes(attrs, R.styleable.WeatherView, 0, 0);
-        int startingWeather, lifeTime, fadeOutTime, numParticles, fps;
+        int startingWeather, lifeTime, fadeOutTime, numParticles, fps, angle;
         try {
             //Defatul 0 --> SUN
             startingWeather = typedArray.getInt(R.styleable.WeatherView_startingWeather, 0);
@@ -77,13 +81,81 @@ public class WeatherView extends View {
             fadeOutTime = typedArray.getInt(R.styleable.WeatherView_fadeOutTime, -1);
             numParticles = typedArray.getInt(R.styleable.WeatherView_numParticles, -1);
             fps = typedArray.getInt(R.styleable.WeatherView_fps, -1);
+            angle = typedArray.getInt(R.styleable.WeatherView_angle, -200);
+            Log.e("ANGLE",angle+"asd0");
 
 
-            setWeather(Constants.weatherStatus.values()[startingWeather], lifeTime, fadeOutTime, numParticles);
+            setWeather(Constants.weatherStatus.values()[startingWeather], lifeTime, fadeOutTime, numParticles, fps,angle); //angle
+            //MUST CALL AFTER INITIALIZATION
             setFPS(fps);
         } finally {
             typedArray.recycle();
         }
+    }
+
+    /**
+     * This constructor set the weather specifying the type, the life time,
+     * the fade out time and the numbre of particle per second. The animation is stoppend when this
+     * method is called.
+     *
+     * @param status       set the weatherStatus {RAIN,SUN,SNOW}
+     * @param lifeTime     must be greater or equals than 0, if set to a negative
+     *                     value it is set to the default value.
+     * @param fadeOutTime  must be greater or equals than 0, if set to a negative
+     *                     value it is set to the default value.
+     * @param numParticles must be greater than 0, if set to a negative
+     *                     value it is set to the default value.
+     * @param fps          must be less than 100 and higer than 8
+     * @param angle        must be higer than 180 and less than -180
+     */
+    public void setWeather(Constants.weatherStatus status, int lifeTime, int fadeOutTime, int numParticles, int fps, int angle) {
+        currentWeather = status;
+
+        setFadeOutTime(fadeOutTime);
+        stopAnimation();
+
+        switch (status) {
+            case RAIN:
+                setRainTime(lifeTime);
+                setRainParticles(numParticles);
+                setRainAngle(angle);
+                ps = new ParticleSystem(mActivity, rainParticles * rainTime / 1000,  R.drawable.rain, rainTime)
+                        .setAcceleration(0.00013f, rainAngle)
+                        .setSpeedByComponentsRange(0f, 0f, 0.05f, 0.1f)
+                        .setFadeOut(this.fadeOutTime, new AccelerateInterpolator());
+                break;
+            case SNOW:
+                setSnowTime(lifeTime);
+                setSnowParticles(numParticles);
+                setSnowAngle(angle);
+                ps = new ParticleSystem(mActivity, snowParticles * snowTime / 1000, R.drawable.snow, snowTime)
+                        .setSpeedByComponentsRange(0f, 0f, 0.05f, 0.1f)
+                        .setAcceleration(0.0f, snowAngle)
+                        .setFadeOut(this.fadeOutTime, new AccelerateInterpolator());
+                break;
+            default:
+                break;
+        }
+
+
+    }
+
+    /**
+     * This constructor set the weather specifying the type, the life time,
+     * the fade out time and the numbre of particle per second. The animation is stoppend when this
+     * method is called.
+     *
+     * @param status       set the weatherStatus {RAIN,SUN,SNOW}
+     * @param lifeTime     must be greater or equals than 0, if set to a negative
+     *                     value it is set to the default value.
+     * @param fadeOutTime  must be greater or equals than 0, if set to a negative
+     *                     value it is set to the default value.
+     * @param numParticles must be greater than 0, if set to a negative
+     *                     value it is set to the default value.
+     * @param fps          must be less than 100 and higer than 8
+     */
+    public void setWeather(Constants.weatherStatus status, int lifeTime, int fadeOutTime, int numParticles, int fps) {
+        setWeather(status, lifeTime, fadeOutTime, numParticles, fps, -200);
     }
 
 
@@ -101,30 +173,7 @@ public class WeatherView extends View {
      *                     value it is set to the default value.
      */
     public void setWeather(Constants.weatherStatus status, int lifeTime, int fadeOutTime, int numParticles) {
-        currentWeather = status;
-
-        setFadeOutTime(fadeOutTime);
-        stopAnimation();
-
-        switch (status) {
-            case RAIN:
-                setRainTime(lifeTime);
-                setRainParticles(numParticles);
-                ps = new ParticleSystem(mActivity, rainParticles * rainTime / 1000, R.drawable.rain, rainTime)
-                        .setAcceleration(0.00013f, 96)
-                        .setSpeedByComponentsRange(0f, 0f, 0.05f, 0.1f)
-                        .setFadeOut(this.fadeOutTime, new AccelerateInterpolator());
-                break;
-            case SNOW:
-                setSnowTime(lifeTime);
-                setSnowParticles(numParticles);
-                ps = new ParticleSystem(mActivity, snowParticles * snowTime / 1000, R.drawable.snow, snowTime)
-                        .setSpeedByComponentsRange(0f, 0f, 0.05f, 0.1f)
-                        .setFadeOut(this.fadeOutTime, new AccelerateInterpolator());
-                break;
-            default:
-                break;
-        }
+        setWeather(status, lifeTime, fadeOutTime, numParticles, -1, -200);
     }
 
     /**
@@ -138,7 +187,7 @@ public class WeatherView extends View {
      *                    value it is set to the default value.
      */
     public void setWeather(Constants.weatherStatus status, int lifeTime, int fadeOutTime) {
-        setWeather(status, lifeTime, fadeOutTime, -1);
+        setWeather(status, lifeTime, fadeOutTime, -1, -1, -200);
     }
 
     /**
@@ -147,7 +196,7 @@ public class WeatherView extends View {
      * @param status set the weatherStatus {RAIN,SUN,SNOW}
      */
     public void setWeather(Constants.weatherStatus status) {
-        setWeather(status, -1, -1, -1);
+        setWeather(status, -1, -1, -1, -1, -200);
     }
 
     /**
@@ -158,7 +207,7 @@ public class WeatherView extends View {
      *                 value it is set to the default value.
      */
     public void setWeather(Constants.weatherStatus status, int lifeTime) {
-        setWeather(status, lifeTime, -1, -1);
+        setWeather(status, lifeTime, -1, -1, -1, -200);
     }
 
     /**
@@ -166,7 +215,7 @@ public class WeatherView extends View {
      * current animation. Then automatically restart the animation
      */
     public void restartWithNewConfiguration() {
-        setWeather(currentWeather, currentWeather == Constants.weatherStatus.RAIN ? rainTime : snowTime, fadeOutTime, currentWeather == Constants.weatherStatus.RAIN ? rainParticles : snowParticles);
+        reloadNewConfiguration();
         startAnimation();
     }
 
@@ -176,7 +225,7 @@ public class WeatherView extends View {
      * setSnowParticles()
      */
     private void reloadNewConfiguration() {
-        setWeather(currentWeather, currentWeather == Constants.weatherStatus.RAIN ? rainTime : snowTime, fadeOutTime, currentWeather == Constants.weatherStatus.RAIN ? rainParticles : snowParticles);
+        setWeather(currentWeather, currentWeather == Constants.weatherStatus.RAIN ? rainTime : snowTime, fadeOutTime, currentWeather == Constants.weatherStatus.RAIN ? rainParticles : snowParticles, fps, currentWeather == Constants.weatherStatus.RAIN ? rainAngle : snowAngle);
     }
 
     /**
@@ -271,6 +320,7 @@ public class WeatherView extends View {
 
     /**
      * Return rainTime or snowTime in ms
+     *
      * @return rainTime or snowTime in ms
      */
     public int getLifeTime() {
@@ -279,6 +329,7 @@ public class WeatherView extends View {
 
     /**
      * Return rainParticles or snowParticles
+     *
      * @return rainParticles or snowParticles
      */
     public int getParticles() {
@@ -321,7 +372,7 @@ public class WeatherView extends View {
      * @param fps number of fps between 8 and 99
      */
     public void setFPS(int fps) {
-        if (ps != null) {
+        if (ps != null ) {
             ps.setFPS((fps > 7 && fps < 100) ? fps : Constants.fps);
             this.fps = (fps > 7 && fps < 100) ? fps : Constants.fps;
             //Must cancel in order to avoid overlapping with particles
@@ -338,6 +389,15 @@ public class WeatherView extends View {
     public int getFPS() {
         return fps;
     }
+
+    public void setRainAngle(int angle) {
+        this.rainAngle = angle > -181 && angle < 181 ? angle : Constants.rainAngle;
+    }
+
+    public void setSnowAngle(int angle) {
+        this.snowAngle = angle > -181 && angle < 181 ? angle : Constants.snowAngle;
+    }
+
 
     /**
      * Return the current type weather
@@ -383,6 +443,8 @@ public class WeatherView extends View {
         setRainParticles(-1);
         setSnowParticles(-1);
         setFPS(-1);
+        setRainAngle(-200);
+        setSnowAngle(-200);
     }
 
 
