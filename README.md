@@ -5,11 +5,11 @@
 You can also download <a href="https://github.com/MatteoBattilana/WeatherView/raw/master/app/app-release.apk">WeaterView Library Demo apk</a> to check out what can be done with it.
 
 #WeatherView
+> If you are interested in extra functions please pay attention to the [WeatherView Beta](#beta) version. 
 
 WeatherView is an Android Library that helps you make a cool weather animation for your app.<br/>
 This library is based on this <a href="https://github.com/plattysoft/Leonids">Leonids</a> library.
 
-If you are interested in the beta version please pay attention to the [WeatherView Beta](#beta) version.
 
 
 <div  align="center" width="100%">
