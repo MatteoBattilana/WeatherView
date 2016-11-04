@@ -104,7 +104,7 @@ public class WeatherView extends View {
      */
     public void setWeather(Constants.weatherStatus status, int lifeTime, int fadeOutTime, int numParticles, int fps, int angle) {
         stopAnimation();
-        
+
         //Common setters
         setFPS(fps);
         mCurrentWeather = status;
