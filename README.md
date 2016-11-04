@@ -126,7 +126,7 @@ Copyright 2016 Matteo Battilana
 #Beta
 ###Beta Screenshot
 <div  align="center" width="100%">
-<img src="https://github.com/MatteoBattilana/WeatherView/blob/master/Screenshot/home.gif" width="250"/>
+<img src="https://github.com/MatteoBattilana/WeatherView/blob/localLibrary/Screenshot/beta.png" width="250"/>
 </div>
 
 ###Android Studio / grandle
