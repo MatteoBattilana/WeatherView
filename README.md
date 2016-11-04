@@ -161,7 +161,8 @@ Now is possible to set the animation fps with the **setFPS(int fps)** method. It
         app:fadeOutTime="1000"
         app:fps="40"
         app:lifeTime="2200"
-        app:startingWeather="RAIN" />
+        app:startingWeather="RAIN"
+        app:angle="6"/>
 ```
 
 **Changed**:
