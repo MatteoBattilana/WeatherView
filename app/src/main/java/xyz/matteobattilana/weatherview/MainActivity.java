@@ -13,6 +13,8 @@ import android.widget.NumberPicker;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import java.util.Random;
+
 import xyz.matteobattilana.library.Common.Constants;
 import xyz.matteobattilana.library.WeatherView;
 
@@ -62,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
 
 
         //Init
-        mWeatherView.setWeather(Constants.weatherStatus.RAIN,1000,10,100,10,30);
+        mWeatherView.setWeather(Constants.weatherStatus.RAIN);
         mWeatherView.startAnimation();
         reloadSeek();
 
@@ -74,6 +76,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
 
                 mWeatherView.setWeather(Constants.weatherStatus.values()[newVal]);
                 mWeatherView.startAnimation();
+
                 switch (Constants.weatherStatus.values()[newVal]) {
                     case RAIN:
                         text.setText(getString(R.string.rain));
@@ -93,8 +96,13 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         linear_git.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/MatteoBattilana/WeatherView"));
-                startActivity(browserIntent);
+             /*   Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/MatteoBattilana/WeatherView"));
+                startActivity(browserIntent);*/
+                Random r = new Random();
+                int i1 = r.nextInt(3 - 0) + 0;
+                mWeatherView.setWeather(Constants.weatherStatus.values()[i1]);
+                mWeatherView.restartWithNewConfiguration();
+                reloadSeek();
             }
         });
 

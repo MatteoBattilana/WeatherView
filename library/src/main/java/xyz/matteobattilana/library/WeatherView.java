@@ -5,11 +5,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
+
 import com.plattysoft.leonids.ParticleSystem;
+
 import xyz.matteobattilana.library.Common.Constants;
 
 /**
@@ -47,11 +48,9 @@ public class WeatherView extends View {
     public WeatherView(Context context, AttributeSet attrs) {
         super(context, attrs);
         mContext = context;
-
         //Used to avoid issue during the design
         if (!isInEditMode()) {
             mActivity = (Activity) getContext();
-
             //set the default to SUN
             setWeather(Constants.weatherStatus.SUN);
             initOptions(context, attrs);
@@ -104,10 +103,10 @@ public class WeatherView extends View {
      * @param angle        must be higer than 180 and less than -180
      */
     public void setWeather(Constants.weatherStatus status, int lifeTime, int fadeOutTime, int numParticles, int fps, int angle) {
-
+        stopAnimation();
+        
         //Common setters
         setFPS(fps);
-
         mCurrentWeather = status;
         setFadeOutTime(fadeOutTime);
 
@@ -125,7 +124,7 @@ public class WeatherView extends View {
                 break;
             case SNOW:
                 setSnowTime(lifeTime);
-               setSnowParticles(numParticles);
+                setSnowParticles(numParticles);
                 setSnowAngle(angle);
                 mParticleSystem = new ParticleSystem(mActivity, mSnowParticles * mSnowTime / 1000, R.drawable.snow, mSnowTime)
                         .setSpeedByComponentsRange(0f, 0f, 0.05f, 0.1f)
@@ -135,8 +134,6 @@ public class WeatherView extends View {
             default:
                 break;
         }
-
-
 
 
     }
@@ -371,7 +368,7 @@ public class WeatherView extends View {
         int prev = this.mRainParticles;
         this.mRainParticles = rainParticles >= 0 ? rainParticles : Constants.rainParticles;
         //MUST RELOAD --> avoid issue
-      //  if (prev != this.mRainParticles)
+        //  if (prev != this.mRainParticles)
         //    reloadNewConfiguration();
     }
 
@@ -431,7 +428,7 @@ public class WeatherView extends View {
         int prev = this.mSnowParticles;
         this.mSnowParticles = snowParticles >= 0 ? snowParticles : Constants.snowParticles;
         //MUST RELOAD --> avoid issue
-     //   if (prev != this.mSnowParticles)
+        //   if (prev != this.mSnowParticles)
         //    reloadNewConfiguration();
     }
 
