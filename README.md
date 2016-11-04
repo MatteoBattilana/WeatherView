@@ -135,7 +135,7 @@ repositories {
 }
 
 dependencies {
-    compile 'com.github.MatteoBattilana:WeatherView:1.0.10.9'
+    compile 'com.github.MatteoBattilana:WeatherView:1.0.10.11'
 }
 ```
 
