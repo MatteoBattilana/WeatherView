@@ -5,6 +5,7 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -61,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
 
 
         //Init
+        mWeatherView.setWeather(Constants.weatherStatus.RAIN,1000,10,100,10,30);
         mWeatherView.startAnimation();
         reloadSeek();
 
@@ -68,6 +70,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         mHoloPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                Log.e("ASD",Constants.weatherStatus.values()[newVal]+" r");
 
                 mWeatherView.setWeather(Constants.weatherStatus.values()[newVal]);
                 mWeatherView.startAnimation();
