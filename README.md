@@ -5,11 +5,11 @@
 You can also download <a href="https://github.com/MatteoBattilana/WeatherView/raw/master/app/app-release.apk">WeaterView Library Demo apk</a> to check out what can be done with it.
 
 #WeatherView
+> If you are interested in extra functions please pay attention to the [WeatherView Beta](#beta) version. 
 
 WeatherView is an Android Library that helps you make a cool weather animation for your app.<br/>
 This library is based on this <a href="https://github.com/plattysoft/Leonids">Leonids</a> library.
 
-If you are interested in the beta version please pay attention to the [WeatherView Beta](#beta) version.
 
 
 <div  align="center" width="100%">
@@ -124,6 +124,10 @@ Copyright 2016 Matteo Battilana
 > The library is Free Software, you can use it, extended with no requirement to open source your changes. You can also make paid apps using it.
 
 #Beta
+###Beta Screenshot
+<div  align="center" width="100%">
+<img src="https://github.com/MatteoBattilana/WeatherView/blob/localLibrary/Screenshot/beta.png" width="250"/>
+</div>
 
 ###Android Studio / grandle
 
@@ -135,7 +139,7 @@ repositories {
 }
 
 dependencies {
-    compile 'com.github.MatteoBattilana:WeatherView:1.0.10.3'
+    compile 'com.github.MatteoBattilana:WeatherView:1.0.10.11'
 }
 ```
 
@@ -157,9 +161,27 @@ Now is possible to set the animation fps with the **setFPS(int fps)** method. It
         app:fadeOutTime="1000"
         app:fps="40"
         app:lifeTime="2200"
-        app:startingWeather="RAIN" />
+        app:startingWeather="RAIN"
+        app:angle="6"/>
 ```
 
+**Changed**:
+* *reloadNewConfiguration()* stop the animation and does not resume it.
+* *resetConfiguration()* now it set the fps to the default value.
+* *setFPS(int fps)* once you call this method the animation is atomatically stopped by default with the **cancelAnimation()** method. Like on the other setters in order to restart the animation you must call **restartWithNewConfiguration()**.
+
+**Added**:
+* *setWeather(weatherStatus mWeatherStatus, int lifeTime, int fadeOutTime, int numParticles, int fps, int angle)*
+* *setWeather(weatherStatus mWeatherStatus, int lifeTime, int fadeOutTime, int numParticles, int fps)*
+* *reloadNewConfiguration()*
+* *getFadeOutTime()*
+* *getLifeTime()*
+* *getParticles()*
+* *getFPS()*
+* *setFPS(int fps)*
+* *setAngle(int angle)* 
+* *getAngle()*
+* *getCurrentWeather()*
 
 ##Screenshot
 
