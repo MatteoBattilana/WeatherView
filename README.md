@@ -13,9 +13,9 @@ This library is based on this <a href="https://github.com/plattysoft/Leonids">Le
 
 
 <div  align="center" width="100%">
-<iframe width="420" height="720" src="https://www.youtube.com/embed/ub0j1QhvtCA">
-</iframe>
+<img src="https://github.com/MatteoBattilana/WeatherView/blob/master/Screenshot/home.gif" width="250"/>
 </div>
+
 
 
 ##Setup
