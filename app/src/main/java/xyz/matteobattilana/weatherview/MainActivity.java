@@ -4,8 +4,8 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -26,6 +26,9 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 
         init();
     }
@@ -62,18 +65,15 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
 
 
         //Init
-        mWeatherView.setWeather(Constants.weatherStatus.RAIN);
         mWeatherView.startAnimation();
         reloadSeek();
-
 
         mHoloPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                Log.e("ASD", Constants.weatherStatus.values()[newVal] + " r");
-
-                mWeatherView.setWeather(Constants.weatherStatus.values()[newVal]);
-                mWeatherView.startAnimation();
+                mWeatherView.cancelAnimation()
+                        .setWeather(Constants.weatherStatus.values()[newVal])
+                        .startAnimation();
 
                 switch (Constants.weatherStatus.values()[newVal]) {
                     case RAIN:
@@ -107,6 +107,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
 
     }
 
+
     private void reloadSeek() {
         //Set initial progress
         fps.setProgress(mWeatherView.getFPS() - 8);
@@ -120,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         fpsText.setText("FPS: " + mWeatherView.getFPS() + "\t");
         lifeTimeText.setText("lifeTime: " + mWeatherView.getLifeTime() + " ms\t");
         particlesText.setText("particles: " + mWeatherView.getParticles() + "\t");
-        angleText.setText("Angle: " + mWeatherView.getAngle() + " °\t");
+        angleText.setText("angle: " + mWeatherView.getAngle() + " °\t");
 
     }
 
@@ -136,6 +137,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
 
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
+
         switch (seekBar.getId()) {
             case R.id.fps:
                 mWeatherView.setFPS(seekBar.getProgress() + 8);
@@ -146,19 +148,16 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
                 break;
 
             case R.id.lifeTime:
-                mWeatherView.setRainTime(seekBar.getProgress());
-                mWeatherView.setSnowTime(seekBar.getProgress());
+                mWeatherView.setLifeTime(seekBar.getProgress());
                 break;
             case R.id.particles:
-                mWeatherView.setRainParticles(seekBar.getProgress());
-                mWeatherView.setSnowParticles(seekBar.getProgress());
+                mWeatherView.setParticles(seekBar.getProgress());
                 break;
             case R.id.angle:
-                mWeatherView.setRainAngle(seekBar.getProgress() - 30);
-                mWeatherView.setSnowAngle(seekBar.getProgress() - 30);
+                mWeatherView.setAngle(seekBar.getProgress() - 30);
                 break;
         }
-        mWeatherView.restartWithNewConfiguration();
+        mWeatherView.startAnimation();
 
         reloadSeek();
 

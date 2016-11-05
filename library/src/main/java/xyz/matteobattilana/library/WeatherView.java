@@ -29,6 +29,7 @@ public class WeatherView extends View {
     private int mRainAngle = Constants.rainAngle;
     private int mSnowAngle = Constants.snowAngle;
 
+
     private ParticleSystem mParticleSystem;
     private Constants.weatherStatus mCurrentWeather = Constants.weatherStatus.SUN;
     Context mContext;
@@ -48,11 +49,11 @@ public class WeatherView extends View {
     public WeatherView(Context context, AttributeSet attrs) {
         super(context, attrs);
         mContext = context;
+
         //Used to avoid issue during the design
         if (!isInEditMode()) {
             mActivity = (Activity) getContext();
-            //set the default to SUN
-            setWeather(Constants.weatherStatus.SUN);
+
             initOptions(context, attrs);
         }
     }
@@ -80,42 +81,92 @@ public class WeatherView extends View {
             angle = typedArray.getInt(R.styleable.WeatherView_angle, -200);
 
             //MUST CALL INSIDE TRY CATCH
-            setWeather(Constants.weatherStatus.values()[startingWeather], lifeTime, fadeOutTime, numParticles, fps, angle); //angle
+            setWeather(Constants.weatherStatus.values()[startingWeather])
+                    .setLifeTime(lifeTime)
+                    .setFadeOutTime(fadeOutTime)
+                    .setParticles(numParticles)
+                    .setFPS(fps)
+                    .setAngle(angle);
 
         } finally {
             typedArray.recycle();
         }
     }
 
+
     /**
-     * This constructor set the weather specifying the type, the life time,
-     * the fade out time and the numbre of particle per second. The animation is stoppend when this
-     * method is called.
+     * This constructor set the weather specifying the type
      *
-     * @param status       set the weatherStatus {RAIN,SUN,SNOW}
-     * @param lifeTime     must be greater or equals than 0, if set to a negative
-     *                     value it is set to the default value.
-     * @param fadeOutTime  must be greater or equals than 0, if set to a negative
-     *                     value it is set to the default value.
-     * @param numParticles must be greater than 0, if set to a negative
-     *                     value it is set to the default value.
-     * @param fps          must be less than 100 and higer than 8
-     * @param angle        must be higer than 180 and less than -180
+     * @param status set the weatherStatus {RAIN,SUN,SNOW}
+     * @return the current WeatherView instance
      */
-    public void setWeather(Constants.weatherStatus status, int lifeTime, int fadeOutTime, int numParticles, int fps, int angle) {
-        stopAnimation();
-
-        //Common setters
-        setFPS(fps);
+    public WeatherView setWeather(Constants.weatherStatus status) {
         mCurrentWeather = status;
-        setFadeOutTime(fadeOutTime);
+        return this;
+    }
 
+    /**
+     * Set the current particle angle during animation
+     *
+     * @param angle
+     * @return the current WeatherView instance
+     */
+    public WeatherView setAngle(int angle) {
+        switch (getCurrentWeather()) {
+            case RAIN:
+                setRainAngle(angle);
+                break;
+            case SNOW:
+                setSnowAngle(angle);
+        }
+        return this;
+    }
 
-        switch (status) {
+    /**
+     * Set the current life time of a single particle during the animation
+     *
+     * @param lifeTime must be greater or equal than 0, if set to a negative
+     *                 value it is set to Constants.rainTime / Constants.snowTime
+     * @return the current WeatherView instance
+     */
+    public WeatherView setLifeTime(int lifeTime) {
+        switch (getCurrentWeather()) {
             case RAIN:
                 setRainTime(lifeTime);
+                break;
+            case SNOW:
+                setSnowTime(lifeTime);
+        }
+        return this;
+    }
+
+    /**
+     * Set the number of particles during the animation
+     *
+     * @param numParticles must be greater or equal than 0, if set to a negative
+     *                      value it is set to Constants.rainParticles / Constants.snowParticles
+     * @return the current WeatherView instance
+     */
+    public WeatherView setParticles(int numParticles) {
+        switch (getCurrentWeather()) {
+            case RAIN:
                 setRainParticles(numParticles);
-                setRainAngle(angle);
+                break;
+            case SNOW:
+                setSnowParticles(numParticles);
+        }
+        return this;
+    }
+
+
+    /**
+     * Added a Runnable in order to avoid error during the animation. This method
+     * wait until the view is loaded and then it plays the animation
+     */
+    public void startAnimation() {
+        stopAnimation();
+        switch (getCurrentWeather()) {
+            case RAIN:
                 mParticleSystem = new ParticleSystem(mActivity, mRainParticles * mRainTime / 1000, R.drawable.rain, mRainTime)
                         .setAcceleration(0.00013f, 90 - mRainAngle)
                         .setInitialRotation(-mRainAngle)
@@ -123,9 +174,6 @@ public class WeatherView extends View {
                         .setFadeOut(this.mFadeOutTime, new AccelerateInterpolator());
                 break;
             case SNOW:
-                setSnowTime(lifeTime);
-                setSnowParticles(numParticles);
-                setSnowAngle(angle);
                 mParticleSystem = new ParticleSystem(mActivity, mSnowParticles * mSnowTime / 1000, R.drawable.snow, mSnowTime)
                         .setSpeedByComponentsRange(0f, 0f, 0.05f, 0.1f)
                         .setInitialRotation(-mSnowAngle)
@@ -135,102 +183,8 @@ public class WeatherView extends View {
                 break;
         }
 
+        mParticleSystem.setFPS(getFPS());
 
-    }
-
-    /**
-     * This constructor set the weather specifying the type, the life time,
-     * the fade out time and the numbre of particle per second. The animation is stoppend when this
-     * method is called.
-     *
-     * @param status       set the weatherStatus {RAIN,SUN,SNOW}
-     * @param lifeTime     must be greater or equals than 0, if set to a negative
-     *                     value it is set to the default value.
-     * @param fadeOutTime  must be greater or equals than 0, if set to a negative
-     *                     value it is set to the default value.
-     * @param numParticles must be greater than 0, if set to a negative
-     *                     value it is set to the default value.
-     * @param fps          must be less than 100 and higer than 8
-     */
-    public void setWeather(Constants.weatherStatus status, int lifeTime, int fadeOutTime, int numParticles, int fps) {
-        setWeather(status, lifeTime, fadeOutTime, numParticles, fps, -200);
-    }
-
-
-    /**
-     * This constructor set the weather specifying the type, the life time,
-     * the fade out time and the numbre of particle per second. The animation is stoppend when this
-     * method is called.
-     *
-     * @param status       set the weatherStatus {RAIN,SUN,SNOW}
-     * @param lifeTime     must be greater or equals than 0, if set to a negative
-     *                     value it is set to the default value.
-     * @param fadeOutTime  must be greater or equals than 0, if set to a negative
-     *                     value it is set to the default value.
-     * @param numParticles must be greater than 0, if set to a negative
-     *                     value it is set to the default value.
-     */
-    public void setWeather(Constants.weatherStatus status, int lifeTime, int fadeOutTime, int numParticles) {
-        setWeather(status, lifeTime, fadeOutTime, numParticles, -1, -200);
-    }
-
-    /**
-     * This constructor set the weather specifying the type, the life time and
-     * the fade out time. The animation is stoppend when this method is called
-     *
-     * @param status      set the weatherStatus {RAIN,SUN,SNOW}
-     * @param lifeTime    must be greater or equals than 0, if set to a negative
-     *                    value it is set to the default value.
-     * @param fadeOutTime must be greater or equals than 0, if set to a negative
-     *                    value it is set to the default value.
-     */
-    public void setWeather(Constants.weatherStatus status, int lifeTime, int fadeOutTime) {
-        setWeather(status, lifeTime, fadeOutTime, -1, -1, -200);
-    }
-
-    /**
-     * This constructor set the weather specifying the type
-     *
-     * @param status set the weatherStatus {RAIN,SUN,SNOW}
-     */
-    public void setWeather(Constants.weatherStatus status) {
-        setWeather(status, -1, -1, -1, -1, -200);
-    }
-
-    /**
-     * This constructor set the weather specifying the type and the life time
-     *
-     * @param status   set the weatherStatus {RAIN,SUN,SNOW}
-     * @param lifeTime must be greater or equals than 0, if set to a negative
-     *                 value it is set to the default value.
-     */
-    public void setWeather(Constants.weatherStatus status, int lifeTime) {
-        setWeather(status, lifeTime, -1, -1, -1, -200);
-    }
-
-    /**
-     * If the animation is playing the new configuration is loaded stopping the
-     * current animation. Then automatically restart the animation
-     */
-    public void restartWithNewConfiguration() {
-        reloadNewConfiguration();
-        startAnimation();
-    }
-
-    /**
-     * Reload configuration. If the animation was playing it continue the animation
-     * with the new configuration. Used only in setRainParticles() and
-     * setSnowParticles()
-     */
-    private void reloadNewConfiguration() {
-        setWeather(mCurrentWeather, mCurrentWeather == Constants.weatherStatus.RAIN ? mRainTime : mSnowTime, mFadeOutTime, mCurrentWeather == Constants.weatherStatus.RAIN ? mRainParticles : mSnowParticles, mFps, mCurrentWeather == Constants.weatherStatus.RAIN ? mRainAngle : mSnowAngle);
-    }
-
-    /**
-     * Added a Runnable in order to avoid error during the animation. This method
-     * wait until the view is loaded and then it plays the animation
-     */
-    public void startAnimation() {
         if (mParticleSystem != null) {
             this.post(new Runnable() {
                 @Override
@@ -263,17 +217,21 @@ public class WeatherView extends View {
     }
 
     /**
-     * Stop the animation.
+     * Stop the animation. If there are some particles playing the animation
+     * they wouldn't stopped by this method.
+     *
+     * @return the current WeatherView instance
      */
-    public void cancelAnimation() {
+    public WeatherView cancelAnimation() {
         if (mParticleSystem != null) {
             mParticleSystem.cancel();
             isPlaying = false;
         }
+        return this;
     }
 
     /**
-     * Pause the animation. If there are some particles playing the animation
+     * Stop the animation. If there are some particles playing the animation
      * they would not stopped by this method.
      */
     public void stopAnimation() {
@@ -284,27 +242,25 @@ public class WeatherView extends View {
     }
 
     /**
-     * This method set the rain life time of the animation. If the animation is playing, it is stopped.
-     * After called one of this method the animation must be restarted manually with 7
-     * restartWithNewConfiguration() method.
+     * This method set the rain life time of the animation.
      *
      * @param rainTime must be greater or equal than 0, if set to a negative
      *                 value it is set to Constants.rainTime
      */
-    public void setRainTime(int rainTime) {
+    private void setRainTime(int rainTime) {
         this.mRainTime = rainTime >= 0 ? rainTime : Constants.rainTime;
     }
 
     /**
-     * This method set the fade out time of the animation in ms. If the animation is playing, it is stopped.
-     * After called one of this method the animation must be restarted manually with 7
-     * restartWithNewConfiguration() method.
+     * This method set the fade out time of the animation in ms.
      *
      * @param fadeOutTime must be greater or equal than 0, if set to a negative
      *                    value it is set to Constants.fadeOutTime
+     * @return the current WeatherView instance
      */
-    public void setFadeOutTime(int fadeOutTime) {
+    public WeatherView setFadeOutTime(int fadeOutTime) {
         this.mFadeOutTime = fadeOutTime >= 0 ? fadeOutTime : Constants.fadeOutTime;
+        return this;
     }
 
     /**
@@ -322,7 +278,7 @@ public class WeatherView extends View {
      * @return rainTime or snowTime in ms
      */
     public int getLifeTime() {
-        return (mCurrentWeather == Constants.weatherStatus.RAIN ? mRainTime : mSnowTime);
+        return (getCurrentWeather() == Constants.weatherStatus.RAIN ? mRainTime : mSnowTime);
     }
 
     /**
@@ -331,7 +287,7 @@ public class WeatherView extends View {
      * @return rainParticles or snowParticles
      */
     public int getParticles() {
-        return (mCurrentWeather == Constants.weatherStatus.RAIN ? mRainParticles : mSnowParticles);
+        return (getCurrentWeather() == Constants.weatherStatus.RAIN ? mRainParticles : mSnowParticles);
     }
 
 
@@ -341,52 +297,44 @@ public class WeatherView extends View {
      * @return angle of current animation
      */
     public int getAngle() {
-        return (mCurrentWeather == Constants.weatherStatus.RAIN ? mRainAngle : mSnowAngle);
+        return (getCurrentWeather() == Constants.weatherStatus.RAIN ? mRainAngle : mSnowAngle);
     }
 
     /**
-     * This method set the snow life time of the animation. If the animation is playing, it is stopped.
-     * After called one of this method the animation must be restarted manually with 7
-     * restartWithNewConfiguration() method.
+     * This method set the snow life time of the animation.
      *
      * @param snowTime must be greater or equal than 0, if set to a negative
      *                 value it is set to Constants.snowTime
      */
-    public void setSnowTime(int snowTime) {
+    private void setSnowTime(int snowTime) {
         this.mSnowTime = snowTime >= 0 ? snowTime : Constants.snowTime;
     }
 
     /**
-     * This method set the rain particles for second. If the animation is playing, it is stopped.
-     * After called one of this method the animation must be restarted manually with
-     * restartWithNewConfiguration() method.
+     * This method set the rain particles for second.
      *
      * @param rainParticles must be greater or equal than 0, if set to a negative
      *                      value it is set to Constants.rainParticles
      */
-    public void setRainParticles(int rainParticles) {
-        int prev = this.mRainParticles;
+    private void setRainParticles(int rainParticles) {
         this.mRainParticles = rainParticles >= 0 ? rainParticles : Constants.rainParticles;
-        //MUST RELOAD --> avoid issue
-        //  if (prev != this.mRainParticles)
-        //    reloadNewConfiguration();
     }
 
     /**
      * Set The fps of the animation. Default is 30. Max settable is 99 and min is 8
-     * If the animation is playing, it is stopped. After called one of this method the
-     * animation must be restarted manually with restartWithNewConfiguration() method.
+     * If the animation is playing, it is stopped.
      *
      * @param fps number of fps between 8 and 99
+     * @return the current WeatherView instance
      */
-    public void setFPS(int fps) {
+    public WeatherView setFPS(int fps) {
+        this.mFps = (fps > 7 && fps < 100) ? fps : Constants.fps;
+
+        //Must cancel in order to avoid overlapping with particles
         if (mParticleSystem != null) {
-            mParticleSystem.setFPS((fps > 7 && fps < 100) ? fps : Constants.fps);
-            this.mFps = (fps > 7 && fps < 100) ? fps : Constants.fps;
-            //Must cancel in order to avoid overlapping with particles
             cancelAnimation();
         }
-
+        return this;
     }
 
     /**
@@ -398,11 +346,21 @@ public class WeatherView extends View {
         return mFps;
     }
 
-    public void setRainAngle(int angle) {
+    /**
+     * Internal method for set the rain particle angle
+     *
+     * @param angle
+     */
+    private void setRainAngle(int angle) {
         this.mRainAngle = angle > -181 && angle < 181 ? angle : Constants.rainAngle;
     }
 
-    public void setSnowAngle(int angle) {
+    /**
+     * Internal method for set the snow particle angle
+     *
+     * @param angle
+     */
+    private void setSnowAngle(int angle) {
         this.mSnowAngle = angle > -181 && angle < 181 ? angle : Constants.snowAngle;
     }
 
@@ -418,18 +376,12 @@ public class WeatherView extends View {
 
     /**
      * This method set the snow particles for second.
-     * If the animation is playing, it is stopped. After called one of this method the
-     * animation must be restarted manually with restartWithNewConfiguration() method.
      *
      * @param snowParticles must be greater or equal than 0, if set to a negative
      *                      value it is set to Constants.rainParticles
      */
-    public void setSnowParticles(int snowParticles) {
-        int prev = this.mSnowParticles;
+    private void setSnowParticles(int snowParticles) {
         this.mSnowParticles = snowParticles >= 0 ? snowParticles : Constants.snowParticles;
-        //MUST RELOAD --> avoid issue
-        //   if (prev != this.mSnowParticles)
-        //    reloadNewConfiguration();
     }
 
     /**
@@ -443,8 +395,10 @@ public class WeatherView extends View {
 
     /**
      * Restore to the default configuration settings
+     *
+     * @return the current WeatherView instance
      */
-    public void resetConfiguration() {
+    public WeatherView resetConfiguration() {
         setRainTime(-1);
         setFadeOutTime(-1);
         setSnowTime(-1);
@@ -453,6 +407,7 @@ public class WeatherView extends View {
         setFPS(-1);
         setRainAngle(-200);
         setSnowAngle(-200);
+        return this;
     }
 
 

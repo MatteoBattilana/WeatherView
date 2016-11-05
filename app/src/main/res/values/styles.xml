@@ -2,6 +2,7 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+
         <item name="colorAccent">#ffffff</item>
         <item name="android:textColorPrimary">#ffffff</item>
         <item name="android:windowContentOverlay">@null</item>
