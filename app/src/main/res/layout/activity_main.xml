@@ -10,10 +10,11 @@
         android:id="@+id/weater"
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        app:angle="-3"
         app:fadeOutTime="1000"
         app:fps="40"
-        app:angle="-3"
         app:lifeTime="2200"
+        app:numParticles="55"
         app:startingWeather="RAIN" />
 
     <LinearLayout

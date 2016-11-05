@@ -5,7 +5,7 @@
 You can also download <a href="https://github.com/MatteoBattilana/WeatherView/raw/master/app/app-release.apk">WeaterView Library Demo apk</a> to check out what can be done with it.
 
 #WeatherView
-> If you are interested in extra functions please pay attention to the [WeatherView Beta](#beta) version. 
+> Starting from the 1.1.0 version this library is using a different setter structure. Please look at the above documentation
 
 WeatherView is an Android Library that helps you make a cool weather animation for your app.<br/>
 This library is based on this <a href="https://github.com/plattysoft/Leonids">Leonids</a> library.
@@ -13,7 +13,8 @@ This library is based on this <a href="https://github.com/plattysoft/Leonids">Le
 
 
 <div  align="center" width="100%">
-<img src="https://github.com/MatteoBattilana/WeatherView/blob/master/Screenshot/home.gif" width="250"/>
+<iframe width="420" height="720" src="https://www.youtube.com/embed/ub0j1QhvtCA">
+</iframe>
 </div>
 
 
@@ -27,7 +28,7 @@ repositories {
 }
 
 dependencies {
-	compile 'com.github.MatteoBattilana:WeatherView:1.0.10'
+	compile 'com.github.MatteoBattilana:WeatherView:1.1.0'
 }
 ```
 
@@ -35,7 +36,7 @@ dependencies {
 
 By default the WeatherView is set to SUN, no animation is showed.
 It is possible to change or initialize the weather status with the **setWeather(weatherStatus)** method.<br/>
-The animation is stopped by default and must be started with **startAnimation()**. When the animation is playing and the previous method is called the animation is stopped and must be restarted.WeatherView requires minSDK 14.
+The animation is stopped by default and must be started with **startAnimation()**. When the animation is playing and the previous method is called the animation is stopped and must be restarted. WeatherView requires minSDK 14.
 <br/>
 You can check the <a href="https://github.com/MatteoBattilana/WeatherView/tree/master/app/">WeatherView Demo Library source code</a>.
 
@@ -50,8 +51,13 @@ public class MainActivity extends Activity {
 
         WeatherView mWeatherView = (WeatherView) findViewById(R.id.weather);
         //Optional
-        mWeatherView.setWeather(Constants.weatherStatus.RAIN);
-        mWeatherView.startAnimation();
+        mWeatherView.setWeather(Constants.weatherStatus.RAIN)
+                    .setLifeTime(2000)
+                    .setFadeOutTime(1000)
+                    .setParticles(43)
+                    .setFPS(60)
+                    .setAngle(-5);
+                    .startAnimation();
     }
 }
 ```
@@ -63,48 +69,56 @@ Include WeatherView into activity_main.xml
         android:id="@+id/weater"
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        app:angle="-3"
         app:fadeOutTime="1000"
-        app:lifeTime="3000"
-        app:startingWeather="RAIN" />
+        app:fps="40"
+        app:lifeTime="2200"
+        app:numParticles="55"
+        app:startingWeather="RAIN"/>
 ```
 
 
 It also allows xml customization with the follow attributes:
 
 ``` Xml
-		app:fadeOutTime="int"
+		app:angle="int"
+        app:fadeOutTime="int"
+        app:fps="int"
         app:lifeTime="int"
-		app:numParticles="int"
+        app:numParticles="int"
         app:startingWeather="{RAIN,SNOW,SUN}"
 ```
-
-* **lifeTime** is the falling time of a single particle. After this time the particle stop exist.
-* **fadeOutTime** during lifeTime the particle starts to fade out. This fade out animation lasts the specified duration.
-* **numParticles** number of particle for a second.
+* **angle** is the angle of the single particle, 0 is perpendicular to the ground. This value must be greater than -180 and less than 180.
+* **fps** must be greater than 7 and less than 100.
+* **lifeTime** is the falling time of a single particle. After this time the particle stop exist. Must be greater than 0.
+* **fadeOutTime** during lifeTime the particle starts to fade out. This fade out animation lasts the specified duration. Must be greater than 0.
+* **numParticles** number of particle for a second. Must be grather than 0.
 * **startingWeather** you can specify the stating weather status but **startAnimation()** MUST BE CALLED.
 
 ##Available Methods
 List of the methods available on the class WeatherView.
+> Since from 1.1.0 there is only one constructor.
+
 ###Configuration
 Available methods for the configuration are:
-* *setWeather(weatherStatus mWeatherStatus, int lifeTime, int fadeOutTime, int numParticles)*
-* *setWeather(weatherStatus mWeatherStatus, int lifeTime, int fadeOutTime)*
-* *setWeather(weatherStatus mWeatherStatus, int lifeTime)*
 * *setWeather(weatherStatus mWeatherStatus)*: RAIN, SUN or SNOW.
+* *setLifeTime(int time)* Set the time of the current animation showed
+* *getLifeTime()*
+* *setFadeOutTime(int fadeOutTime)* Set the fadeOutTime to the all animation
+* *getFadeOutTime()*
+* *setParticles(int particles)* Set the particles of the current animation showed
+* *getParticles()*
+* *setAngle(int angle)* Set the angle of every single particle of the current animation showed 
+* *getAngle()*
+* *setFPS(int fps)* once you call this method the animation is atomatically stopped by default with the **cancelAnimation()** method.
+* *getFPS()*
 * *startAnimation()*
 * *stopAnimation()* Stops the emission of new particles, but the active ones are updated.
 * *cancelAnimation()* Stops the emission of new particles, the active ones are stopped and cancelled.
-* *setRainTime(int rainTime)*
-* *setSnowTime(int snowTime)*
-* *setFadeOutTime(int fadeOutTime)*
-* *setRainParticles(int rainParticles)*
-* *setSnowParticles(int snowParticles)*
-* *resetConfiguration()*
-* *restartWithNewConfiguration()*
-* *isPlaying()*
+* *getCurrentWeather()*
+* *isPlaying()* 
+* *resetConfiguration()* Reset all the values to the default values
 
-Only with **setSnowParticles(int snowParticles)** and **setRainParticles(int rainParticles)** the animation is restarted if was playing.
-The other setter must be reloaded on the animation with **restartWithNewConfiguration()** method.
 
 ##License details
 Copyright 2016 Matteo Battilana
@@ -122,66 +136,6 @@ Copyright 2016 Matteo Battilana
 
 
 > The library is Free Software, you can use it, extended with no requirement to open source your changes. You can also make paid apps using it.
-
-#Beta
-###Beta Screenshot
-<div  align="center" width="100%">
-<img src="https://github.com/MatteoBattilana/WeatherView/blob/localLibrary/Screenshot/beta.png" width="250"/>
-</div>
-
-###Android Studio / grandle
-
-Add the following dependency to the **build.gradle** of your project:
-
-``` 
-repositories {
-    maven { url = 'https://jitpack.io' }
-}
-
-dependencies {
-    compile 'com.github.MatteoBattilana:WeatherView:1.0.10.11'
-}
-```
-
-> Please note that this is a beta version which is
-still undergoing final testing. It may contains bugs.
-
-###New feature
-
-It seems "TIMMERTASK_INTERVAL" in ParticaleSystem in Leonids library is set with a value to high. In this **beta** it is set to 33, about 30fps.
-
-Now is possible to set the animation fps with the **setFPS(int fps)** method. It is possible also to set it in the xml:
-
-``` Xml
- <xyz.matteobattilana.library.WeatherView
- 		xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/weater"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        app:fadeOutTime="1000"
-        app:fps="40"
-        app:lifeTime="2200"
-        app:startingWeather="RAIN"
-        app:angle="6"/>
-```
-
-**Changed**:
-* *reloadNewConfiguration()* stop the animation and does not resume it.
-* *resetConfiguration()* now it set the fps to the default value.
-* *setFPS(int fps)* once you call this method the animation is atomatically stopped by default with the **cancelAnimation()** method. Like on the other setters in order to restart the animation you must call **restartWithNewConfiguration()**.
-
-**Added**:
-* *setWeather(weatherStatus mWeatherStatus, int lifeTime, int fadeOutTime, int numParticles, int fps, int angle)*
-* *setWeather(weatherStatus mWeatherStatus, int lifeTime, int fadeOutTime, int numParticles, int fps)*
-* *reloadNewConfiguration()*
-* *getFadeOutTime()*
-* *getLifeTime()*
-* *getParticles()*
-* *getFPS()*
-* *setFPS(int fps)*
-* *setAngle(int angle)* 
-* *getAngle()*
-* *getCurrentWeather()*
 
 ##Screenshot
 
