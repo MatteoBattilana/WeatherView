@@ -7,7 +7,7 @@
     tools:context="xyz.matteobattilana.weatherview.MainActivity">
 
     <xyz.matteobattilana.library.WeatherView xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/weater"
+        android:id="@+id/weather"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         app:angle="-3"

@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
 
     private void init() {
         //WeatherView
-        mWeatherView = (WeatherView) findViewById(R.id.weater);
+        mWeatherView = (WeatherView) findViewById(R.id.weather);
 
         //SeekBar
         fps = (SeekBar) findViewById(R.id.fps);

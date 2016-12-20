@@ -16,4 +16,5 @@ public class Constants {
 
     public static int rainAngle = -6;
     public static int snowAngle = 0;
+
 }
