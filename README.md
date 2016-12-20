@@ -72,7 +72,7 @@ Include WeatherView into activity_main.xml
 ``` Xml
 <xyz.matteobattilana.library.WeatherView
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/weater"
+        android:id="@+id/weather"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         app:angle="-3"
@@ -87,7 +87,7 @@ Include WeatherView into activity_main.xml
 It also allows xml customization with the follow attributes:
 
 ``` Xml
-		app:angle="int"
+        app:angle="int"
         app:fadeOutTime="int"
         app:fps="int"
         app:lifeTime="int"
