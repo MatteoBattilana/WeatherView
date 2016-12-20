@@ -36,6 +36,8 @@ public class WeatherView extends View {
     Activity mActivity;
     boolean isPlaying = false;
 
+    
+
 
     /**
      * This method initialize the WeatherView to SUN. No animation is showed.
