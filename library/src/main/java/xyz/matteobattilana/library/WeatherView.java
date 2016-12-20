@@ -4,6 +4,10 @@ package xyz.matteobattilana.library;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
@@ -36,7 +40,26 @@ public class WeatherView extends View {
     Activity mActivity;
     boolean isPlaying = false;
 
-    
+    /*
+    HugoGresse: It will be awesome to add gravity to each particle.
+    Changing angle is a quick idea but by adding an independant gravity using device sensor on each
+    particle we will respond perfectly and the animation will also be perfect.
+    */
+
+    private boolean isOrientationActive = Constants.isOrientationActive;
+    int lastAngle = -1;
+    // Gravity rotational data
+    private float gravity[];
+    // Magnetic rotational data
+    private float magnetic[]; //for magnetic rotational data
+    private float accels[] = new float[3];
+    private float mags[] = new float[3];
+    private float[] values = new float[3];
+
+    // azimuth, pitch and roll
+    private float azimuth;
+    private float pitch;
+    private float roll;
 
 
     /**
@@ -58,6 +81,11 @@ public class WeatherView extends View {
 
             initOptions(context, attrs);
         }
+
+        //test add acc
+        SensorManager sManager = (SensorManager) mContext.getSystemService(mContext.SENSOR_SERVICE);
+        sManager.registerListener(mySensorEventListener, sManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
+        sManager.registerListener(mySensorEventListener, sManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD), SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     /**
@@ -71,6 +99,7 @@ public class WeatherView extends View {
     private void initOptions(Context context, AttributeSet attrs) {
         TypedArray typedArray = context.getTheme().obtainStyledAttributes(attrs, R.styleable.WeatherView, 0, 0);
         int startingWeather, lifeTime, fadeOutTime, numParticles, fps, angle;
+        boolean isOrientationActive;
         try {
             //Defatul 0 --> SUN
             startingWeather = typedArray.getInt(R.styleable.WeatherView_startingWeather, 0);
@@ -81,6 +110,7 @@ public class WeatherView extends View {
             numParticles = typedArray.getInt(R.styleable.WeatherView_numParticles, -1);
             fps = typedArray.getInt(R.styleable.WeatherView_fps, -1);
             angle = typedArray.getInt(R.styleable.WeatherView_angle, -200);
+            isOrientationActive = typedArray.getBoolean(R.styleable.WeatherView_orientationActive, false);
 
             //MUST CALL INSIDE TRY CATCH
             setWeather(Constants.weatherStatus.values()[startingWeather])
@@ -88,6 +118,7 @@ public class WeatherView extends View {
                     .setFadeOutTime(fadeOutTime)
                     .setParticles(numParticles)
                     .setFPS(fps)
+                    .setIsOrientationActive(isOrientationActive)
                     .setAngle(angle);
 
         } finally {
@@ -146,7 +177,7 @@ public class WeatherView extends View {
      * Set the number of particles during the animation
      *
      * @param numParticles must be greater or equal than 0, if set to a negative
-     *                      value it is set to Constants.rainParticles / Constants.snowParticles
+     *                     value it is set to Constants.rainParticles / Constants.snowParticles
      * @return the current WeatherView instance
      */
     public WeatherView setParticles(int numParticles) {
@@ -396,6 +427,26 @@ public class WeatherView extends View {
     }
 
     /**
+     * Enable or disable auto orientation with gyro and acc sensor
+     *
+     * @param isOrientationActive enable or disable auto orientation with gyro and acc sensor
+     * @return the current WeatherView instance
+     */
+    public WeatherView setIsOrientationActive(boolean isOrientationActive) {
+        this.isOrientationActive = isOrientationActive;
+        return this;
+    }
+
+    /**
+     * Return true if the auto orientation is enabled
+     *
+     * @return true if the auto orientation is enabled
+     */
+    public boolean getIsOrientationActive() {
+        return isOrientationActive;
+    }
+
+    /**
      * Restore to the default configuration settings
      *
      * @return the current WeatherView instance
@@ -410,6 +461,64 @@ public class WeatherView extends View {
         setRainAngle(-200);
         setSnowAngle(-200);
         return this;
+    }
+
+
+    //Must put in a separate class
+
+    private SensorEventListener mySensorEventListener = new SensorEventListener() {
+        public void onAccuracyChanged(Sensor sensor, int accuracy) {
+        }
+
+        public void onSensorChanged(SensorEvent event) {
+            switch (event.sensor.getType()) {
+                case Sensor.TYPE_MAGNETIC_FIELD:
+                    mags = event.values;
+                    break;
+                case Sensor.TYPE_ACCELEROMETER:
+                    accels = event.values;
+                    break;
+            }
+
+            if (mags != null && accels != null) {
+                gravity = new float[9];
+                magnetic = new float[9];
+                SensorManager.getRotationMatrix(gravity, magnetic, accels, mags);
+                float[] outGravity = new float[9];
+                SensorManager.remapCoordinateSystem(gravity, SensorManager.AXIS_X, SensorManager.AXIS_Z, outGravity);
+                SensorManager.getOrientation(outGravity, values);
+
+                azimuth = values[0] * 57.2957795f;
+                pitch = values[1] * 57.2957795f;
+                roll = values[2] * 57.2957795f;
+                roll += 90;
+                mags = null;
+                accels = null;
+                updateOrientation((int) roll);
+
+            }
+        }
+    };
+
+
+    /**
+     * Internal method for update the distance
+     *
+     * @param angle
+     */
+
+    private void updateOrientation(int angle) {
+
+        if (angle > 90 && Math.abs(angle - 90) >= Constants.angleRangeRead)
+            angle = 90 + Constants.angleRangeRead;
+        else if (angle < 90 && Math.abs(angle - 90) >= 20)
+            angle = 90 - Constants.angleRangeRead;
+        if (Math.abs(angle - lastAngle) > Constants.angleRangeUpdate) {
+            mParticleSystem.setSpeedModuleAndAngleRange(0.05f, 0.1f, 180 - angle, 180 - angle);
+            mParticleSystem.updateAngle(90 - angle);
+            lastAngle = angle;
+        }
+
     }
 
 

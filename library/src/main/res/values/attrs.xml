@@ -12,5 +12,6 @@
         <attr name="numParticles" format="integer"/>
         <attr name="fps" format="integer"/>
         <attr name="angle" format="integer"/>
+        <attr name="orientationActive" format="boolean"/>
     </declare-styleable>
 </resources>
