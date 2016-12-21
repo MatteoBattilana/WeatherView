@@ -17,7 +17,7 @@ public class Constants {
     public static int rainAngle = -6;
     public static int snowAngle = 0;
 
-    public static boolean isOrientationActive = false;
+    public static boolean isOrientationActive = true;
     public static int angleRangeUpdate=3;
     public static int angleRangeRead=20;
 }

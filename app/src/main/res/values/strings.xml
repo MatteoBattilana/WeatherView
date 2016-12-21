@@ -11,4 +11,5 @@
     </string-array>
 
     <string name="git_icon">&#xf09b;</string>
+    <string name="enableorientation">enableOrientation</string>
 </resources>

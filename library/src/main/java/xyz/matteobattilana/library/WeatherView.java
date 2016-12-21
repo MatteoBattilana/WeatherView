@@ -4,10 +4,6 @@ package xyz.matteobattilana.library;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
@@ -47,19 +43,7 @@ public class WeatherView extends View {
     */
 
     private boolean isOrientationActive = Constants.isOrientationActive;
-    int lastAngle = -1;
-    // Gravity rotational data
-    private float gravity[];
-    // Magnetic rotational data
-    private float magnetic[]; //for magnetic rotational data
-    private float accels[] = new float[3];
-    private float mags[] = new float[3];
-    private float[] values = new float[3];
-
-    // azimuth, pitch and roll
-    private float azimuth;
-    private float pitch;
-    private float roll;
+    WeatherViewSensorEventListener mWeatherViewSensorEventListener;
 
 
     /**
@@ -80,13 +64,13 @@ public class WeatherView extends View {
             mActivity = (Activity) getContext();
 
             initOptions(context, attrs);
+
+            //intialize SensorEventListener
+            mWeatherViewSensorEventListener = new WeatherViewSensorEventListener(mContext, this, isOrientationActive);
         }
 
-        //test add acc
-        SensorManager sManager = (SensorManager) mContext.getSystemService(mContext.SENSOR_SERVICE);
-        sManager.registerListener(mySensorEventListener, sManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
-        sManager.registerListener(mySensorEventListener, sManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD), SensorManager.SENSOR_DELAY_NORMAL);
     }
+
 
     /**
      * This method can set the startingWeather, lifeTime and fadeOutTime from
@@ -110,7 +94,7 @@ public class WeatherView extends View {
             numParticles = typedArray.getInt(R.styleable.WeatherView_numParticles, -1);
             fps = typedArray.getInt(R.styleable.WeatherView_fps, -1);
             angle = typedArray.getInt(R.styleable.WeatherView_angle, -200);
-            isOrientationActive = typedArray.getBoolean(R.styleable.WeatherView_orientationActive, false);
+            isOrientationActive = typedArray.getBoolean(R.styleable.WeatherView_orientationActive, Constants.isOrientationActive);
 
             //MUST CALL INSIDE TRY CATCH
             setWeather(Constants.weatherStatus.values()[startingWeather])
@@ -463,63 +447,19 @@ public class WeatherView extends View {
         return this;
     }
 
-
-    //Must put in a separate class
-
-    private SensorEventListener mySensorEventListener = new SensorEventListener() {
-        public void onAccuracyChanged(Sensor sensor, int accuracy) {
-        }
-
-        public void onSensorChanged(SensorEvent event) {
-            switch (event.sensor.getType()) {
-                case Sensor.TYPE_MAGNETIC_FIELD:
-                    mags = event.values;
-                    break;
-                case Sensor.TYPE_ACCELEROMETER:
-                    accels = event.values;
-                    break;
-            }
-
-            if (mags != null && accels != null) {
-                gravity = new float[9];
-                magnetic = new float[9];
-                SensorManager.getRotationMatrix(gravity, magnetic, accels, mags);
-                float[] outGravity = new float[9];
-                SensorManager.remapCoordinateSystem(gravity, SensorManager.AXIS_X, SensorManager.AXIS_Z, outGravity);
-                SensorManager.getOrientation(outGravity, values);
-
-                azimuth = values[0] * 57.2957795f;
-                pitch = values[1] * 57.2957795f;
-                roll = values[2] * 57.2957795f;
-                roll += 90;
-                mags = null;
-                accels = null;
-                updateOrientation((int) roll);
-
-            }
-        }
-    };
-
-
-    /**
-     * Internal method for update the distance
-     *
-     * @param angle
-     */
-
-    private void updateOrientation(int angle) {
-
-        if (angle > 90 && Math.abs(angle - 90) >= Constants.angleRangeRead)
-            angle = 90 + Constants.angleRangeRead;
-        else if (angle < 90 && Math.abs(angle - 90) >= 20)
-            angle = 90 - Constants.angleRangeRead;
-        if (Math.abs(angle - lastAngle) > Constants.angleRangeUpdate) {
-            mParticleSystem.setSpeedModuleAndAngleRange(0.05f, 0.1f, 180 - angle, 180 - angle);
-            mParticleSystem.updateAngle(90 - angle);
-            lastAngle = angle;
-        }
-
+    void updateAngle(int angle) {
+        mParticleSystem.setSpeedModuleAndAngleRange(0.05f, 0.1f, 180 - angle, 180 - angle);
+        mParticleSystem.updateAngle(90 - angle);
     }
 
+    public void enableOrientation() {
+        mWeatherViewSensorEventListener.start();
+        isOrientationActive = true;
+    }
+
+    public void disableOrientation() {
+        mWeatherViewSensorEventListener.stop();
+        isOrientationActive = false;
+    }
 
 }

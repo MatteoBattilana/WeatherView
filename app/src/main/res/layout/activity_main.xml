@@ -15,7 +15,8 @@
         app:fps="40"
         app:lifeTime="2200"
         app:numParticles="55"
-        app:startingWeather="RAIN" />
+        app:startingWeather="RAIN"
+        app:orientationActive="true"/>
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -177,7 +178,28 @@
                 android:max="60" />
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/orientationText"
+                android:layout_width="120dp"
+
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white" />
+
+
+            <Switch
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/enableorientation"
+                android:id="@+id/orientationSwitch"
+                android:layout_gravity="center_horizontal" />
+        </LinearLayout>
+
     </LinearLayout>
+
 
 
 </RelativeLayout>
