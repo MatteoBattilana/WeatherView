@@ -4,6 +4,7 @@ package xyz.matteobattilana.library;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
@@ -42,8 +43,26 @@ public class WeatherView extends View {
     particle we will respond perfectly and the animation will also be perfect.
     */
 
-    private boolean isOrientationActive = Constants.isOrientationActive;
+    private Constants.orientationStatus mOrientationMode = Constants.orientationStatus.ENABLE;
+
+    //For reading acc sensor
     WeatherViewSensorEventListener mWeatherViewSensorEventListener;
+
+    /**
+     * Use to get onPause and onResume interrupt to avid polling on acc sensor
+     *
+     * @param changedView
+     * @param visibility
+     */
+    @Override
+    protected void onVisibilityChanged(@NonNull View changedView, int visibility) {
+        super.onVisibilityChanged(changedView, visibility);
+        //Used to avoid issue during the design
+        if (!isInEditMode()) {
+            if (visibility == View.VISIBLE) resumeOrientation();
+            else pauseOrientation();
+        }
+    }
 
 
     /**
@@ -63,10 +82,12 @@ public class WeatherView extends View {
         if (!isInEditMode()) {
             mActivity = (Activity) getContext();
 
+            //intialize SensorEventListener
+            mWeatherViewSensorEventListener = new WeatherViewSensorEventListener(mContext, this, mOrientationMode);
+
             initOptions(context, attrs);
 
-            //intialize SensorEventListener
-            mWeatherViewSensorEventListener = new WeatherViewSensorEventListener(mContext, this, isOrientationActive);
+
         }
 
     }
@@ -82,8 +103,7 @@ public class WeatherView extends View {
      */
     private void initOptions(Context context, AttributeSet attrs) {
         TypedArray typedArray = context.getTheme().obtainStyledAttributes(attrs, R.styleable.WeatherView, 0, 0);
-        int startingWeather, lifeTime, fadeOutTime, numParticles, fps, angle;
-        boolean isOrientationActive;
+        int startingWeather, lifeTime, fadeOutTime, numParticles, fps, angle, startingOrientation;
         try {
             //Defatul 0 --> SUN
             startingWeather = typedArray.getInt(R.styleable.WeatherView_startingWeather, 0);
@@ -94,7 +114,8 @@ public class WeatherView extends View {
             numParticles = typedArray.getInt(R.styleable.WeatherView_numParticles, -1);
             fps = typedArray.getInt(R.styleable.WeatherView_fps, -1);
             angle = typedArray.getInt(R.styleable.WeatherView_angle, -200);
-            isOrientationActive = typedArray.getBoolean(R.styleable.WeatherView_orientationActive, Constants.isOrientationActive);
+
+            startingOrientation = typedArray.getInt(R.styleable.WeatherView_orientationMode, 0);
 
             //MUST CALL INSIDE TRY CATCH
             setWeather(Constants.weatherStatus.values()[startingWeather])
@@ -102,7 +123,7 @@ public class WeatherView extends View {
                     .setFadeOutTime(fadeOutTime)
                     .setParticles(numParticles)
                     .setFPS(fps)
-                    .setIsOrientationActive(isOrientationActive)
+                    .setOrientationMode(Constants.orientationStatus.values()[startingOrientation])
                     .setAngle(angle);
 
         } finally {
@@ -410,24 +431,14 @@ public class WeatherView extends View {
         return isPlaying;
     }
 
-    /**
-     * Enable or disable auto orientation with gyro and acc sensor
-     *
-     * @param isOrientationActive enable or disable auto orientation with gyro and acc sensor
-     * @return the current WeatherView instance
-     */
-    public WeatherView setIsOrientationActive(boolean isOrientationActive) {
-        this.isOrientationActive = isOrientationActive;
-        return this;
-    }
 
     /**
-     * Return true if the auto orientation is enabled
+     * Return the current orientation mode
      *
-     * @return true if the auto orientation is enabled
+     * @return the current orientation mode
      */
-    public boolean getIsOrientationActive() {
-        return isOrientationActive;
+    public Constants.orientationStatus getOrientationMode() {
+        return mOrientationMode;
     }
 
     /**
@@ -447,19 +458,53 @@ public class WeatherView extends View {
         return this;
     }
 
+    /**
+     * Internal method to change che particle angle
+     *
+     * @param angle in degrees
+     */
     void updateAngle(int angle) {
         mParticleSystem.setSpeedModuleAndAngleRange(0.05f, 0.1f, 180 - angle, 180 - angle);
         mParticleSystem.updateAngle(90 - angle);
     }
 
-    public void enableOrientation() {
-        mWeatherViewSensorEventListener.start();
-        isOrientationActive = true;
+    /**
+     * This method allow to set if the particle change their direction based on the phone orientation
+     *
+     * @param orientationMode can be ENABLE or DISABLE
+     * @return current instance of WeatherView
+     */
+    public WeatherView setOrientationMode(Constants.orientationStatus orientationMode) {
+        mOrientationMode = orientationMode;
+
+        switch (orientationMode) {
+            case ENABLE:
+                mWeatherViewSensorEventListener.start();
+                break;
+            case DISABLE:
+                mWeatherViewSensorEventListener.stop();
+                break;
+        }
+        return this;
     }
 
-    public void disableOrientation() {
-        mWeatherViewSensorEventListener.stop();
-        isOrientationActive = false;
+    /**
+     * Use to resume the animation when the onResume method is called.
+     * I made this to avoid polling on accelerometer
+     */
+    private void resumeOrientation() {
+        if (mOrientationMode != null && mOrientationMode == Constants.orientationStatus.ENABLE)
+            mWeatherViewSensorEventListener.start();
+
+    }
+
+    /**
+     * Use to pause the animation when the onPause method is called.
+     * I made this to avoid polling on accelerometer
+     */
+    private void pauseOrientation() {
+        if (mWeatherViewSensorEventListener != null)
+            mWeatherViewSensorEventListener.stop();
     }
 
 }

@@ -5,7 +5,6 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.util.Log;
 
 import xyz.matteobattilana.library.Common.Constants;
 
@@ -33,23 +32,35 @@ public class WeatherViewSensorEventListener implements SensorEventListener {
     Context mContext;
     SensorManager sManager;
 
-    public WeatherViewSensorEventListener(Context mContext, WeatherView mWeatherView, boolean start) {
+
+    public WeatherViewSensorEventListener(Context mContext, WeatherView mWeatherView, Constants.orientationStatus start) {
         this.mWeatherView = mWeatherView;
         this.mContext = mContext;
         init(start);
     }
 
-    private void init(boolean start) {
+    /**
+     * Called on initialization of this class. If it is ENABLE, it starts
+     *
+     * @param start the orientation mode
+     */
+    private void init(Constants.orientationStatus start) {
         //test add acc
         sManager = (SensorManager) mContext.getSystemService(mContext.SENSOR_SERVICE);
-        if (start)
+        if (start == Constants.orientationStatus.ENABLE)
             start();
     }
 
+    /**
+     * Interface method for WeatherView to stop the fuction
+     */
     void stop() {
         sManager.unregisterListener(this);
     }
 
+    /**
+     * Interface method for WeatherView to start the fuction
+     */
     void start() {
         sManager.registerListener(this, sManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
         sManager.registerListener(this, sManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD), SensorManager.SENSOR_DELAY_NORMAL);
@@ -89,13 +100,11 @@ public class WeatherViewSensorEventListener implements SensorEventListener {
     }
 
     /**
-     * Internal method for update the distance
+     * Internal method for update the angle, and set the changes to the WeatherView instance
      *
      * @param angle
      */
-
     private void updateOrientation(int angle) {
-        Log.e("ASD", angle + "a");
 
         if (angle > 90 && Math.abs(angle - 90) >= Constants.angleRangeRead)
             angle = 90 + Constants.angleRangeRead;

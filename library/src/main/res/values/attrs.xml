@@ -2,16 +2,19 @@
 <resources>
     <declare-styleable name="WeatherView">
         <attr name="startingWeather" format="enum">
-            <enum name="SUN" value="2"/>
-            <enum name="RAIN" value="0"/>
-            <enum name="SNOW" value="1"/>
+            <enum name="SUN" value="2" />
+            <enum name="RAIN" value="0" />
+            <enum name="SNOW" value="1" />
         </attr>
-        <attr name="lifeTime" format="integer"/>
-        <attr name="fadeOutTime" format="integer"/>
+        <attr name="lifeTime" format="integer" />
+        <attr name="fadeOutTime" format="integer" />
 
-        <attr name="numParticles" format="integer"/>
-        <attr name="fps" format="integer"/>
-        <attr name="angle" format="integer"/>
-        <attr name="orientationActive" format="boolean"/>
+        <attr name="numParticles" format="integer" />
+        <attr name="fps" format="integer" />
+        <attr name="angle" format="integer" />
+        <attr name="orientationMode" format="enum">
+            <enum name="ENABLE" value="0" />
+            <enum name="DISABLE" value="1" />
+        </attr>
     </declare-styleable>
 </resources>

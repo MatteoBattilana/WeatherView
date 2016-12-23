@@ -5,6 +5,8 @@ package xyz.matteobattilana.library.Common;
  */
 public class Constants {
     public static enum weatherStatus {RAIN, SNOW, SUN};
+    public static enum orientationStatus {ENABLE, DISABLE};
+
     public static int rainTime = 2200;
     public static int snowTime = 4000;
     public static int fadeOutTime = 200;
@@ -18,6 +20,6 @@ public class Constants {
     public static int snowAngle = 0;
 
     public static boolean isOrientationActive = true;
-    public static int angleRangeUpdate=3;
-    public static int angleRangeRead=20;
+    public static int angleRangeUpdate = 3;
+    public static int angleRangeRead = 20;
 }

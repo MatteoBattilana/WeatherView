@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -24,6 +23,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
     SeekBar fps, fadeOutTime, lifeTime, particles, angle;
     TextView fpsText, fadeOutTimeText, lifeTimeText, particlesText, angleText;
     Switch orientation;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         LinearLayout linear_git = (LinearLayout) findViewById(R.id.linear_git);
 
         //Switch orientation
-        orientation = (Switch)findViewById(R.id.orientationSwitch);
+        orientation = (Switch) findViewById(R.id.orientationSwitch);
 
         //Init
         mWeatherView.startAnimation();
@@ -113,10 +113,8 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         orientation.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked)
-                    mWeatherView.enableOrientation();
-                else
-                    mWeatherView.disableOrientation();
+                mWeatherView.setOrientationMode(isChecked ? Constants.orientationStatus.ENABLE : Constants.orientationStatus.DISABLE);
+                reloadSeek();
             }
         });
 
@@ -130,7 +128,9 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         lifeTime.setProgress(mWeatherView.getLifeTime());
         particles.setProgress(mWeatherView.getParticles());
         angle.setProgress(mWeatherView.getAngle() + 30);
-        orientation.setChecked(mWeatherView.getIsOrientationActive());
+        orientation.setChecked(mWeatherView.getOrientationMode() == Constants.orientationStatus.ENABLE);
+        angle.setEnabled(mWeatherView.getOrientationMode() == Constants.orientationStatus.DISABLE);
+
 
         //set seekbar text
         fadeOutTimeText.setText("fadeOutTime: " + mWeatherView.getFadeOutTime() + " ms\t");
