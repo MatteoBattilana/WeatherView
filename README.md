@@ -14,7 +14,7 @@ You can also download <a href="https://github.com/MatteoBattilana/WeatherView/ra
 > Starting from the 1.1.0 version this library is using a different setter structure. Please look at the above documentation
 
 WeatherView is an Android Library that helps you make a cool weather animation for your app.<br/>
-This library is based on this <a href="https://github.com/plattysoft/Leonids">Leonids</a> library.
+This library is based on a modified version of <a href="https://github.com/plattysoft/Leonids">Leonids</a> library.
 
 
 
@@ -58,12 +58,12 @@ public class MainActivity extends Activity {
         WeatherView mWeatherView = (WeatherView) findViewById(R.id.weather);
         //Optional
         mWeatherView.setWeather(Constants.weatherStatus.RAIN)
-                    .setLifeTime(2000)
-                    .setFadeOutTime(1000)
-                    .setParticles(43)
-                    .setFPS(60)
-                    .setAngle(-5);
-                    .startAnimation();
+        			.setLifeTime(2000)
+                	.setFadeOutTime(1000)
+        			.setParticles(43)
+                	.setFPS(60)
+                	.setAngle(-5)
+                	.startAnimation();
     }
 }
 ```
@@ -116,7 +116,7 @@ Available methods for the configuration are:
 * *getParticles()*
 * *setAngle(int angle)* Set the angle of every single particle of the current animation showed 
 * *getAngle()*
-* *setFPS(int fps)* once you call this method the animation is atomatically stopped by default with the **cancelAnimation()** method.
+* *setFPS(int fps)* Once you call this method the animation is atomatically stopped by default with the **cancelAnimation()** method.
 * *getFPS()*
 * *startAnimation()*
 * *stopAnimation()* Stops the emission of new particles, but the active ones are updated.
@@ -143,7 +143,84 @@ Copyright 2016 Matteo Battilana
 
 > The library is Free Software, you can use it, extended with no requirement to open source your changes. You can also make paid apps using it.
 
+#Beta
+Added a new feature asked in this [**Improvement**](ttps://github.com/MatteoBattilana/WeatherView/issues/2).
+> It will be awesome to add gravity to each particle.
+Changing angle is a quick idea but by adding an independant gravity using device sensor on each particle we will respond perfectly and the animation will also be perfect.
 
+You can also download <a href="https://github.com/MatteoBattilana/WeatherView/raw/OrientationSensor/app/app-release.apk">WeaterView Library Demo Beta apk</a> to check out this new feature.
+
+
+
+###Android Studio / grandle
+
+Add the following dependency to the **build.gradle** of your project:
+
+``` 
+repositories {
+    maven { url = 'https://jitpack.io' }
+}
+
+dependencies {
+    compile 'com.github.MatteoBattilana:WeatherView:1.1.0.2'
+}
+```
+
+> Please note that this is a beta version which is
+still undergoing final testing. It may contains bugs.
+
+###New feature
+Now each single particle can rotate in real time with the same phone *roll* angle. In order to avoid useless execution of code, I've added an haldler for *onPause()* and *onResume()* inside the WeatherView View. This methods are called when the visibilty on this View changes. By **default** it is active. You can change this programmatically with *setOrientationMode(orientationStatus mOrientationMode)* or via xml.<br/><br/>It is possible also to set this mode directly from the xml with the *orientationMode* attribute. There are only two options: **ENABLE** and **DISABLE**.
+Here a basic example:
+
+``` Java
+public class MainActivity extends Activity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        WeatherView mWeatherView = (WeatherView) findViewById(R.id.weather);
+        //Optional
+        mWeatherView.setWeather(Constants.weatherStatus.RAIN)
+                    .setLifeTime(2000)
+                    .setFadeOutTime(1000)
+                    .setParticles(43)
+                    .setFPS(60)
+                    .setAngle(-5)
+                	.setOrientationMode(Constants.orientationStatus.ENABLE)
+                    .startAnimation();
+    }
+}
+```
+
+
+``` Xml
+<xyz.matteobattilana.library.WeatherView 
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/weather"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="-100dp"
+        android:layout_marginRight="-100dp"
+        app:angle="-3"
+        app:fadeOutTime="1000"
+        app:fps="40"
+        app:lifeTime="2200"
+        app:numParticles="55"
+        app:orientationMode="ENABLE"
+        app:startingWeather="RAIN" />
+```
+
+##Available Methods
+List of the methods added to the Beta version.
+
+###Configuration
+* *setOrientationMode(orientationStatus mOrientationMode)* : ENABLE or DISABLE.
+* *getOrientationMode()* Return ENABLE if it is enabled, DISABLE else.
+ 
 
 ##Screenshot
 

@@ -11,7 +11,7 @@ import xyz.matteobattilana.library.Common.Constants;
 /**
  * Created by MatteoB on 21/12/2016.
  */
-public class WeatherViewSensorEventListener implements SensorEventListener {
+class WeatherViewSensorEventListener implements SensorEventListener {
     //Must put in a separate class
     int lastAngle = -1;
     // Gravity rotational data
@@ -33,7 +33,7 @@ public class WeatherViewSensorEventListener implements SensorEventListener {
     SensorManager sManager;
 
 
-    public WeatherViewSensorEventListener(Context mContext, WeatherView mWeatherView, Constants.orientationStatus start) {
+    WeatherViewSensorEventListener(Context mContext, WeatherView mWeatherView, Constants.orientationStatus start) {
         this.mWeatherView = mWeatherView;
         this.mContext = mContext;
         init(start);
