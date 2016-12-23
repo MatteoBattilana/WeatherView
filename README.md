@@ -62,7 +62,7 @@ public class MainActivity extends Activity {
                     .setFadeOutTime(1000)
                     .setParticles(43)
                     .setFPS(60)
-                    .setAngle(-5);
+                    .setAngle(-5)
                     .startAnimation();
     }
 }
