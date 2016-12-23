@@ -28,7 +28,7 @@ This library is based on a modified version of <a href="https://github.com/platt
 ###Android Studio / grandle
 Add the following dependency to the **build.gradle** of your project:
 
-``` 
+```
 repositories {
 	maven { url = 'https://jitpack.io' }
 }
@@ -58,21 +58,12 @@ public class MainActivity extends Activity {
         WeatherView mWeatherView = (WeatherView) findViewById(R.id.weather);
         //Optional
         mWeatherView.setWeather(Constants.weatherStatus.RAIN)
-<<<<<<< HEAD
-        			.setLifeTime(2000)
-                	.setFadeOutTime(1000)
-        			.setParticles(43)
-                	.setFPS(60)
-                	.setAngle(-5)
-                	.startAnimation();
-=======
                     .setLifeTime(2000)
                     .setFadeOutTime(1000)
                     .setParticles(43)
                     .setFPS(60)
                     .setAngle(-5)
                     .startAnimation();
->>>>>>> c0a8a4a3ec7654a76e22ca39bf5068b848055535
     }
 }
 ```
@@ -211,9 +202,6 @@ public class MainActivity extends Activity {
         android:id="@+id/weather"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="-100dp"
-        android:layout_marginRight="-100dp"
         app:angle="-3"
         app:fadeOutTime="1000"
         app:fps="40"
