@@ -183,9 +183,11 @@ public class WeatherView extends View {
                 break;
         }
 
-        mParticleSystem.setFPS(getFPS());
 
         if (mParticleSystem != null) {
+            
+            mParticleSystem.setFPS(getFPS());
+            
             this.post(new Runnable() {
                 @Override
                 public void run() {
