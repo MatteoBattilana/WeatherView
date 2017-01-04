@@ -115,7 +115,7 @@ public class WeatherView extends View {
             fps = typedArray.getInt(R.styleable.WeatherView_fps, -1);
             angle = typedArray.getInt(R.styleable.WeatherView_angle, -200);
 
-            startingOrientation = typedArray.getInt(R.styleable.WeatherView_orientationMode, 0);
+            startingOrientation = typedArray.getInt(R.styleable.WeatherView_orientationMode, Constants.isOrientationActive?0:1);
 
             //MUST CALL INSIDE TRY CATCH
             setWeather(Constants.weatherStatus.values()[startingWeather])
@@ -221,9 +221,11 @@ public class WeatherView extends View {
                 break;
         }
 
-        mParticleSystem.setFPS(getFPS());
 
         if (mParticleSystem != null) {
+
+            mParticleSystem.setFPS(getFPS());
+
             this.post(new Runnable() {
                 @Override
                 public void run() {

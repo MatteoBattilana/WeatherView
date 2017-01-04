@@ -162,7 +162,7 @@ repositories {
 }
 
 dependencies {
-    compile 'com.github.MatteoBattilana:WeatherView:1.1.0.2'
+    compile 'com.github.MatteoBattilana:WeatherView:1.1.0.3'
 }
 ```
 
@@ -170,7 +170,7 @@ dependencies {
 still undergoing final testing. It may contains bugs.
 
 ###New feature
-Now each single particle can rotate in real time with the same phone *roll* angle. In order to avoid useless execution of code, I've added an haldler for *onPause()* and *onResume()* inside the WeatherView View. This methods are called when the visibilty on this View changes. By **default** it is active. You can change this programmatically with *setOrientationMode(orientationStatus mOrientationMode)* or via xml.<br/><br/>It is possible also to set this mode directly from the xml with the *orientationMode* attribute. There are only two options: **ENABLE** and **DISABLE**.
+Now each single particle can rotate in real time with the same phone *roll* angle. In order to avoid useless execution of code, I've added an haldler for *onPause()* and *onResume()* inside the WeatherView View. This methods are called when the visibilty on this View changes. By **default** it is disabled. You can change this programmatically with *setOrientationMode(orientationStatus mOrientationMode)* or via xml.<br/><br/>It is possible also to set this mode directly from the xml with the *orientationMode* attribute. There are only two options: **ENABLE** and **DISABLE**.
 Here a basic example:
 
 ``` Java
