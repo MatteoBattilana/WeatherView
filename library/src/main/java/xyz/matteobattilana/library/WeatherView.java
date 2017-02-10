@@ -29,6 +29,8 @@ public class WeatherView extends View {
     private int mRainAngle = Constants.rainAngle;
     private int mSnowAngle = Constants.snowAngle;
 
+    private int mRainSrc = R.drawable.rain;
+    private int mSnowSrc = R.drawable.snow;
 
     private ParticleSystem mParticleSystem;
     private Constants.weatherStatus mCurrentWeather = Constants.weatherStatus.SUN;
@@ -68,7 +70,7 @@ public class WeatherView extends View {
      */
     private void initOptions(Context context, AttributeSet attrs) {
         TypedArray typedArray = context.getTheme().obtainStyledAttributes(attrs, R.styleable.WeatherView, 0, 0);
-        int startingWeather, lifeTime, fadeOutTime, numParticles, fps, angle;
+        int startingWeather, lifeTime, fadeOutTime, numParticles, fps, angle, rainSrc, snowSrc;
         try {
             //Defatul 0 --> SUN
             startingWeather = typedArray.getInt(R.styleable.WeatherView_startingWeather, 0);
@@ -79,6 +81,8 @@ public class WeatherView extends View {
             numParticles = typedArray.getInt(R.styleable.WeatherView_numParticles, -1);
             fps = typedArray.getInt(R.styleable.WeatherView_fps, -1);
             angle = typedArray.getInt(R.styleable.WeatherView_angle, -200);
+            rainSrc = typedArray.getResourceId(R.styleable.WeatherView_rain_src, R.drawable.rain);
+            snowSrc = typedArray.getResourceId(R.styleable.WeatherView_snow_src, R.drawable.snow);
 
             //MUST CALL INSIDE TRY CATCH
             setWeather(Constants.weatherStatus.values()[startingWeather])
@@ -86,13 +90,36 @@ public class WeatherView extends View {
                     .setFadeOutTime(fadeOutTime)
                     .setParticles(numParticles)
                     .setFPS(fps)
-                    .setAngle(angle);
+                    .setAngle(angle)
+                    .setRainSrc(rainSrc)
+                    .setSnowSrc(snowSrc);
 
         } finally {
             typedArray.recycle();
         }
     }
 
+    /**
+     * Set the id of rain drawable resource
+     *
+     * @param rainSrc is id of rain drawable resource
+     * @return the current WeatherView instance
+     */
+    public WeatherView setRainSrc(int rainSrc) {
+        mRainSrc = rainSrc;
+        return this;
+    }
+
+    /**
+     * Set the id of snow drawable resource
+     *
+     * @param snowSrc is id of snow drawable resource
+     * @return the current WeatherView instance
+     */
+    public WeatherView setSnowSrc(int snowSrc) {
+        mSnowSrc = snowSrc;
+        return this;
+    }
 
     /**
      * This constructor set the weather specifying the type
@@ -167,14 +194,14 @@ public class WeatherView extends View {
         stopAnimation();
         switch (getCurrentWeather()) {
             case RAIN:
-                mParticleSystem = new ParticleSystem(mActivity, mRainParticles * mRainTime / 1000, R.drawable.rain, mRainTime)
+                mParticleSystem = new ParticleSystem(mActivity, mRainParticles * mRainTime / 1000, mRainSrc, mRainTime)
                         .setAcceleration(0.00013f, 90 - mRainAngle)
                         .setInitialRotation(-mRainAngle)
                         .setSpeedByComponentsRange(0f, 0f, 0.05f, 0.1f)
                         .setFadeOut(this.mFadeOutTime, new AccelerateInterpolator());
                 break;
             case SNOW:
-                mParticleSystem = new ParticleSystem(mActivity, mSnowParticles * mSnowTime / 1000, R.drawable.snow, mSnowTime)
+                mParticleSystem = new ParticleSystem(mActivity, mSnowParticles * mSnowTime / 1000, mSnowSrc, mSnowTime)
                         .setSpeedByComponentsRange(0f, 0f, 0.05f, 0.1f)
                         .setInitialRotation(-mSnowAngle)
                         .setFadeOut(this.mFadeOutTime, new AccelerateInterpolator());
@@ -263,6 +290,24 @@ public class WeatherView extends View {
     public WeatherView setFadeOutTime(int fadeOutTime) {
         this.mFadeOutTime = fadeOutTime >= 0 ? fadeOutTime : Constants.fadeOutTime;
         return this;
+    }
+
+    /**
+     * Return id of rain drawable resource
+     *
+     * @return id of rain drawable resource
+     */
+    public int getRainSrc() {
+        return mRainSrc;
+    }
+
+    /**
+     * Return id of snow drawable resource
+     *
+     * @return id of snow drawable resource
+     */
+    public int getSnowSrc() {
+        return mSnowSrc;
     }
 
     /**
