@@ -58,9 +58,9 @@ public class MainActivity extends Activity {
         WeatherView mWeatherView = (WeatherView) findViewById(R.id.weather);
         //Optional
         mWeatherView.setWeather(Constants.weatherStatus.RAIN)
-        			.setLifeTime(2000)
+					.setLifeTime(2000)
                 	.setFadeOutTime(1000)
-        			.setParticles(43)
+					.setParticles(43)
                 	.setFPS(60)
                 	.setAngle(-5)
                 	.startAnimation();
@@ -189,7 +189,7 @@ public class MainActivity extends Activity {
                     .setParticles(43)
                     .setFPS(60)
                     .setAngle(-5)
-                	.setOrientationMode(Constants.orientationStatus.ENABLE)
+					.setOrientationMode(Constants.orientationStatus.ENABLE)
                     .startAnimation();
     }
 }
@@ -197,7 +197,7 @@ public class MainActivity extends Activity {
 
 
 ``` Xml
-<xyz.matteobattilana.library.WeatherView 
+<xyz.matteobattilana.library.WeatherView
 		xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/weather"
         android:layout_width="match_parent"
@@ -218,9 +218,28 @@ public class MainActivity extends Activity {
 List of the methods added to the Beta version.
 
 ### Configuration
-* *setOrientationMode(orientationStatus mOrientationMode)* : ENABLE or DISABLE.
-* *getOrientationMode()* Return ENABLE if it is enabled, DISABLE else.
- 
+* `setOrientationMode(orientationStatus mOrientationMode)` : ENABLE or DISABLE.
+* `getOrientationMode()` Return ENABLE if it is enabled, DISABLE else.
+* `setCurrentLifeTime(int time)` Set the time of the current animation showed
+* `setRainTime(int time)` Set the time to the rain animation
+* `setSnowTime(int time)` Set the time to the snow animation
+* `getRainTime()`
+* `getSnowTime()`
+* `setCurrentFadeOutTime(int fadeOutTime)` Set the fadeOutTime to the current animation
+* `setRainFadeOutTime(int fadeOutTime)` Set the fadeOutTime to the rain animation
+* `setSnowFadeOutTime(int fadeOutTime)` Set the fadeOutTime to the snow animation
+* `getRainFadeOutTime()`
+* `getSnowFadeOutTime()`
+* `setCurrentParticles(int particles)` Set the particles of the current animation showed
+* `setRainParticles(int particles)` Set the particles of the rain animation
+* `setSnowParticles(int particles)` Set the particles of the snow animation
+* `getRainParticles()`
+* `getSnowParticles()
+* `setCurrentAngle(int angle)` Set the angle of every single particle of the current animation showed 
+* `setRainAngle(int angle)` Set the angle of every single particle of the rain animation 
+* `setSnowAngle(int angle)` Set the angle of every single particle of the snow animation 
+* `getRainAngle()`
+* `getSnowAngle()`
 
 ## Screenshot
 
