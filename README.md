@@ -58,9 +58,9 @@ public class MainActivity extends Activity {
         WeatherView mWeatherView = (WeatherView) findViewById(R.id.weather);
         //Optional
         mWeatherView.setWeather(Constants.weatherStatus.RAIN)
-					.setLifeTime(2000)
+			.setLifeTime(2000)
                 	.setFadeOutTime(1000)
-					.setParticles(43)
+			.setParticles(43)
                 	.setFPS(60)
                 	.setAngle(-5)
                 	.startAnimation();
@@ -116,7 +116,7 @@ Available methods for the configuration are:
 * `getParticles()`
 * `setAngle(int angle)` Set the angle of every single particle of the current animation showed 
 * `getAngle()`
-* `setFPS(int fps)` Once you call this method the animation is atomatically stopped by default with the **cancelAnimation()`* method.
+* `setFPS(int fps)` Once you call this method the animation is atomatically stopped by default with the `cancelAnimation()` method.
 * `getFPS()`
 * `startAnimation()`
 * `stopAnimation()` Stops the emission of new particles, but the active ones are updated.
@@ -189,7 +189,7 @@ public class MainActivity extends Activity {
                     .setParticles(43)
                     .setFPS(60)
                     .setAngle(-5)
-					.setOrientationMode(Constants.orientationStatus.ENABLE)
+		    .setOrientationMode(Constants.orientationStatus.ENABLE)
                     .startAnimation();
     }
 }
@@ -198,7 +198,7 @@ public class MainActivity extends Activity {
 
 ``` Xml
 <xyz.matteobattilana.library.WeatherView
-		xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/weather"
         android:layout_width="match_parent"
         android:layout_height="1dp"
