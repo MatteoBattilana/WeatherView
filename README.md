@@ -10,7 +10,7 @@
 
 You can also download <a href="https://github.com/MatteoBattilana/WeatherView/raw/master/app/app-release.apk">WeaterView Library Demo apk</a> to check out what can be done with it.
 
-#WeatherView
+# WeatherView
 > Starting from the 1.1.0 version this library is using a different setter structure. Please look at the above documentation
 
 WeatherView is an Android Library that helps you make a cool weather animation for your app.<br/>
@@ -24,8 +24,8 @@ This library is based on a modified version of <a href="https://github.com/platt
 
 
 
-##Setup
-###Android Studio / grandle
+## Setup
+### Android Studio / grandle
 Add the following dependency to the **build.gradle** of your project:
 
 ```
@@ -38,7 +38,7 @@ dependencies {
 }
 ```
 
-###Basic usage
+### Basic usage
 
 By default the WeatherView is set to SUN, no animation is showed.
 It is possible to change or initialize the weather status with the **setWeather(weatherStatus)** method.<br/>
@@ -101,11 +101,11 @@ It also allows xml customization with the follow attributes:
 * **numParticles** number of particle for a second. Must be grather than 0.
 * **startingWeather** you can specify the stating weather status but **startAnimation()** MUST BE CALLED.
 
-##Available Methods
+## Available Methods
 List of the methods available on the class WeatherView.
 > Since from 1.1.0 there is only one constructor.
 
-###Configuration
+### Configuration
 Available methods for the configuration are:
 * *setWeather(weatherStatus mWeatherStatus)*: RAIN, SUN or SNOW.
 * *setLifeTime(int time)* Set the time of the current animation showed
@@ -126,7 +126,7 @@ Available methods for the configuration are:
 * *resetConfiguration()* Reset all the values to the default values
 
 
-##License details
+## License details
 Copyright 2016 Matteo Battilana
    > Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -143,7 +143,7 @@ Copyright 2016 Matteo Battilana
 
 > The library is Free Software, you can use it, extended with no requirement to open source your changes. You can also make paid apps using it.
 
-#Beta
+# Beta
 Added a new feature asked in this [**Improvement**](ttps://github.com/MatteoBattilana/WeatherView/issues/2).
 > It will be awesome to add gravity to each particle.
 Changing angle is a quick idea but by adding an independant gravity using device sensor on each particle we will respond perfectly and the animation will also be perfect.
@@ -152,7 +152,7 @@ You can also download <a href="https://github.com/MatteoBattilana/WeatherView/ra
 
 
 
-###Android Studio / grandle
+### Android Studio / grandle
 
 Add the following dependency to the **build.gradle** of your project:
 
@@ -169,7 +169,7 @@ dependencies {
 > Please note that this is a beta version which is
 still undergoing final testing. It may contains bugs.
 
-###New feature
+### New feature
 Now each single particle can rotate in real time with the same phone *roll* angle. In order to avoid useless execution of code, I've added an haldler for *onPause()* and *onResume()* inside the WeatherView View. These methods are called when the visibilty on this View changes. <br><br>By **default** this new feature is disabled. You can change this programmatically with *setOrientationMode(orientationStatus mOrientationMode)* or via xml.<br/><br/>It is possible also to set this mode directly from the xml with the *orientationMode* attribute. There are only two options: **ENABLE** and **DISABLE**.
 Here a basic example:
 
@@ -211,15 +211,15 @@ public class MainActivity extends Activity {
         app:startingWeather="RAIN" />
 ```
 
-##Available Methods
+## Available Methods
 List of the methods added to the Beta version.
 
-###Configuration
+### Configuration
 * *setOrientationMode(orientationStatus mOrientationMode)* : ENABLE or DISABLE.
 * *getOrientationMode()* Return ENABLE if it is enabled, DISABLE else.
  
 
-##Screenshot
+## Screenshot
 
 A set of screenshot from the demo application.
 
