@@ -41,8 +41,8 @@ dependencies {
 ### Basic usage
 
 By default the WeatherView is set to SUN, no animation is showed.
-It is possible to change or initialize the weather status with the **setWeather(weatherStatus)** method.<br/>
-The animation is stopped by default and must be started with **startAnimation()**. When the animation is playing and the previous method is called the animation is stopped and must be restarted. WeatherView requires minSDK 14.
+It is possible to change or initialize the weather status with the `setWeather(weatherStatus)` method.<br/>
+The animation is stopped by default and must be started with `startAnimation()`. When the animation is playing and the previous method is called the animation is stopped and must be restarted. WeatherView requires minSDK 14.
 <br/>
 You can check the <a href="https://github.com/MatteoBattilana/WeatherView/tree/master/app/">WeatherView Demo Library source code</a>.
 
@@ -94,12 +94,12 @@ It also allows xml customization with the follow attributes:
         app:numParticles="int"
         app:startingWeather="{RAIN,SNOW,SUN}"
 ```
-* **angle** is the angle of the single particle, 0 is perpendicular to the ground. This value must be greater than -180 and less than 180.
-* **fps** must be greater than 7 and less than 100.
-* **lifeTime** is the falling time of a single particle. After this time the particle stop exist. Must be greater than 0.
-* **fadeOutTime** during lifeTime the particle starts to fade out. This fade out animation lasts the specified duration. Must be greater than 0.
-* **numParticles** number of particle for a second. Must be grather than 0.
-* **startingWeather** you can specify the stating weather status but **startAnimation()** MUST BE CALLED.
+* `angle` is the angle of the single particle, 0 is perpendicular to the ground. This value must be greater than -180 and less than 180.
+* `fps` must be greater than 7 and less than 100.
+* `lifeTime` is the falling time of a single particle. After this time the particle stop exist. Must be greater than 0.
+* `fadeOutTime` during lifeTime the particle starts to fade out. This fade out animation lasts the specified duration. Must be greater than 0.
+* `numParticles` number of particle for a second. Must be grather than 0.
+* `startingWeather` you can specify the stating weather status but `startAnimation()` MUST BE CALLED.
 
 ## Available Methods
 List of the methods available on the class WeatherView.
@@ -107,23 +107,23 @@ List of the methods available on the class WeatherView.
 
 ### Configuration
 Available methods for the configuration are:
-* *setWeather(weatherStatus mWeatherStatus)*: RAIN, SUN or SNOW.
-* *setLifeTime(int time)* Set the time of the current animation showed
-* *getLifeTime()*
-* *setFadeOutTime(int fadeOutTime)* Set the fadeOutTime to the all animation
-* *getFadeOutTime()*
-* *setParticles(int particles)* Set the particles of the current animation showed
-* *getParticles()*
-* *setAngle(int angle)* Set the angle of every single particle of the current animation showed 
-* *getAngle()*
-* *setFPS(int fps)* Once you call this method the animation is atomatically stopped by default with the **cancelAnimation()** method.
-* *getFPS()*
-* *startAnimation()*
-* *stopAnimation()* Stops the emission of new particles, but the active ones are updated.
-* *cancelAnimation()* Stops the emission of new particles, the active ones are stopped and cancelled.
-* *getCurrentWeather()*
-* *isPlaying()* 
-* *resetConfiguration()* Reset all the values to the default values
+* `setWeather(weatherStatus mWeatherStatus)` RAIN, SUN or SNOW.
+* `setLifeTime(int time)` Set the time of the current animation showed
+* `getLifeTime()`
+* `setFadeOutTime(int fadeOutTime)` Set the fadeOutTime to the all animation
+* `getFadeOutTime()`
+* `setParticles(int particles)` Set the particles of the current animation showed
+* `getParticles()`
+* `setAngle(int angle)` Set the angle of every single particle of the current animation showed 
+* `getAngle()`
+* `setFPS(int fps)` Once you call this method the animation is atomatically stopped by default with the **cancelAnimation()`* method.
+* `getFPS()`
+* `startAnimation()`
+* `stopAnimation()` Stops the emission of new particles, but the active ones are updated.
+* `cancelAnimation()` Stops the emission of new particles, the active ones are stopped and cancelled.
+* `getCurrentWeather()`
+* `isPlaying()` 
+* `resetConfiguration()` Reset all the values to the default values
 
 
 ## License details
@@ -170,7 +170,7 @@ dependencies {
 still undergoing final testing. It may contains bugs.
 
 ### New feature
-Now each single particle can rotate in real time with the same phone *roll* angle. In order to avoid useless execution of code, I've added an haldler for *onPause()* and *onResume()* inside the WeatherView View. This methods are called when the visibilty on this View changes. By **default** it is disabled. You can change this programmatically with *setOrientationMode(orientationStatus mOrientationMode)* or via xml.<br/><br/>It is possible also to set this mode directly from the xml with the *orientationMode* attribute. There are only two options: **ENABLE** and **DISABLE**.
+Now each single particle can rotate in real time with the same phone *roll* angle. In order to avoid useless execution of code, I've added an haldler for `onPause()` and `onResume()` inside the WeatherView View. This methods are called when the visibilty on this View changes. By **default** it is disabled. You can change this programmatically with `setOrientationMode(orientationStatus mOrientationMode)` or via xml.<br/><br/>It is possible also to set this mode directly from the xml with the *orientationMode* attribute. There are only two options: **ENABLE** and **DISABLE**.
 Here a basic example:
 
 ``` Java
