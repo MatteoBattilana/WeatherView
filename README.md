@@ -107,16 +107,13 @@ It also allows xml customization with the follow attributes:
 * `startingWeather` you can specify the stating weather status but `startAnimation()` MUST BE CALLED.
 
 ## Available Methods
-List of the methods available on the class WeatherView.
-> Since from 1.1.0 there is only one constructor.
 
-Since from 1.2.0 some methods have been modified<br>
-First Header | Second Header
+List of the methods available on the class WeatherView.
+> Since from 1.1.0 there is only one constructor.<br>
+Since from 1.2.0 some methods have been modified
+
+Old Name | New Name
 ------------ | -------------
-Content from cell 1 | Content from cell 2
-Content in the first column | Content in the second column
-Old Name | New Name  
-------------- | ------------- 
 setLifeTime(int time) | setCurrentLifeTime(int time)
 setFadeOutTime(int fadeOutTime) | setCurrentFadeOutTime(int fadeOutTime) 
 setParticles(int particles) | setCurrentParticles(int particles) 
