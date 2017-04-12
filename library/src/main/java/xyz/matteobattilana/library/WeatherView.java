@@ -213,16 +213,19 @@ public class WeatherView extends View {
         switch (getCurrentWeather()) {
             case RAIN:
                 mParticleSystem = new ParticleSystem(mActivity, mRainParticles * mRainTime / 1000, R.drawable.rain, mRainTime)
-                        .setAcceleration(0.00013f, 90 - mRainAngle)
-                        .setInitialRotation(-mRainAngle)
-                        .setSpeedByComponentsRange(0f, 0f, 0.05f, 0.1f)
+                        //.setAcceleration(0.00013f, 90 - mRainAngle)
+                        //.setInitialRotation(-mRainAngle)
+                        //.setSpeedByComponentsRange(0f, 0f, 0.05f, 0.1f)
                         .setFadeOut(mRainFadeOutTime, new AccelerateInterpolator());
+                        updateAngle(90-mRainAngle);
                 break;
             case SNOW:
                 mParticleSystem = new ParticleSystem(mActivity, mSnowParticles * mSnowTime / 1000, R.drawable.snow, mSnowTime)
-                        .setSpeedByComponentsRange(0f, 0f, 0.05f, 0.1f)
-                        .setInitialRotation(-mSnowAngle)
+                        //.setAcceleration(0.000001f, 90 - mSnowAngle)
+                        //.setInitialRotation(-mSnowAngle)
+                        //.setSpeedByComponentsRange(0f, 0f, 0.05f, 0.1f)
                         .setFadeOut(mSnowFadeOutTime, new AccelerateInterpolator());
+                        updateAngle(90-mSnowAngle);
                 break;
             default:
                 break;
@@ -256,8 +259,6 @@ public class WeatherView extends View {
                 break;
             case SNOW:
                 mParticleSystem.emitWithGravity(this, Gravity.BOTTOM, mSnowParticles);
-                break;
-            default:
                 break;
         }
         isPlaying = true;
@@ -589,8 +590,13 @@ public class WeatherView extends View {
      * @param angle in degrees
      */
     void updateAngle(int angle) {
-        mParticleSystem.setSpeedModuleAndAngleRange(0.05f, 0.1f, 180 - angle, 180 - angle);
-        mParticleSystem.updateAngle(90 - angle);
+        if(mParticleSystem!=null) {
+            mParticleSystem.setSpeedModuleAndAngleRange(0.05f, 0.1f, 180 - angle, 180 - angle);
+            if (getCurrentWeather() == Constants.weatherStatus.RAIN) {
+                mParticleSystem.setAcceleration(0.00013f, 180 - angle);
+            }
+            mParticleSystem.updateAngle(90 - angle);
+        }
     }
 
     /**
