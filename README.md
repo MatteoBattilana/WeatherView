@@ -111,6 +111,10 @@ List of the methods available on the class WeatherView.
 > Since from 1.1.0 there is only one constructor.
 
 Since from 1.2.0 some methods have been modified<br>
+First Header | Second Header
+------------ | -------------
+Content from cell 1 | Content from cell 2
+Content in the first column | Content in the second column
 Old Name | New Name  
 ------------- | ------------- 
 setLifeTime(int time) | setCurrentLifeTime(int time)
