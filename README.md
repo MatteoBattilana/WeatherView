@@ -61,12 +61,12 @@ public class MainActivity extends Activity {
         WeatherView mWeatherView = (WeatherView) findViewById(R.id.weather);
         //Optional
         mWeatherView.setWeather(Constants.weatherStatus.RAIN)
-					.setCurrentLifeTime(2000)
+			.setCurrentLifeTime(2000)
                 	.setCurrentFadeOutTime(1000)
-					.setCurrentParticles(43)
+			.setCurrentParticles(43)
                 	.setFPS(60)
                 	.setCurrentAngle(-5)
-                    .setOrientationMode(Constants.orientationStatus.ENABLE)
+                    	.setOrientationMode(Constants.orientationStatus.ENABLE)
                 	.startAnimation();
     }
 }
@@ -110,17 +110,17 @@ It also allows xml customization with the follow attributes:
 List of the methods available on the class WeatherView.
 > Since from 1.1.0 there is only one constructor.
 
-Since from 1.2.0 some methods have been modified
-Old name	  | New Name	  
+Since from 1.2.0 some methods have been modified<br>
+Old Name | New Name  
 ------------- | ------------- 
-setLifeTime(int time)  | setCurrentLifeTime(int time)  
+setLifeTime(int time) | setCurrentLifeTime(int time)
 setFadeOutTime(int fadeOutTime) | setCurrentFadeOutTime(int fadeOutTime) 
-setParticles(int particles)  | setCurrentParticles(int particles) 
-setAngle(int angle)  | setCurrentAngle(int angle)  
-getLifeTime()  | getCurrentLifeTime()  
-getFadeOutTime()  | getCurrentFadeOutTime() 
-getParticles()  | getCurrentParticles()  
-getAngle()  | getCurrentAngle()  
+setParticles(int particles) | setCurrentParticles(int particles) 
+setAngle(int angle) | setCurrentAngle(int angle)  
+getLifeTime() | getCurrentLifeTime()  
+getFadeOutTime() | getCurrentFadeOutTime() 
+getParticles() | getCurrentParticles()  
+getAngle() | getCurrentAngle()  
 
 Since the modification exposed, now is possible to have more control of each single parameter. In the older version, the developer could set only the paramenter of the playing or setted animation. Please take a look to the wiki to discover more configuration options.
 
