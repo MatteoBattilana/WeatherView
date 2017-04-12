@@ -111,16 +111,16 @@ List of the methods available on the class WeatherView.
 > Since from 1.1.0 there is only one constructor.
 
 Since from 1.2.0 some methods have been modified
-| Old name	  | New Name	  |
-| ------------- | ------------- |
-| setLifeTime(int time)  | setCurrentLifeTime(int time)  |
-| setFadeOutTime(int fadeOutTime) | setCurrentFadeOutTime(int fadeOutTime)  |
-| setParticles(int particles)  | setCurrentParticles(int particles)  |
-| setAngle(int angle)  | setCurrentAngle(int angle)  |
-| getLifeTime()  | getCurrentLifeTime()  |
-| getFadeOutTime()  | getCurrentFadeOutTime()  |
-| getParticles()  | getCurrentParticles()  |
-| getAngle()  | getCurrentAngle()  |
+Old name	  | New Name	  
+------------- | ------------- 
+setLifeTime(int time)  | setCurrentLifeTime(int time)  
+setFadeOutTime(int fadeOutTime) | setCurrentFadeOutTime(int fadeOutTime) 
+setParticles(int particles)  | setCurrentParticles(int particles) 
+setAngle(int angle)  | setCurrentAngle(int angle)  
+getLifeTime()  | getCurrentLifeTime()  
+getFadeOutTime()  | getCurrentFadeOutTime() 
+getParticles()  | getCurrentParticles()  
+getAngle()  | getCurrentAngle()  
 
 Since the modification exposed, now is possible to have more control of each single parameter. In the older version, the developer could set only the paramenter of the playing or setted animation. Please take a look to the wiki to discover more configuration options.
 
