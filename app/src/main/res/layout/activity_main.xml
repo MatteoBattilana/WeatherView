@@ -15,7 +15,8 @@
         app:fps="40"
         app:lifeTime="2200"
         app:numParticles="55"
-        app:startingWeather="RAIN" />
+        app:startingWeather="RAIN"
+        app:snow_src="@drawable/snowflake" />
 
     <LinearLayout
         android:id="@+id/linearLayout"

@@ -12,5 +12,8 @@
         <attr name="numParticles" format="integer"/>
         <attr name="fps" format="integer"/>
         <attr name="angle" format="integer"/>
+
+        <attr name="rain_src" format="reference"/>
+        <attr name="snow_src" format="reference"/>
     </declare-styleable>
 </resources>
