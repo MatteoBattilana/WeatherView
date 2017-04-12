@@ -109,6 +109,7 @@ It also allows xml customization with the follow attributes:
 ## Available Methods
 List of the methods available on the class WeatherView.
 > Since from 1.1.0 there is only one constructor.
+
 Since from 1.2.0 some methods have been modified
 | Old name	  | New Name	  |
 | ------------- | ------------- |
