@@ -234,7 +234,7 @@ List of the methods added to the Beta version.
 * `setRainParticles(int particles)` Set the particles of the rain animation
 * `setSnowParticles(int particles)` Set the particles of the snow animation
 * `getRainParticles()`
-* `getSnowParticles()
+* `getSnowParticles()`
 * `setCurrentAngle(int angle)` Set the angle of every single particle of the current animation showed 
 * `setRainAngle(int angle)` Set the angle of every single particle of the rain animation 
 * `setSnowAngle(int angle)` Set the angle of every single particle of the snow animation 
