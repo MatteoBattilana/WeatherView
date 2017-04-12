@@ -11,9 +11,9 @@
 You can also download <a href="https://github.com/MatteoBattilana/WeatherView/raw/master/app/app-release.apk">WeaterView Library Demo apk</a> to check out what can be done with it.
 
 # WeatherView
-> **IMPORTANT**
-> Starting from the 1.1.0 version this library is using a different setter structure. Please look at the above documentation.
-> Starting from the 1.2.0 version some methods have been modified
+> **IMPORTANT**<br/>
+> Starting from the 1.1.0 version this library is using a different setter structure. Please look at the above documentation.<br/>
+> Starting from the 1.2.0 version some methods have been modified.
 
 WeatherView is an Android Library that helps you make a cool weather animation for your app.<br/>
 This library is based on a modified version of <a href="https://github.com/plattysoft/Leonids">Leonids</a> library.
@@ -44,7 +44,7 @@ dependencies {
 
 By default the WeatherView is set to SUN, no animation is showed.
 It is possible to change or initialize the weather status with the `setWeather(weatherStatus)` method.<br>
-The animation is initially stopped by default and must be started with `startAnimation()`. When you need to change the weather type, for example from `SUN` to `RAIN`, the animation is automatically stopped and must restart with `startAnimation()`.<br>Each single particle can rotate in real time with the same phone *roll* angle. In order to avoid useless execution of code, I've added an haldler for `onPause()` and `onResume()` inside the WeatherView View. This methods are called when the visibilty on this View changes. By **default** it is disabled. You can change this programmatically with `setOrientationMode(orientationStatus mOrientationMode)` or via xml.<br/><br/>It is possible also to set this mode directly from the xml with the *orientationMode* attribute. There are only two options: **ENABLE** and **DISABLE**
+The animation is initially stopped by default and must be started with `startAnimation()`. When you need to change the weather type, for example from `SUN` to `RAIN`, the animation is automatically stopped and must restart with `startAnimation()`.<br>Each single particle can rotate in real time with the same phone *roll* angle. In order to avoid useless execution of code, I've added an haldler for `onPause()` and `onResume()` inside the WeatherView View. These methods are called when the visibilty on this View changes. By **default** it is disabled. You can change this programmatically with `setOrientationMode(orientationStatus mOrientationMode)` or via xml.<br/><br/>It is possible also to set this mode directly from the xml with the *orientationMode* attribute. There are only two options: **ENABLE** and **DISABLE**
 WeatherView requires minSDK 14.
 <br/>
 You can check the <a href="https://github.com/MatteoBattilana/WeatherView/tree/master/app/">WeatherView Demo Library source code</a>.
