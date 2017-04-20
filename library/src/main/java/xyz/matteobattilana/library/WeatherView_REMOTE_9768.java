@@ -233,15 +233,9 @@ public class WeatherView extends View {
 
 
         if (mParticleSystem != null) {
-<<<<<<< HEAD
-            
-            mParticleSystem.setFPS(getFPS());
-            
-=======
 
             mParticleSystem.setFPS(getFPS());
 
->>>>>>> OrientationSensor
             this.post(new Runnable() {
                 @Override
                 public void run() {

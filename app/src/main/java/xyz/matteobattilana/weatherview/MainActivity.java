@@ -4,13 +4,14 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.SeekBar;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import xyz.matteobattilana.library.Common.Constants;
@@ -21,6 +22,8 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
     WeatherView mWeatherView;
     SeekBar fps, fadeOutTime, lifeTime, particles, angle;
     TextView fpsText, fadeOutTimeText, lifeTimeText, particlesText, angleText;
+    Switch orientation;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +66,8 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         //Layout
         LinearLayout linear_git = (LinearLayout) findViewById(R.id.linear_git);
 
+        //Switch orientation
+        orientation = (Switch) findViewById(R.id.orientationSwitch);
 
         //Init
         mWeatherView.startAnimation();
@@ -105,23 +110,34 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         particles.setOnSeekBarChangeListener(this);
         angle.setOnSeekBarChangeListener(this);
 
+        orientation.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                mWeatherView.setOrientationMode(isChecked ? Constants.orientationStatus.ENABLE : Constants.orientationStatus.DISABLE);
+                reloadSeek();
+            }
+        });
+
     }
 
 
     private void reloadSeek() {
         //Set initial progress
         fps.setProgress(mWeatherView.getFPS() - 8);
-        fadeOutTime.setProgress(mWeatherView.getFadeOutTime());
-        lifeTime.setProgress(mWeatherView.getLifeTime());
-        particles.setProgress(mWeatherView.getParticles());
-        angle.setProgress(mWeatherView.getAngle() + 30);
+        fadeOutTime.setProgress(mWeatherView.getCurrentFadeOutTime());
+        lifeTime.setProgress(mWeatherView.getCurrentLifeTime());
+        particles.setProgress(mWeatherView.getCurrentParticles());
+        angle.setProgress(mWeatherView.getCurrentAngle() + 30);
+        orientation.setChecked(mWeatherView.getOrientationMode() == Constants.orientationStatus.ENABLE);
+        angle.setEnabled(mWeatherView.getOrientationMode() == Constants.orientationStatus.DISABLE);
+
 
         //set seekbar text
-        fadeOutTimeText.setText("fadeOutTime: " + mWeatherView.getFadeOutTime() + " ms\t");
+        fadeOutTimeText.setText("fadeOutTime: " + mWeatherView.getCurrentFadeOutTime() + " ms\t");
         fpsText.setText("FPS: " + mWeatherView.getFPS() + "\t");
-        lifeTimeText.setText("lifeTime: " + mWeatherView.getLifeTime() + " ms\t");
-        particlesText.setText("particles: " + mWeatherView.getParticles() + "\t");
-        angleText.setText("angle: " + mWeatherView.getAngle() + " °\t");
+        lifeTimeText.setText("lifeTime: " + mWeatherView.getCurrentLifeTime() + " ms\t");
+        particlesText.setText("particles: " + mWeatherView.getCurrentParticles() + "\t");
+        angleText.setText("angle: " + mWeatherView.getCurrentAngle() + " °\t");
 
     }
 
@@ -144,21 +160,20 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
                 break;
 
             case R.id.fadeOutTime:
-                mWeatherView.setFadeOutTime(seekBar.getProgress());
+                mWeatherView.setCurrentFadeOutTime(seekBar.getProgress());
                 break;
 
             case R.id.lifeTime:
-                mWeatherView.setLifeTime(seekBar.getProgress());
+                mWeatherView.setCurrentLifeTime(seekBar.getProgress());
                 break;
             case R.id.particles:
-                mWeatherView.setParticles(seekBar.getProgress());
+                mWeatherView.setCurrentParticles(seekBar.getProgress());
                 break;
             case R.id.angle:
-                mWeatherView.setAngle(seekBar.getProgress() - 30);
+                mWeatherView.setCurrentAngle(seekBar.getProgress() - 30);
                 break;
         }
         mWeatherView.startAnimation();
-
         reloadSeek();
 
     }

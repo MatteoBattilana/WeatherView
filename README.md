@@ -11,7 +11,13 @@
 You can also download <a href="https://github.com/MatteoBattilana/WeatherView/raw/master/app/app-release.apk">WeaterView Library Demo apk</a> to check out what can be done with it.
 
 # WeatherView
+<<<<<<< HEAD
 > Starting from the 1.1.0 version this library is using a different setter structure. Please look at the above documentation
+=======
+> **IMPORTANT**<br/>
+> Starting from the 1.1.0 version this library is using a different setter structure. Please look at the above documentation.<br/>
+> Starting from the 1.2.0 version some methods have been modified.
+>>>>>>> OrientationSensor
 
 WeatherView is an Android Library that helps you make a cool weather animation for your app.<br/>
 This library is based on a modified version of <a href="https://github.com/plattysoft/Leonids">Leonids</a> library.
@@ -34,15 +40,21 @@ repositories {
 }
 
 dependencies {
-	compile 'com.github.MatteoBattilana:WeatherView:1.1.0'
+	compile 'com.github.MatteoBattilana:WeatherView:1.2.0'
 }
 ```
 
 ### Basic usage
 
 By default the WeatherView is set to SUN, no animation is showed.
+<<<<<<< HEAD
 It is possible to change or initialize the weather status with the `setWeather(weatherStatus)` method.<br/>
 The animation is stopped by default and must be started with `startAnimation()`. When the animation is playing and the previous method is called the animation is stopped and must be restarted. WeatherView requires minSDK 14.
+=======
+It is possible to change or initialize the weather status with the `setWeather(weatherStatus)` method.<br>
+The animation is initially stopped by default and must be started with `startAnimation()`. When you need to change the weather type, for example from `SUN` to `RAIN`, the animation is automatically stopped and must restart with `startAnimation()`.<br>Each single particle can rotate in real time with the same phone *roll* angle. In order to avoid useless execution of code, I've added an haldler for `onPause()` and `onResume()` inside the WeatherView View. These methods are called when the visibilty on this View changes. By **default** it is disabled. You can change this programmatically with `setOrientationMode(orientationStatus mOrientationMode)` or via xml.<br/><br/>It is possible also to set this mode directly from the xml with the *orientationMode* attribute. There are only two options: **ENABLE** and **DISABLE**.<br/><br/>
+WeatherView requires minSDK 14.
+>>>>>>> OrientationSensor
 <br/>
 You can check the <a href="https://github.com/MatteoBattilana/WeatherView/tree/master/app/">WeatherView Demo Library source code</a>.
 
@@ -58,11 +70,20 @@ public class MainActivity extends Activity {
         WeatherView mWeatherView = (WeatherView) findViewById(R.id.weather);
         //Optional
         mWeatherView.setWeather(Constants.weatherStatus.RAIN)
+<<<<<<< HEAD
 			.setLifeTime(2000)
                 	.setFadeOutTime(1000)
 			.setParticles(43)
                 	.setFPS(60)
                 	.setAngle(-5)
+=======
+			.setCurrentLifeTime(2000)
+                	.setCurrentFadeOutTime(1000)
+			.setCurrentParticles(43)
+                	.setFPS(60)
+                	.setCurrentAngle(-5)
+                    	.setOrientationMode(Constants.orientationStatus.ENABLE)
+>>>>>>> OrientationSensor
                 	.startAnimation();
     }
 }
@@ -80,6 +101,7 @@ Include WeatherView into activity_main.xml
         app:fps="40"
         app:lifeTime="2200"
         app:numParticles="55"
+        app:orientationMode="ENABLE"
         app:startingWeather="RAIN"/>
 ```
 
@@ -94,6 +116,7 @@ It also allows xml customization with the follow attributes:
         app:numParticles="int"
         app:startingWeather="{RAIN,SNOW,SUN}"
 ```
+<<<<<<< HEAD
 * `angle` is the angle of the single particle, 0 is perpendicular to the ground. This value must be greater than -180 and less than 180.
 * `fps` must be greater than 7 and less than 100.
 * `lifeTime` is the falling time of a single particle. After this time the particle stop exist. Must be greater than 0.
@@ -125,6 +148,64 @@ Available methods for the configuration are:
 * `isPlaying()` 
 * `resetConfiguration()` Reset all the values to the default values
 
+=======
+* `angle` is the angle of the single particle of the current animation setted, 0 is perpendicular to the ground. This value must be greater than -180 and less than 180.
+* `fps` must be greater than 7 and less than 100.
+* `lifeTime` is the falling time of a single particle of the current animation setted. After this time the particle stop exist. Must be greater than 0.
+* `fadeOutTime` during lifeTime the particle starts to fade out of the current animation setted. This fade out animation lasts the specified duration. Must be greater than 0.
+* `numParticles` number of particle for a second of the current animation setted. Must be grather than 0.
+* `startingWeather` you can specify the stating weather status but `startAnimation()` MUST BE CALLED.
+
+## Available Methods
+
+List of the methods available on the class WeatherView.
+> Since from 1.1.0 there is only one constructor.<br>
+Since from 1.2.0 some methods have been modified
+
+Old Name | New Name
+------------ | -------------
+setLifeTime(int time) | setCurrentLifeTime(int time)
+setFadeOutTime(int fadeOutTime) | setCurrentFadeOutTime(int fadeOutTime) 
+setParticles(int particles) | setCurrentParticles(int particles) 
+setAngle(int angle) | setCurrentAngle(int angle)  
+getLifeTime() | getCurrentLifeTime()  
+getFadeOutTime() | getCurrentFadeOutTime() 
+getParticles() | getCurrentParticles()  
+getAngle() | getCurrentAngle()  
+
+Since the modification exposed, now is possible to have more control of each single parameter. In the older version, the developer could set only the paramenter of the playing or setted animation. Please take a look to the wiki to discover more configuration options.
+
+
+
+
+### Base configuration
+Setters:
+* `setWeather(weatherStatus mWeatherStatus)` RAIN, SUN or SNOW
+* `setCurrentLifeTime(int time)` Set the time of the current animation showed
+* `setCurrentFadeOutTime(int fadeOutTime)` Set the fadeOutTime to the current animation
+* `setCurrentParticles(int particles)` Set the particles of the current animation showed
+* `setCurrentAngle(int angle)` Set the angle of every single particle of the current animation showed
+* `setOrientationMode(orientationStatus mOrientationMode)` ENABLE or DISABLE
+* `setFPS(int fps)` Once you call this method the animation is atomatically stopped by default with the `cancelAnimation()` method and you must restart the animation with `startAnimation()` to resume it.
+
+Getters:
+* `getCurrentWeather()` Return the setted animation (RAIN, SUN or SNOW)
+* `getCurrentLifeTime()` Return the life time of the current animation
+* `getCurrentFadeOutTime()` Return the fade out time of the current animation
+* `getCurrentParticles()` Return the number of particles of the current animation
+* `getCurrentAngle()` Return the angle of the particles of the current animation
+* `getOrientationMode()` Return ENABLE if it is enabled, DISABLE else
+* `getFPS()` Return the setted FPS
+
+Base method:
+* `startAnimation()` Starts the animation
+* `stopAnimation()` Stops the emission of new particles, but the active ones are updated.
+* `cancelAnimation()` Stops the emission of new particles, the active ones are stopped and cancelled.
+* `isPlaying()` Return `true` if the animation is playing
+* `resetConfiguration()` Reset all the values to the default values
+
+There are also some getters and setters more specific for each parameter.
+>>>>>>> OrientationSensor
 
 ## License details
 Copyright 2016 Matteo Battilana
@@ -143,6 +224,7 @@ Copyright 2016 Matteo Battilana
 
 > The library is Free Software, you can use it, extended with no requirement to open source your changes. You can also make paid apps using it.
 
+<<<<<<< HEAD
 # Beta
 Added a new feature asked in this [**Improvement**](ttps://github.com/MatteoBattilana/WeatherView/issues/2).
 > It will be awesome to add gravity to each particle.
@@ -241,6 +323,8 @@ List of the methods added to the Beta version.
 * `getRainAngle()`
 * `getSnowAngle()`
 
+=======
+>>>>>>> OrientationSensor
 ## Screenshot
 
 A set of screenshot from the demo application.
