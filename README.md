@@ -29,13 +29,13 @@ This library is based on a modified version of <a href="https://github.com/platt
 ## Setup
 ### Android Studio / grandle
 Add the following dependency in your root build.gradle at the end of repositories:
-``` 
+```java
 repositories {
 	maven { url = 'https://jitpack.io' }
 }
 ``` 
 Add the dependency:
-``` 
+```java
 dependencies {
 	compile 'com.github.MatteoBattilana:WeatherView:1.2.0'
 }
@@ -51,7 +51,7 @@ WeatherView requires minSDK 14.
 You can check the <a href="https://github.com/MatteoBattilana/WeatherView/tree/master/app/">WeatherView Demo Library source code</a>.
 
 Here a basic example:
-``` Java
+```java
 public class MainActivity extends Activity {
 
     @Override
@@ -92,7 +92,7 @@ Include WeatherView into activity_main.xml
 
 It also allows xml customization with the follow attributes:
 
-``` Xml
+```xml
         app:angle="int"
         app:fadeOutTime="int"
         app:fps="int"
