@@ -74,7 +74,7 @@ public class MainActivity extends Activity {
 ```
 
 Include WeatherView into activity_main.xml
-``` Xml
+```xml
 <xyz.matteobattilana.library.WeatherView
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/weather"
@@ -93,12 +93,16 @@ Include WeatherView into activity_main.xml
 It also allows xml customization with the follow attributes:
 
 ```xml
+<xyz.matteobattilana.library.WeatherView
+	...
         app:angle="int"
         app:fadeOutTime="int"
         app:fps="int"
         app:lifeTime="int"
         app:numParticles="int"
         app:startingWeather="{RAIN,SNOW,SUN}"
+	...
+	/>
 ```
 * `angle` is the angle of the single particle of the current animation setted, 0 is perpendicular to the ground. This value must be greater than -180 and less than 180.
 * `fps` must be greater than 7 and less than 100.
