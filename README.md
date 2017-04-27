@@ -28,13 +28,14 @@ This library is based on a modified version of <a href="https://github.com/platt
 
 ## Setup
 ### Android Studio / grandle
-Add the following dependency to the **build.gradle** of your project:
-
+Add the following dependency in your root build.gradle at the end of repositories:
 ``` 
 repositories {
 	maven { url = 'https://jitpack.io' }
 }
-
+``` 
+Add the dependency:
+``` 
 dependencies {
 	compile 'com.github.MatteoBattilana:WeatherView:1.2.0'
 }
