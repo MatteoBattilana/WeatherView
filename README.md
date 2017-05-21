@@ -27,7 +27,7 @@ This library is based on a modified version of <a href="https://github.com/platt
 
 
 ## Setup
-### Android Studio / grandle
+### Android Studio / Gradle
 Add the following dependency in your root build.gradle at the end of repositories:
 ```java
 repositories {
