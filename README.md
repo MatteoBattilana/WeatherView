@@ -30,8 +30,11 @@ This library is based on a modified version of <a href="https://github.com/platt
 ### Android Studio / Gradle
 Add the following dependency in your root build.gradle at the end of repositories:
 ```java
-repositories {
-	maven { url = 'https://jitpack.io' }
+allprojects {
+	repositories {
+		...
+		maven { url = 'https://jitpack.io' }
+	}
 }
 ``` 
 Add the dependency:
