@@ -27,11 +27,14 @@ This library is based on a modified version of <a href="https://github.com/platt
 
 
 ## Setup
-### Android Studio / grandle
+### Android Studio / Gradle
 Add the following dependency in your root build.gradle at the end of repositories:
 ```java
-repositories {
-	maven { url = 'https://jitpack.io' }
+allprojects {
+	repositories {
+		...
+		maven { url = 'https://jitpack.io' }
+	}
 }
 ``` 
 Add the dependency:
@@ -45,7 +48,7 @@ dependencies {
 
 By default the WeatherView is set to SUN, no animation is showed.
 It is possible to change or initialize the weather status with the `setWeather(weatherStatus)` method.<br>
-The animation is initially stopped by default and must be started with `startAnimation()`. When you need to change the weather type, for example from `SUN` to `RAIN`, the animation is automatically stopped and must restart with `startAnimation()`.<br>Each single particle can rotate in real time with the same phone *roll* angle. In order to avoid useless execution of code, I've added an haldler for `onPause()` and `onResume()` inside the WeatherView View. These methods are called when the visibilty on this View changes. By **default** it is disabled. You can change this programmatically with `setOrientationMode(orientationStatus mOrientationMode)` or via xml.<br/><br/>It is possible also to set this mode directly from the xml with the *orientationMode* attribute. There are only two options: **ENABLE** and **DISABLE**.<br/><br/>
+The animation is initially stopped by default and must be started with `startAnimation()`. When you need to change the weather type, for example from `SUN` to `RAIN`, the animation is automatically stopped and must restart with `startAnimation()`.<br>Each single particle can rotate in real time with the same phone *roll* angle. In order to avoid useless execution of code, I've added handlers for `onPause()` and `onResume()` inside the WeatherView View. These methods are called when the visibilty on this View changes. By **default** it is disabled. You can change this programmatically with `setOrientationMode(orientationStatus mOrientationMode)` or via xml.<br/><br/>It is possible also to set this mode directly from the xml with the *orientationMode* attribute. There are only two options: **ENABLE** and **DISABLE**.<br/><br/>
 WeatherView requires minSDK 14.
 <br/>
 You can check the <a href="https://github.com/MatteoBattilana/WeatherView/tree/master/app/">WeatherView Demo Library source code</a>.
