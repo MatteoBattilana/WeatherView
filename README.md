@@ -112,7 +112,7 @@ It also allows xml customization with the follow attributes:
 * `lifeTime` is the falling time of a single particle of the current animation setted. After this time the particle stop exist. Must be greater than 0.
 * `fadeOutTime` during lifeTime the particle starts to fade out of the current animation setted. This fade out animation lasts the specified duration. Must be greater than 0.
 * `numParticles` number of particle for a second of the current animation setted. Must be grather than 0.
-* `startingWeather` you can specify the stating weather status but `startAnimation()` MUST BE CALLED.
+* `startingWeather` you can specify the starting weather status but `startAnimation()` MUST BE CALLED.
 
 ## Available Methods
 
