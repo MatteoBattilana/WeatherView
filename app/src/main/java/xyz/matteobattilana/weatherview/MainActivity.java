@@ -77,10 +77,10 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
                 mWeatherView.cancelAnimation()
-                        .setWeather(Constants.weatherStatus.values()[newVal])
+                        .setWeather(Constants.WeatherStatus.values()[newVal])
                         .startAnimation();
 
-                switch (Constants.weatherStatus.values()[newVal]) {
+                switch (Constants.WeatherStatus.values()[newVal]) {
                     case RAIN:
                         text.setText(getString(R.string.rain));
                         break;
@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         orientation.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                mWeatherView.setOrientationMode(isChecked ? Constants.orientationStatus.ENABLE : Constants.orientationStatus.DISABLE);
+                mWeatherView.setOrientationMode(isChecked ? Constants.OrientationStatus.ENABLE : Constants.OrientationStatus.DISABLE);
                 reloadSeek();
             }
         });
@@ -128,8 +128,8 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         lifeTime.setProgress(mWeatherView.getCurrentLifeTime());
         particles.setProgress(mWeatherView.getCurrentParticles());
         angle.setProgress(mWeatherView.getCurrentAngle() + 30);
-        orientation.setChecked(mWeatherView.getOrientationMode() == Constants.orientationStatus.ENABLE);
-        angle.setEnabled(mWeatherView.getOrientationMode() == Constants.orientationStatus.DISABLE);
+        orientation.setChecked(mWeatherView.getOrientationMode() == Constants.OrientationStatus.ENABLE);
+        angle.setEnabled(mWeatherView.getOrientationMode() == Constants.OrientationStatus.DISABLE);
 
 
         //set seekbar text

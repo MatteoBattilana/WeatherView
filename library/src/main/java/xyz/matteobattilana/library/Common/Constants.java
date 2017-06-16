@@ -20,11 +20,11 @@ public class Constants {
     public static int snowAngle = 0;
 
     //COMMON
-    public enum weatherStatus {
+    public enum WeatherStatus {
         RAIN, SNOW, SUN
     }
 
-    public enum orientationStatus {
+    public enum OrientationStatus {
         ENABLE, DISABLE
     }
 

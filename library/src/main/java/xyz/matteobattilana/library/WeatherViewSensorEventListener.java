@@ -33,7 +33,7 @@ class WeatherViewSensorEventListener implements SensorEventListener {
     SensorManager sManager;
 
 
-    WeatherViewSensorEventListener(Context mContext, WeatherView mWeatherView, Constants.orientationStatus start) {
+    WeatherViewSensorEventListener(Context mContext, WeatherView mWeatherView, Constants.OrientationStatus start) {
         this.mWeatherView = mWeatherView;
         this.mContext = mContext;
         init(start);
@@ -44,10 +44,10 @@ class WeatherViewSensorEventListener implements SensorEventListener {
      *
      * @param start the orientation mode
      */
-    private void init(Constants.orientationStatus start) {
+    private void init(Constants.OrientationStatus start) {
         //test add acc
         sManager = (SensorManager) mContext.getSystemService(mContext.SENSOR_SERVICE);
-        if (start == Constants.orientationStatus.ENABLE)
+        if (start == Constants.OrientationStatus.ENABLE)
             start();
     }
 
