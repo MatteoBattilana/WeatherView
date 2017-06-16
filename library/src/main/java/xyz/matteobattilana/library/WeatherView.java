@@ -5,9 +5,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 
 import com.plattysoft.leonids.ParticleSystem;
@@ -212,7 +214,7 @@ public class WeatherView extends View {
         stopAnimation();
         switch (getCurrentWeather()) {
             case RAIN:
-                mParticleSystem = new ParticleSystem(mActivity, mRainParticles * mRainTime / 1000, R.drawable.rain, mRainTime)
+                mParticleSystem = new ParticleSystem((ViewGroup) this.getParent(), mRainParticles * mRainTime / 1000, ContextCompat.getDrawable(mActivity, R.drawable.rain), mRainTime)
                         //.setAcceleration(0.00013f, 90 - mRainAngle)
                         //.setInitialRotation(-mRainAngle)
                         //.setSpeedByComponentsRange(0f, 0f, 0.05f, 0.1f)
@@ -220,7 +222,7 @@ public class WeatherView extends View {
                         updateAngle(90-mRainAngle);
                 break;
             case SNOW:
-                mParticleSystem = new ParticleSystem(mActivity, mSnowParticles * mSnowTime / 1000, R.drawable.snow, mSnowTime)
+                mParticleSystem = new ParticleSystem((ViewGroup) this.getParent(), mSnowParticles * mSnowTime / 1000, ContextCompat.getDrawable(mActivity, R.drawable.snow), mSnowTime)
                         //.setAcceleration(0.000001f, 90 - mSnowAngle)
                         //.setInitialRotation(-mSnowAngle)
                         //.setSpeedByComponentsRange(0f, 0f, 0.05f, 0.1f)
