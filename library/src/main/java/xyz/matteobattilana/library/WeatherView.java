@@ -234,7 +234,7 @@ public class WeatherView extends View {
 
         if (mParticleSystem != null) {
 
-            mParticleSystem.setFPS(getFPS());
+            ParticleSystem.setFPS(getFPS());
 
             this.post(new Runnable() {
                 @Override
@@ -595,7 +595,6 @@ public class WeatherView extends View {
             if (getCurrentWeather() == Constants.weatherStatus.RAIN) {
                 mParticleSystem.setAcceleration(0.00013f, 180 - angle);
             }
-            mParticleSystem.updateAngle(90 - angle);
         }
     }
 
