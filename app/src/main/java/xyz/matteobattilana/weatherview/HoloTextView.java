@@ -2,10 +2,10 @@ package xyz.matteobattilana.weatherview;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
-import android.widget.TextView;
 
-public class HoloTextView extends TextView {
+public class HoloTextView extends AppCompatTextView {
 
 	/*
 	 * Caches typefaces based on their file path and name, so that they don't

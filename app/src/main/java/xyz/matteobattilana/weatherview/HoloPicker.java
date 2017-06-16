@@ -1,13 +1,10 @@
 package xyz.matteobattilana.weatherview;
 
-import android.annotation.TargetApi;
 import android.content.Context;
-import android.graphics.Typeface;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.widget.NumberPicker;
 
-// For backward-compability
+// For backward-compatibility
 public class HoloPicker extends NumberPicker {
 
 
