@@ -32,7 +32,7 @@ public class HoloPicker extends NumberPicker {
     }
 
     private void init() {
-        String[] values = getResources().getStringArray(R.array.weatherList);
+        String[] values = getResources().getStringArray(R.array.weather_name_list);
 
         this.setMinValue(0); //from array first value
         this.setMaxValue(values.length - 1); //to array last value

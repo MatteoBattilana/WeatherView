@@ -9,6 +9,7 @@ import android.widget.FrameLayout
 import com.github.jinatonic.confetti.ConfettiManager
 import com.github.matteobattilana.weather.confetti.MutableRectSource
 import com.github.matteobattilana.weather.confetti.WeatherConfettoGenerator
+import kotlin.jvm.internal.Ref
 
 /**
  * Created by Mitchell Skaggs on 7/4/2017.
@@ -55,11 +56,26 @@ class WeatherView(context: Context, attrs: AttributeSet?) : FrameLayout(context,
             updateEmissionRate()
         }
 
+    var weatherCondition: WeatherCondition = WeatherCondition.CLEAR
+        set(value) {
+            field = value
+            when (field) {
+                WeatherCondition.CLEAR ->
+                    weatherConditionBitmap.element = null
+                WeatherCondition.RAIN ->
+                    weatherConditionBitmap.element = RAIN_BITMAP
+                WeatherCondition.SNOW ->
+                    weatherConditionBitmap.element = SNOW_BITMAP
+            }
+        }
+
+    private val weatherConditionBitmap = Ref.ObjectRef<Bitmap>()
+
     init {
         initializeBitmaps(context)
 
         confettiSource = MutableRectSource(0, 0)
-        confettiManager = ConfettiManager(context, WeatherConfettoGenerator(RAIN_BITMAP), confettiSource, this)
+        confettiManager = ConfettiManager(context, WeatherConfettoGenerator(weatherConditionBitmap), confettiSource, this)
                 .setEmissionRate(25F)
                 .setEmissionDuration(ConfettiManager.INFINITE_DURATION)
                 .enableFadeOut { input -> (fadeOutPercent - input).coerceAtLeast(0f) }

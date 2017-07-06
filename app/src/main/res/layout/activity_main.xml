@@ -13,15 +13,12 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
+    <TextSwitcher
         android:id="@+id/weather_label"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:fontFamily="sans-serif-thin"
-        android:gravity="center"
-        android:text="@string/rain"
-        android:textAlignment="gravity"
-        android:textSize="64sp"
+        android:inAnimation="@android:anim/slide_in_left"
+        android:outAnimation="@android:anim/slide_out_right"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -118,5 +115,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/emission_rate_label"
         app:layout_constraintTop_toBottomOf="@id/speed_seekbar" />
+
+    <Spinner
+        android:id="@+id/weather_condition_spinner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/seekbar_label_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/emission_rate_seekbar" />
 
 </android.support.constraint.ConstraintLayout>
