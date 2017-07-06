@@ -1,5 +1,7 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
 apply plugin: 'com.github.dcendents.android-maven' // ADD THIS
+
 group = "com.github.MatteoBattilana"
 
 android {
@@ -21,11 +23,16 @@ android {
     lintOptions {
         abortOnError false
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
     compile 'com.android.support:support-annotations:26.0.0-beta2'
     compile 'com.android.support:support-compat:26.0.0-beta2'
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
 
     compile group: 'com.github.magneticflux-', name: 'Leonids', version: '-SNAPSHOT'
     compile 'com.github.jinatonic.confetti:confetti:1.1.0'
@@ -52,4 +59,7 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
 artifacts {
     archives sourcesJar
     archives javadocJar
+}
+repositories {
+    mavenCentral()
 }

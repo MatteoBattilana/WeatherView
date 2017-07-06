@@ -3,6 +3,7 @@ package xyz.matteobattilana.library.Common;
 /**
  * Created by MatteoB on 15/10/2016.
  */
+@Deprecated
 public class Constants {
     public static int fps = 30;
     public static boolean isOrientationActive = false;

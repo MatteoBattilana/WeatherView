@@ -4,7 +4,10 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.NumberPicker;
 
+import com.github.matteobattilana.demo.R;
+
 // For backward-compatibility
+@Deprecated
 public class HoloPicker extends NumberPicker {
 
 

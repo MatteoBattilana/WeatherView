@@ -7,17 +7,17 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.LinearLayout;
-import android.widget.NumberPicker;
 import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.github.matteobattilana.demo.R;
+
 import xyz.matteobattilana.library.Common.Constants;
 import xyz.matteobattilana.library.WeatherView;
 
-
+@Deprecated
 public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener {
     WeatherView mWeatherView;
     SeekBar fps, fadeOutTime, lifeTime, particles, angle;
@@ -27,8 +27,9 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.AppThemeDeprecated);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_old);
         getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
@@ -38,70 +39,64 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
 
     private void init() {
         //WeatherView
-        mWeatherView = (WeatherView) findViewById(R.id.weather);
+        mWeatherView = findViewById(R.id.weather);
 
         //SeekBar
-        fps = (SeekBar) findViewById(R.id.fps);
-        fadeOutTime = (SeekBar) findViewById(R.id.fadeOutTime);
-        lifeTime = (SeekBar) findViewById(R.id.lifeTime);
-        particles = (SeekBar) findViewById(R.id.particles);
-        angle = (SeekBar) findViewById(R.id.angle);
+        fps = findViewById(R.id.fps);
+        fadeOutTime = findViewById(R.id.fadeOutTime);
+        lifeTime = findViewById(R.id.lifeTime);
+        particles = findViewById(R.id.particles);
+        angle = findViewById(R.id.angle);
 
         //TextView
-        final HoloTextView text = (HoloTextView) findViewById(R.id.weatherText);
-        fpsText = (TextView) findViewById(R.id.fpsText);
-        fadeOutTimeText = (TextView) findViewById(R.id.fadeOutTimeText);
-        lifeTimeText = (TextView) findViewById(R.id.lifeTimeText);
-        particlesText = (TextView) findViewById(R.id.particlesTest);
-        angleText = (TextView) findViewById(R.id.angleText);
+        final HoloTextView text = findViewById(R.id.weatherText);
+        fpsText = findViewById(R.id.fpsText);
+        fadeOutTimeText = findViewById(R.id.fadeOutTimeText);
+        lifeTimeText = findViewById(R.id.lifeTimeText);
+        particlesText = findViewById(R.id.particlesTest);
+        angleText = findViewById(R.id.angleText);
 
         //Button
-        Button git = (Button) findViewById(R.id.btn_git);
+        Button git = findViewById(R.id.btn_git);
         Typeface fontawesome = Typeface.createFromAsset(getResources().getAssets(), "fontawesome-webfont.ttf");
         git.setTypeface(fontawesome);
 
         //Picker
-        HoloPicker mHoloPicker = (HoloPicker) findViewById(R.id.picker);
+        HoloPicker mHoloPicker = findViewById(R.id.picker);
 
         //Layout
-        LinearLayout linear_git = (LinearLayout) findViewById(R.id.linear_git);
+        LinearLayout linear_git = findViewById(R.id.linear_git);
 
         //Switch orientation
-        orientation = (Switch) findViewById(R.id.orientationSwitch);
+        orientation = findViewById(R.id.orientationSwitch);
 
         //Init
         mWeatherView.startAnimation();
         reloadSeek();
 
-        mHoloPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                mWeatherView.cancelAnimation()
-                        .setWeather(Constants.WeatherStatus.values()[newVal])
-                        .startAnimation();
+        mHoloPicker.setOnValueChangedListener((picker, oldVal, newVal) -> {
+            mWeatherView.cancelAnimation()
+                    .setWeather(Constants.WeatherStatus.values()[newVal])
+                    .startAnimation();
 
-                switch (Constants.WeatherStatus.values()[newVal]) {
-                    case RAIN:
-                        text.setText(getString(R.string.rain));
-                        break;
-                    case SNOW:
-                        text.setText(getString(R.string.snow));
-                        break;
-                    default:
-                        text.setText(getString(R.string.sun));
-                        break;
-                }
-                reloadSeek();
+            switch (Constants.WeatherStatus.values()[newVal]) {
+                case RAIN:
+                    text.setText(getString(R.string.rain));
+                    break;
+                case SNOW:
+                    text.setText(getString(R.string.snow));
+                    break;
+                default:
+                    text.setText(getString(R.string.sun));
+                    break;
             }
+            reloadSeek();
         });
 
 
-        linear_git.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/MatteoBattilana/WeatherView"));
-                startActivity(browserIntent);
-            }
+        linear_git.setOnClickListener(v -> {
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/MatteoBattilana/WeatherView"));
+            startActivity(browserIntent);
         });
 
         fps.setOnSeekBarChangeListener(this);
@@ -110,12 +105,9 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         particles.setOnSeekBarChangeListener(this);
         angle.setOnSeekBarChangeListener(this);
 
-        orientation.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                mWeatherView.setOrientationMode(isChecked ? Constants.OrientationStatus.ENABLE : Constants.OrientationStatus.DISABLE);
-                reloadSeek();
-            }
+        orientation.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            mWeatherView.setOrientationMode(isChecked ? Constants.OrientationStatus.ENABLE : Constants.OrientationStatus.DISABLE);
+            reloadSeek();
         });
 
     }

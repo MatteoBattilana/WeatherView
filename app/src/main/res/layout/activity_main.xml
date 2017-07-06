@@ -1,209 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/background"
-    tools:context="xyz.matteobattilana.weatherview.MainActivity">
+    android:layout_height="match_parent">
 
-    <xyz.matteobattilana.library.WeatherView xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/weather"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="-100dp"
-        android:layout_marginRight="-100dp"
-        app:angle="-3"
-        app:fadeOutTime="1000"
-        app:fps="40"
-        app:lifeTime="2200"
-        app:numParticles="55"
-        app:orientationMode="ENABLE"
-        app:startingWeather="RAIN" />
+    <com.github.matteobattilana.weather.WeatherView
+        android:id="@+id/weather_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/weather_label"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fontFamily="sans-serif-thin"
+        android:gravity="center"
+        android:text="@string/rain"
+        android:textAlignment="gravity"
+        android:textSize="64sp"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/fade_out_percent_label"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:orientation="vertical">
+        android:layout_margin="@dimen/seekbar_label_margin"
+        android:text="@string/fade_out_percentage"
+        app:layout_constraintBottom_toBottomOf="@id/fade_out_percent_seekbar"
+        app:layout_constraintEnd_toStartOf="@id/fade_out_percent_seekbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/fade_out_percent_seekbar" />
 
-        <xyz.matteobattilana.weatherview.HoloTextView
-            android:id="@+id/weatherText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:gravity="center"
-            android:text="@string/rain"
-            android:textColor="@android:color/white"
-            android:textSize="38sp" />
-
-        <xyz.matteobattilana.weatherview.HoloPicker
-            android:id="@+id/picker"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:descendantFocusability="blocksDescendants"></xyz.matteobattilana.weatherview.HoloPicker>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linear_git"
-        android:layout_width="match_parent"
+    <SeekBar
+        android:id="@+id/fade_out_percent_seekbar"
+        style="@style/Widget.AppCompat.SeekBar"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dp"
-        android:clickable="true"
-        android:gravity="center">
+        android:layout_margin="@dimen/seekbar_margin"
+        android:max="1000"
+        android:progress="1000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/fade_out_percent_label"
+        app:layout_constraintTop_toBottomOf="@id/weather_label" />
 
-        <xyz.matteobattilana.weatherview.HoloTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="false"
-            android:text="MatteoBattilana"
-            android:textSize="14sp" />
-
-        <Button
-            android:id="@+id/btn_git"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:clickable="false"
-            android:text="@string/git_icon"
-            android:textColor="@android:color/white"
-            android:textSize="45dp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/angle_label"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/linearLayout"
-        android:orientation="vertical"
-        android:padding="10dp">
+        android:layout_margin="@dimen/seekbar_label_margin"
+        android:text="@string/angle"
+        app:layout_constraintBottom_toBottomOf="@id/angle_seekbar"
+        app:layout_constraintEnd_toStartOf="@id/angle_seekbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/angle_seekbar" />
 
+    <SeekBar
+        android:id="@+id/angle_seekbar"
+        style="@style/Widget.AppCompat.SeekBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/seekbar_margin"
+        android:max="180"
+        android:progress="90"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/angle_label"
+        app:layout_constraintTop_toBottomOf="@id/fade_out_percent_seekbar" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/speed_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/seekbar_label_margin"
+        android:text="@string/speed"
+        app:layout_constraintBottom_toBottomOf="@id/speed_seekbar"
+        app:layout_constraintEnd_toStartOf="@id/speed_seekbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/speed_seekbar" />
 
-            <TextView
-                android:id="@+id/fpsText"
-                android:layout_width="120dp"
-                android:layout_height="wrap_content"
-                android:textColor="@android:color/white" />
+    <SeekBar
+        android:id="@+id/speed_seekbar"
+        style="@style/Widget.AppCompat.SeekBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/seekbar_margin"
+        android:max="5000"
+        android:progress="1000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/speed_label"
+        app:layout_constraintTop_toBottomOf="@id/angle_seekbar" />
 
-            <SeekBar
-                android:id="@+id/fps"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/linearLayout"
-                android:max="91" />
-        </LinearLayout>
+    <TextView
+        android:id="@+id/emission_rate_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/seekbar_label_margin"
+        android:text="@string/emission_rate"
+        app:layout_constraintBottom_toBottomOf="@id/emission_rate_seekbar"
+        app:layout_constraintEnd_toStartOf="@id/emission_rate_seekbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/emission_rate_seekbar" />
 
+    <SeekBar
+        android:id="@+id/emission_rate_seekbar"
+        style="@style/Widget.AppCompat.SeekBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/seekbar_margin"
+        android:max="500"
+        android:progress="50"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/emission_rate_label"
+        app:layout_constraintTop_toBottomOf="@id/speed_seekbar" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/white">
-
-            <TextView
-                android:id="@+id/fadeOutTimeText"
-                android:layout_width="120dp"
-                android:layout_height="wrap_content"
-                android:textColor="@android:color/white" />
-
-            <SeekBar
-                android:id="@+id/fadeOutTime"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/linearLayout"
-                android:max="4000" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/white">
-
-            <TextView
-                android:id="@+id/lifeTimeText"
-                android:layout_width="120dp"
-
-                android:layout_height="wrap_content"
-                android:textColor="@android:color/white" />
-
-            <SeekBar
-                android:id="@+id/lifeTime"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/linearLayout"
-                android:max="3000" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/particlesTest"
-                android:layout_width="120dp"
-
-                android:layout_height="wrap_content"
-                android:textColor="@android:color/white" />
-
-            <SeekBar
-                android:id="@+id/particles"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/linearLayout"
-                android:max="100" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/angleText"
-                android:layout_width="120dp"
-
-                android:layout_height="wrap_content"
-                android:textColor="@android:color/white" />
-
-            <SeekBar
-                android:id="@+id/angle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/linearLayout"
-                android:max="60" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/orientationText"
-                android:layout_width="120dp"
-                android:layout_height="wrap_content"
-
-                android:textColor="@android:color/white" />
-
-
-            <Switch
-                android:id="@+id/orientationSwitch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-
-                android:text="@string/enableorientation"
-                android:textColor="@android:color/white" />
-        </LinearLayout>
-
-    </LinearLayout>
-
-
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>

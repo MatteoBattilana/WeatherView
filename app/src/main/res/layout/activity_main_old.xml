@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context="xyz.matteobattilana.weatherview.MainActivity">
+
+    <xyz.matteobattilana.library.WeatherView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/weather"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="-100dp"
+        android:layout_marginRight="-100dp"
+        app:angle="-3"
+        app:fadeOutTime="1000"
+        app:fps="40"
+        app:lifeTime="2200"
+        app:numParticles="55"
+        app:orientationMode="ENABLE"
+        app:startingWeather="RAIN" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:orientation="vertical">
+
+        <xyz.matteobattilana.weatherview.HoloTextView
+            android:id="@+id/weatherText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:gravity="center"
+            android:text="@string/rain"
+            android:textColor="@android:color/white"
+            android:textSize="38sp" />
+
+        <xyz.matteobattilana.weatherview.HoloPicker
+            android:id="@+id/picker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:descendantFocusability="blocksDescendants"></xyz.matteobattilana.weatherview.HoloPicker>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_git"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:clickable="true"
+        android:gravity="center">
+
+        <xyz.matteobattilana.weatherview.HoloTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:text="MatteoBattilana"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/btn_git"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:clickable="false"
+            android:text="@string/git_icon"
+            android:textColor="@android:color/white"
+            android:textSize="45dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/fpsText"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white" />
+
+            <SeekBar
+                android:id="@+id/fps"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearLayout"
+                android:max="91" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white">
+
+            <TextView
+                android:id="@+id/fadeOutTimeText"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white" />
+
+            <SeekBar
+                android:id="@+id/fadeOutTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearLayout"
+                android:max="4000" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white">
+
+            <TextView
+                android:id="@+id/lifeTimeText"
+                android:layout_width="120dp"
+
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white" />
+
+            <SeekBar
+                android:id="@+id/lifeTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearLayout"
+                android:max="3000" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/particlesTest"
+                android:layout_width="120dp"
+
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white" />
+
+            <SeekBar
+                android:id="@+id/particles"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearLayout"
+                android:max="100" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/angleText"
+                android:layout_width="120dp"
+
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white" />
+
+            <SeekBar
+                android:id="@+id/angle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearLayout"
+                android:max="60" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/orientationText"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+
+                android:textColor="@android:color/white" />
+
+
+            <Switch
+                android:id="@+id/orientationSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+
+                android:text="@string/enable_orientation"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

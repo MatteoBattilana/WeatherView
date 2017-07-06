@@ -1,11 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="xyz.matteobattilana.library">
+    package="com.github.matteobattilana.weather">
 
-    <application android:allowBackup="true"
-        android:label="@string/app_name"
+    <application
+        android:allowBackup="true"
         android:hardwareAccelerated="true"
-        android:supportsRtl="true"
->
+        android:label="@string/app_name"
+        android:supportsRtl="true">
 
     </application>
 
