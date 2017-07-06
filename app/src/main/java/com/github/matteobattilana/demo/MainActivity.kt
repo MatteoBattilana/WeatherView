@@ -10,6 +10,7 @@ import android.widget.*
 import com.github.matteobattilana.weather.WeatherCondition
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.browse
 
 /**
  * Created by Mitchell on 7/5/2017.
@@ -76,6 +77,9 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
             }
         }
 
+        github_icon.setOnClickListener {
+            browse("https://github.com/MatteoBattilana/WeatherView")
+        }
 
         weather_view.fadeOutPercent = 1f
         weather_view.angle = 0

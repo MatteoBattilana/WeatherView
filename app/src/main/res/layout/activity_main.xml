@@ -98,6 +98,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/seekbar_label_margin"
+        android:fontFamily="@font/fontawesome"
         android:text="@string/emission_rate"
         app:layout_constraintBottom_toBottomOf="@id/emission_rate_seekbar"
         app:layout_constraintEnd_toStartOf="@id/emission_rate_seekbar"
@@ -124,5 +125,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/emission_rate_seekbar" />
+
+    <TextView
+        android:id="@+id/github_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:fontFamily="@font/fontawesome"
+        android:text="@string/git_icon"
+        android:textSize="64sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/weather_condition_spinner" />
 
 </android.support.constraint.ConstraintLayout>
