@@ -17,5 +17,6 @@ enum class PrecipType : WeatherData {
         override val speed: Int = 200
     };
 
+    @Suppress("LeakingThis") // enum types are actually final, this warning is incorrect. Check if fixed in next plugin update
     override val precipType: PrecipType = this
 }
