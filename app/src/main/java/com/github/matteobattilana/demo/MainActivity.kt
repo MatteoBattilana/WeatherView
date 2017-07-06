@@ -88,12 +88,3 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         weather_view.weatherCondition = WeatherCondition.RAIN
     }
 }
-
-private interface ReducedOnSeekBarChangeListener : SeekBar.OnSeekBarChangeListener {
-    override fun onStartTrackingTouch(seekBar: SeekBar?) {}
-    override fun onStopTrackingTouch(seekBar: SeekBar?) {}
-}
-
-private interface ReducedOnItemSelectedListener : AdapterView.OnItemSelectedListener {
-    override fun onNothingSelected(parent: AdapterView<*>?) {}
-}
