@@ -7,7 +7,8 @@ import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
 import android.widget.*
-import com.github.matteobattilana.weather.WeatherCondition
+import com.github.matteobattilana.weather.PrecipType
+import com.github.matteobattilana.weather.WeatherData
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.browse
@@ -31,25 +32,29 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
 
         fade_out_percent_seekbar.setOnSeekBarChangeListener(object : ReducedOnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                weather_view.fadeOutPercent = progress.toFloat() / seekBar.max.toFloat()
+                if (fromUser)
+                    weather_view.fadeOutPercent = progress.toFloat() / seekBar.max.toFloat()
             }
         })
 
         angle_seekbar.setOnSeekBarChangeListener(object : ReducedOnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                weather_view.angle = progress - 90
+                if (fromUser)
+                    weather_view.angle = progress - 90
             }
         })
 
         speed_seekbar.setOnSeekBarChangeListener(object : ReducedOnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                weather_view.speed = progress
+                if (fromUser)
+                    weather_view.speed = progress
             }
         })
 
         emission_rate_seekbar.setOnSeekBarChangeListener(object : ReducedOnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                weather_view.emissionRate = progress.toFloat()
+                if (fromUser)
+                    weather_view.emissionRate = progress.toFloat()
             }
         })
 
@@ -60,18 +65,9 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         weather_condition_spinner.onItemSelectedListener = object : ReducedOnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 when (position) {
-                    0 -> {
-                        weather_view.weatherCondition = WeatherCondition.RAIN
-                        weather_label.setText(getString(R.string.rain))
-                    }
-                    1 -> {
-                        weather_view.weatherCondition = WeatherCondition.SNOW
-                        weather_label.setText(getString(R.string.snow))
-                    }
-                    2 -> {
-                        weather_view.weatherCondition = WeatherCondition.CLEAR
-                        weather_label.setText(getString(R.string.sun))
-                    }
+                    0 -> setWeatherData(PrecipType.RAIN)
+                    1 -> setWeatherData(PrecipType.SNOW)
+                    2 -> setWeatherData(PrecipType.CLEAR)
                     else -> throw IllegalStateException("Invalid spinner position!")
                 }
             }
@@ -85,6 +81,21 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         weather_view.angle = 0
         weather_view.speed = 1000
         weather_view.emissionRate = 50f
-        weather_view.weatherCondition = WeatherCondition.RAIN
+        weather_view.precipType = PrecipType.RAIN
+    }
+
+    private fun setWeatherData(weatherData: WeatherData): Unit {
+        weather_view.setWeatherData(weatherData)
+        speed_seekbar.setProgressCompat(weatherData.speed, true)
+        emission_rate_seekbar.setProgressCompat(weatherData.emissionRate.toInt(), true)
+
+        weather_label.setText(getString(
+                when (weatherData.precipType) {
+                    PrecipType.CLEAR -> R.string.sun
+                    PrecipType.RAIN -> R.string.rain
+                    PrecipType.SNOW -> R.string.snow
+                }
+        ))
+
     }
 }

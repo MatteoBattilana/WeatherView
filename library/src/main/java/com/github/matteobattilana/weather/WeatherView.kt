@@ -56,15 +56,15 @@ class WeatherView(context: Context, attrs: AttributeSet?) : FrameLayout(context,
             updateEmissionRate()
         }
 
-    var weatherCondition: WeatherCondition = WeatherCondition.CLEAR
+    var precipType: PrecipType = PrecipType.CLEAR
         set(value) {
             field = value
             when (field) {
-                WeatherCondition.CLEAR ->
+                PrecipType.CLEAR ->
                     weatherConditionBitmap.element = null
-                WeatherCondition.RAIN ->
+                PrecipType.RAIN ->
                     weatherConditionBitmap.element = RAIN_BITMAP
-                WeatherCondition.SNOW ->
+                PrecipType.SNOW ->
                     weatherConditionBitmap.element = SNOW_BITMAP
             }
         }
@@ -76,7 +76,6 @@ class WeatherView(context: Context, attrs: AttributeSet?) : FrameLayout(context,
 
         confettiSource = MutableRectSource(0, 0)
         confettiManager = ConfettiManager(context, WeatherConfettoGenerator(weatherConditionBitmap), confettiSource, this)
-                .setEmissionRate(25F)
                 .setEmissionDuration(ConfettiManager.INFINITE_DURATION)
                 .enableFadeOut { input -> (fadeOutPercent - input).coerceAtLeast(0f) }
                 .animate()
@@ -86,6 +85,17 @@ class WeatherView(context: Context, attrs: AttributeSet?) : FrameLayout(context,
         super.onLayout(changed, left, top, right, bottom)
 
         setConfettiBoundsToSelf()
+    }
+
+    fun setWeatherData(weatherData: WeatherData) {
+        precipType = weatherData.precipType
+        emissionRate = weatherData.emissionRate
+        speed = weatherData.speed
+        resetWeather()
+    }
+
+    fun resetWeather() {
+        confettiManager.animate()
     }
 
     private fun setConfettiBoundsToSelf() {
