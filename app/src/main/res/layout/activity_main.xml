@@ -19,7 +19,7 @@
         android:layout_height="0dp"
         android:inAnimation="@android:anim/slide_in_left"
         android:outAnimation="@android:anim/slide_out_right"
-        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintDimensionRatio="5:4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -151,7 +151,7 @@
         android:id="@+id/github_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_margin="64dp"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:fontFamily="@font/fontawesome"
         android:text="@string/git_icon"
