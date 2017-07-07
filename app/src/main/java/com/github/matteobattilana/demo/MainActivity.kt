@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         weather_condition_spinner.onItemSelectedListener = object : ReducedOnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 when (position) {
-                    0 -> setWeatherData(PrecipType.RAIN)
+                    0 -> setWeatherData(PrecipType.RAIN) // Runs at start
                     1 -> setWeatherData(PrecipType.SNOW)
                     2 -> setWeatherData(PrecipType.CLEAR)
                     else -> throw IllegalStateException("Invalid spinner position!")
@@ -79,9 +79,6 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
 
         weather_view.fadeOutPercent = 1f
         weather_view.angle = 0
-        weather_view.speed = 1000
-        weather_view.emissionRate = 50f
-        weather_view.precipType = PrecipType.RAIN
     }
 
     private fun setWeatherData(weatherData: WeatherData): Unit {
