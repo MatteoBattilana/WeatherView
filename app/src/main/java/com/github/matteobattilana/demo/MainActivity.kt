@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.*
 import com.github.matteobattilana.weather.PrecipType
 import com.github.matteobattilana.weather.WeatherData
+import com.github.matteobattilana.weather.WeatherViewSensorEventListener
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.browse
@@ -17,9 +18,13 @@ import org.jetbrains.anko.browse
  * Created by Mitchell on 7/5/2017.
  */
 class MainActivity : AppCompatActivity(), AnkoLogger {
+    lateinit var weatherSensor: WeatherViewSensorEventListener
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        weatherSensor = WeatherViewSensorEventListener(this, weather_view)
 
         weather_label.setFactory {
             TextView(this).apply {
@@ -58,6 +63,13 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
             }
         })
 
+        orientation_switch.setOnCheckedChangeListener { _: CompoundButton, isChecked: Boolean ->
+            when (isChecked) {
+                true -> weatherSensor.start()
+                false -> weatherSensor.stop()
+            }
+        }
+
         weather_condition_spinner.adapter = ArrayAdapter.createFromResource(this, R.array.weather_name_list, android.R.layout.simple_spinner_item)
                 .apply {
                     setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -93,6 +105,15 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                     PrecipType.SNOW -> R.string.snow
                 }
         ))
+    }
 
+    override fun onResume() {
+        super.onResume()
+        weatherSensor.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        weatherSensor.onPause()
     }
 }

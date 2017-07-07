@@ -10,11 +10,11 @@ enum class PrecipType : WeatherData {
     },
     RAIN {
         override val emissionRate: Float = 100f
-        override val speed: Int = 1000
+        override val speed: Int = 2000
     },
     SNOW {
         override val emissionRate: Float = 10f
-        override val speed: Int = 200
+        override val speed: Int = 400
     };
 
     @Suppress("LeakingThis") // enum types are actually final, this warning is incorrect. Check if fixed in next plugin update
