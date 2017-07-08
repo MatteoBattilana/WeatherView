@@ -15,18 +15,18 @@ This library is based on the [confetti](https://github.com/jinatonic/confetti) l
 ## Setup
 ### Android Studio / Gradle
 Add the following dependency in your root build.gradle at the end of repositories:
-```java
+```Gradle
 allprojects {
-	repositories {
-		...
-		maven { url = 'https://jitpack.io' }
-	}
+    repositories {
+        //...
+        maven { url = 'https://jitpack.io' }
+    }
 }
 ``` 
 Add the dependency:
-```java
+```Gradle
 dependencies {
-	compile 'com.github.MatteoBattilana:WeatherView:1.2.0'
+    compile 'com.github.MatteoBattilana:WeatherView:1.2.0'
 }
 ```
 
