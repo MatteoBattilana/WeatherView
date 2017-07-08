@@ -75,8 +75,4 @@ dependencies {
 
 A set of screenshots from the demo application.
 
-<div  align="center" width="100%">
-<img src="https://github.com/MatteoBattilana/WeatherView/blob/master/Screenshot/device-2016-10-15-152953.png" width="250">
-<img src="https://github.com/MatteoBattilana/WeatherView/blob/master/Screenshot/device-2016-10-15-153044.png" width="250">
-<img src="https://github.com/MatteoBattilana/WeatherView/blob/master/Screenshot/device-2016-10-15-153100.png" width="250">
-</div>
+<img src="images/sample_clear_1.png" width="250"> <img src="images/sample_rain_1.png" width="250"> <img src="images/sample_snow_1.png" width="250">
