@@ -37,6 +37,10 @@ For examples of usage, see the demo app.
 ## Migrations
 - 1.2.0 to 2.0.0
 
+	The library moved from the Leonids particle library to the Confetti library, so all methods have changed. The project is also written with Kotlin, so users with Kotlin can use Kotlin-specific features such as property access instead of `setX(...)`/`getX(...)` methods. The demo app's minimum API level is now 16, but the library itself still supports API 14 and up.
+	
+	Users that want more control over the particles can access the ConfettiManager instance and customize further, but the WeatherView has sensible default values for rain and snow. The WeatherView also enables users to specify a speed and angle rather than an x- and y-velocity.
+	
 - 1.1.0 to 1.2.0
 
 	Old Name | New Name
@@ -51,16 +55,13 @@ For examples of usage, see the demo app.
 	getAngle() | getCurrentAngle()  
 
 	Since the modification exposed, now is possible to have more control of each single parameter. In the older version, the developer could set only the paramenter of the playing or setted animation. Please take a look to the wiki to discover more configuration options.
-
-> The library is Free Software, you can use it, extended with no requirement to open source your changes. You can also make paid apps using it.
-
+	
 ## Screenshots
-
-A set of screenshots from the demo application.
 
 <img src="images/sample_clear_1.png" width="250"> <img src="images/sample_rain_1.png" width="250"> <img src="images/sample_snow_1.png" width="250">
 
 ## License details
+
 ```
 Copyright 2016 Matteo Battilana
 
@@ -76,3 +77,5 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ```
+
+> The library is Free Software, you can use it, extended with no requirement to open source your changes. You can also make paid apps using it.
