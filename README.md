@@ -13,7 +13,7 @@ Sample App:
 WeatherView is an Android Library that helps you make a cool weather animation for your app.<br/>
 This library is based on the [confetti](https://github.com/jinatonic/confetti) library.
 
-<img src="https://github.com/MatteoBattilana/WeatherView/blob/master/Screenshot/home.gif" width="250">
+<img src="images/sample_video_rain_1.gif" width="320"> <img src="images/sample_video_snow_1.gif" width="320">
 
 ## Setup
 ### Android Studio / Gradle
