@@ -70,7 +70,7 @@ class WeatherView(context: Context, attrs: AttributeSet?) : FrameLayout(context,
         confettiSource = MutableRectSource(0, 0)
         confettiManager = ConfettiManager(context, WeatherConfettoGenerator(confettoInfo), confettiSource, this)
                 .setEmissionDuration(ConfettiManager.INFINITE_DURATION)
-                .enableFadeOut { input -> (fadeOutPercent - input).coerceAtLeast(0f) }
+                .enableFadeOut { input -> (fadeOutPercent - input).coerceIn(0f, 1f) }
                 .animate()
     }
 
