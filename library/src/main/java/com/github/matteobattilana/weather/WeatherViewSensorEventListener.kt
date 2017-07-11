@@ -5,6 +5,7 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import android.util.Log
 
 
 /**
@@ -38,9 +39,12 @@ class WeatherViewSensorEventListener(val context: Context, val weatherView: Weat
             val orientationAngles = FloatArray(3)
             SensorManager.getOrientation(remappedRotationMatrix, orientationAngles)
 
+            val pitch = Math.toDegrees(orientationAngles[1].toDouble())
             val roll = Math.toDegrees(orientationAngles[2].toDouble())
 
-            weatherView.angle = roll.toInt()
+            Log.i("Sensor", "Pitch: $pitch")
+            if ((-85.0..85.0).contains(pitch))
+                weatherView.angle = roll.toInt()
         }
     }
 
