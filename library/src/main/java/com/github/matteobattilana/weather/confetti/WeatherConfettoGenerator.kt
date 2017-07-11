@@ -17,6 +17,7 @@ class MotionBlurBitmapConfetto(val confettoInfo: ConfettoInfo) : Confetto() {
     companion object {
         const val SNOW_RADIUS = 7.5f
         const val RAIN_STRETCH = 1.5f
+        const val MAX_CONFETTO_SPEED = 150
     }
 
     private var prevX = 0f
@@ -33,7 +34,11 @@ class MotionBlurBitmapConfetto(val confettoInfo: ConfettoInfo) : Confetto() {
     }
 
     override fun drawInternal(canvas: Canvas, matrix: Matrix, paint: Paint, x: Float, y: Float, rotation: Float, percentageAnimated: Float) {
-        if (prevY > y) {
+        val dX = x - prevX
+        val dY = y - prevY
+        val speed = Math.sqrt((dX * dX + dY * dY).toDouble())
+
+        if (speed > MAX_CONFETTO_SPEED) {
             prevX = x
             prevY = y
         } else {
@@ -41,9 +46,6 @@ class MotionBlurBitmapConfetto(val confettoInfo: ConfettoInfo) : Confetto() {
                 PrecipType.CLEAR -> {
                 }
                 PrecipType.RAIN -> {
-                    val dX = x - prevX
-                    val dY = y - prevY
-
                     val x1 = prevX - dX * RAIN_STRETCH
                     val y1 = prevY - dY * RAIN_STRETCH
                     val x2 = x + dX * RAIN_STRETCH
