@@ -11,9 +11,14 @@ import xyz.matteobattilana.library.Common.Constants;
 /**
  * Created by MatteoB on 21/12/2016.
  */
+@Deprecated
 class WeatherViewSensorEventListener implements SensorEventListener {
     //Must put in a separate class
     int lastAngle = -1;
+    //WeatherView
+    WeatherView mWeatherView;
+    Context mContext;
+    SensorManager sManager;
     // Gravity rotational data
     private float gravity[];
     // Magnetic rotational data
@@ -21,19 +26,13 @@ class WeatherViewSensorEventListener implements SensorEventListener {
     private float accels[] = new float[3];
     private float mags[] = new float[3];
     private float[] values = new float[3];
-
     // azimuth, pitch and roll
     private float azimuth;
     private float pitch;
     private float roll;
 
-    //WeatherView
-    WeatherView mWeatherView;
-    Context mContext;
-    SensorManager sManager;
 
-
-    WeatherViewSensorEventListener(Context mContext, WeatherView mWeatherView, Constants.orientationStatus start) {
+    WeatherViewSensorEventListener(Context mContext, WeatherView mWeatherView, Constants.OrientationStatus start) {
         this.mWeatherView = mWeatherView;
         this.mContext = mContext;
         init(start);
@@ -44,10 +43,10 @@ class WeatherViewSensorEventListener implements SensorEventListener {
      *
      * @param start the orientation mode
      */
-    private void init(Constants.orientationStatus start) {
+    private void init(Constants.OrientationStatus start) {
         //test add acc
         sManager = (SensorManager) mContext.getSystemService(mContext.SENSOR_SERVICE);
-        if (start == Constants.orientationStatus.ENABLE)
+        if (start == Constants.OrientationStatus.ENABLE)
             start();
     }
 

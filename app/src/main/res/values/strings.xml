@@ -1,15 +1,19 @@
 <resources>
     <string name="app_name">WeatherView Demo Library</string>
     <string name="rain">It\'s raining</string>
-    <string name="sun">It\'s a sunny day</string>
+    <string name="sun">It\'s clear</string>
     <string name="snow">It\'s snowing</string>
 
-    <string-array name="weatherList">
+    <string-array name="weather_name_list">
         <item>Rain</item>
         <item>Snow</item>
-        <item>Sun</item>
+        <item>Clear</item>
     </string-array>
 
     <string name="git_icon">&#xf09b;</string>
-    <string name="enableorientation">enableOrientation</string>
+    <string name="enable_orientation">Enable Orientation</string>
+    <string name="fade_out_percentage">Fade Out Percentage</string>
+    <string name="angle">Angle</string>
+    <string name="speed">Speed</string>
+    <string name="emission_rate">Emission Rate</string>
 </resources>

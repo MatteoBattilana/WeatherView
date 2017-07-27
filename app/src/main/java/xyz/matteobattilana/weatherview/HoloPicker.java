@@ -1,13 +1,13 @@
 package xyz.matteobattilana.weatherview;
 
-import android.annotation.TargetApi;
 import android.content.Context;
-import android.graphics.Typeface;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.widget.NumberPicker;
 
-// For backward-compability
+import com.github.matteobattilana.demo.R;
+
+// For backward-compatibility
+@Deprecated
 public class HoloPicker extends NumberPicker {
 
 
@@ -32,7 +32,7 @@ public class HoloPicker extends NumberPicker {
     }
 
     private void init() {
-        String[] values = getResources().getStringArray(R.array.weatherList);
+        String[] values = getResources().getStringArray(R.array.weather_name_list);
 
         this.setMinValue(0); //from array first value
         this.setMaxValue(values.length - 1); //to array last value

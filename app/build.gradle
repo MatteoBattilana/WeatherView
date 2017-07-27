@@ -1,15 +1,18 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.0"
+    compileSdkVersion 26
+    buildToolsVersion "26.0.0"
 
     defaultConfig {
-        applicationId "xyz.matteobattilana.weatherview"
-        minSdkVersion 14
-        targetSdkVersion 25
+        applicationId "com.github.matteobattilana.weather"
+        minSdkVersion 16
+        targetSdkVersion 26
         versionCode 5
         versionName "1.2.0"
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
@@ -17,17 +20,22 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-}
-repositories {
-    maven { url = 'https://jitpack.io' }
-
+    lintOptions {
+        abortOnError false
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    //compile project(path: ':library')
+    implementation "com.android.support:appcompat-v7:$support_library_version"
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0-beta1'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation "org.jetbrains.anko:anko-commons:$anko_version"
 
-    compile 'com.github.MatteoBattilana:WeatherView:1.2.0'
+    implementation project(':library')
+
+    testImplementation 'junit:junit:4.12'
 }
