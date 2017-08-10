@@ -7,11 +7,11 @@ android {
     buildToolsVersion "26.0.0"
 
     defaultConfig {
-        applicationId "com.github.matteobattilana.weather"
+        applicationId "xyz.matteobattilana.weatherview"
         minSdkVersion 16
         targetSdkVersion 26
-        versionCode 5
-        versionName "1.2.0"
+        versionCode 6
+        versionName "2.0.0"
         vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
