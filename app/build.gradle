@@ -4,14 +4,14 @@ apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "26.0.0"
+    buildToolsVersion "26.0.1"
 
     defaultConfig {
-        applicationId "com.github.matteobattilana.weather"
+        applicationId "xyz.matteobattilana.weatherview"
         minSdkVersion 16
         targetSdkVersion 26
-        versionCode 5
-        versionName "1.2.0"
+        versionCode 6
+        versionName "2.0.0"
         vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
@@ -19,9 +19,6 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-    }
-    lintOptions {
-        abortOnError false
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8

@@ -22,11 +22,11 @@ allprojects {
         maven { url = 'https://jitpack.io' }
     }
 }
-``` 
+```
 Add the dependency:
 ```Gradle
 dependencies {
-    compile 'com.github.MatteoBattilana:WeatherView:2.0.0'
+    compile 'com.github.MatteoBattilana:WeatherView:2.0.1'
 }
 ```
 
