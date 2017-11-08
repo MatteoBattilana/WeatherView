@@ -3,14 +3,13 @@ apply plugin: 'kotlin-android'
 apply plugin: 'com.github.dcendents.android-maven'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion "26.0.1"
+    compileSdkVersion 27
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 26
-        versionCode 3
-        versionName "2.0.1"
+        targetSdkVersion 27
+        versionCode 4
+        versionName "2.0.2"
     }
     buildTypes {
         release {
@@ -26,6 +25,7 @@ android {
 
 group = 'com.github.MatteoBattilana'
 version = android.defaultConfig.versionName
+project.archivesBaseName = 'WeatherView'
 
 dependencies {
     implementation "com.android.support:support-annotations:$support_library_version"
