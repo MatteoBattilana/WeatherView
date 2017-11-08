@@ -25,6 +25,7 @@ android {
 
 group = 'com.github.MatteoBattilana'
 version = android.defaultConfig.versionName
+project.archivesBaseName = 'WeatherView'
 
 dependencies {
     implementation "com.android.support:support-annotations:$support_library_version"
