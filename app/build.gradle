@@ -1,21 +1,31 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-android-extensions'
+    id 'com.github.ben-manes.versions' version '0.20.0'
+    id 'se.patrikerdes.use-latest-versions' version '0.2.3'
+    id "net.ltgt.errorprone" version "0.0.14"
+}
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 28
 
     defaultConfig {
         applicationId "xyz.matteobattilana.weatherview"
         minSdkVersion 16
-        targetSdkVersion 27
-        versionCode 9
-        versionName "2.0.3"
+        targetSdkVersion 28
+        versionCode 10
+        versionName "2.0.4"
         vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled true
+            useProguard false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -26,9 +36,14 @@ android {
 }
 
 dependencies {
+    // Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    // Support lib
     implementation "com.android.support:appcompat-v7:$support_library_version"
-    implementation 'com.android.support.constraint:constraint-layout:1.1.0-beta5'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+
+    // Anko
     implementation "org.jetbrains.anko:anko-commons:$anko_version"
 
     implementation project(':library')
