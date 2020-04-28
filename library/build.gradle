@@ -2,17 +2,16 @@ plugins {
     id 'com.android.library'
     id 'kotlin-android'
     id 'com.github.dcendents.android-maven'
-    id 'com.github.ben-manes.versions' version '0.20.0'
-    id 'se.patrikerdes.use-latest-versions' version '0.2.3'
-    id "net.ltgt.errorprone" version "0.0.14"
+    id 'se.patrikerdes.use-latest-versions' version '0.2.13'
+    id "net.ltgt.errorprone" version "1.1.1"
 }
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 5
         versionName "2.0.3"
     }
@@ -33,22 +32,26 @@ version = android.defaultConfig.versionName
 project.archivesBaseName = 'WeatherView'
 
 dependencies {
+    errorprone "com.google.errorprone:error_prone_core:$errorprone_version"
+    errorproneJavac "com.google.errorprone:javac:$errorprone_javac_version"
+
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     // Support lib
+    //noinspection GradleCompatible
     implementation "com.android.support:support-compat:$support_library_version"
     implementation "com.android.support:support-annotations:$support_library_version"
 
     implementation 'com.github.plattysoft:Leonids:1746429'
-    implementation 'com.github.jinatonic.confetti:confetti:1.1.1'
+    implementation 'com.github.jinatonic.confetti:confetti:1.1.2'
 
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13'
 }
 
 task sourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
-    classifier = 'sources'
+    archiveClassifier = 'sources'
 }
 
 task javadoc(type: Javadoc) {
@@ -58,7 +61,7 @@ task javadoc(type: Javadoc) {
 }
 
 task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
+    archiveClassifier = 'javadoc'
     from javadoc.destinationDir
 }
 
