@@ -41,7 +41,7 @@ dependencies {
     implementation "com.android.support:support-annotations:$support_library_version"
 
     implementation 'com.github.plattysoft:Leonids:1746429'
-    implementation 'com.github.jinatonic.confetti:confetti:1.1.1'
+    implementation 'com.github.jinatonic.confetti:confetti:1.1.2'
 
     testImplementation 'junit:junit:4.12'
 }
