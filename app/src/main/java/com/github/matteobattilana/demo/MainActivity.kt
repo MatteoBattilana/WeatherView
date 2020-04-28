@@ -49,6 +49,13 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
             }
         })
 
+        particles_size_seekbar.setOnSeekBarChangeListener(object : ReducedOnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                if (fromUser)
+                    weather_view.particleSizeMultiplier = 1.0f + ((progress / seekBar.max.toFloat()) * 10.0f)
+            }
+        })
+
         speed_seekbar.setOnSeekBarChangeListener(object : ReducedOnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 if (fromUser)

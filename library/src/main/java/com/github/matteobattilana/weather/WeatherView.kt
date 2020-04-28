@@ -39,6 +39,13 @@ class WeatherView(context: Context, attrs: AttributeSet?) : FrameLayout(context,
             updateVelocities()
         }
 
+    var particleSizeMultiplier: Float = 1.0f
+    set(value)
+    {
+        field = value
+        confettoInfo.sizeMultiplier = value;
+    }
+
     var angleRadians: Double = 0.0
         private set
 
@@ -62,7 +69,7 @@ class WeatherView(context: Context, attrs: AttributeSet?) : FrameLayout(context,
             confettoInfo.precipType = value
         }
 
-    private val confettoInfo = ConfettoInfo(PrecipType.CLEAR)
+    private val confettoInfo = ConfettoInfo(PrecipType.CLEAR, 1.0f)
 
     init {
         initializeBitmaps(context)

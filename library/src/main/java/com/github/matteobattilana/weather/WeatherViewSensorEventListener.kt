@@ -42,7 +42,6 @@ class WeatherViewSensorEventListener(val context: Context, val weatherView: Weat
             val pitch = Math.toDegrees(orientationAngles[1].toDouble())
             val roll = Math.toDegrees(orientationAngles[2].toDouble())
 
-            Log.i("Sensor", "Pitch: $pitch")
             if ((-85.0..85.0).contains(pitch))
                 weatherView.angle = roll.toInt()
         }

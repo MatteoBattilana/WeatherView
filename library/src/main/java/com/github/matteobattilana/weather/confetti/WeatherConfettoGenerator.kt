@@ -52,8 +52,8 @@ class MotionBlurBitmapConfetto(val confettoInfo: ConfettoInfo) : Confetto() {
                     val dY = y - prevY!!
                     val x1 = prevX!! - dX * RAIN_STRETCH
                     val y1 = prevY!! - dY * RAIN_STRETCH
-                    val x2 = x + dX * RAIN_STRETCH
-                    val y2 = y + dY * RAIN_STRETCH
+                    val x2 = x + dX * RAIN_STRETCH * confettoInfo.sizeMultiplier
+                    val y2 = y + dY * RAIN_STRETCH * confettoInfo.sizeMultiplier
 
                     paint.shader = LinearGradient(x1, y1, x2, y2,
                             intArrayOf(Color.TRANSPARENT, Color.WHITE, Color.WHITE, Color.TRANSPARENT),
@@ -63,12 +63,13 @@ class MotionBlurBitmapConfetto(val confettoInfo: ConfettoInfo) : Confetto() {
                     canvas.drawLine(x1, y1, x2, y2, paint)
                 }
                 PrecipType.SNOW -> {
-                    paint.shader = RadialGradient(x, y, SNOW_RADIUS,
+                    val sigmoid = (1.0f / (1.0f + Math.pow(Math.E, -confettoInfo.sizeMultiplier.toDouble()))).toFloat();
+                    paint.shader = RadialGradient(x, y, SNOW_RADIUS * confettoInfo.sizeMultiplier,
                             intArrayOf(Color.WHITE, Color.WHITE, Color.TRANSPARENT, Color.TRANSPARENT),
-                            floatArrayOf(0f, 0.15f, 0.95f, 1f),
+                            floatArrayOf(0f, 0.15f + sigmoid * 0.35f, 0.95f - sigmoid * 0.45f, 1f),
                             Shader.TileMode.CLAMP)
 
-                    canvas.drawCircle(x, y, SNOW_RADIUS, paint)
+                    canvas.drawCircle(x, y, SNOW_RADIUS * confettoInfo.sizeMultiplier, paint)
                 }
         }
 
