@@ -7,6 +7,7 @@
     <string-array name="weather_name_list">
         <item>Rain</item>
         <item>Snow</item>
+        <item>Custom</item>
         <item>Clear</item>
     </string-array>
 
@@ -16,4 +17,6 @@
     <string name="angle">Angle</string>
     <string name="speed">Speed</string>
     <string name="emission_rate">Emission Rate</string>
+    <string name="particles_size">Particles Size</string>
+    <string name="custom">It\'s whatever</string>
 </resources>

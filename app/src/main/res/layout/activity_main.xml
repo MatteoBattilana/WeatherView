@@ -118,6 +118,31 @@
         app:layout_constraintTop_toBottomOf="@id/speed_seekbar" />
 
     <TextView
+        android:id="@+id/particles_size_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/seekbar_label_margin"
+        android:fontFamily="@font/fontawesome"
+        android:text="@string/particles_size"
+        app:layout_constraintBottom_toBottomOf="@id/particles_size_seekbar"
+        app:layout_constraintEnd_toStartOf="@id/particles_size_seekbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/particles_size_seekbar" />
+
+    <SeekBar
+        android:id="@+id/particles_size_seekbar"
+        style="@style/Widget.AppCompat.SeekBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/seekbar_margin"
+        android:max="1000"
+        android:progress="0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/particles_size_label"
+        app:layout_constraintTop_toBottomOf="@id/emission_rate_seekbar" />
+
+
+    <TextView
         android:id="@+id/orientation_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -136,7 +161,7 @@
         android:layout_margin="@dimen/seekbar_margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/orientation_label"
-        app:layout_constraintTop_toBottomOf="@id/emission_rate_seekbar" />
+        app:layout_constraintTop_toBottomOf="@id/particles_size_seekbar" />
 
     <Spinner
         android:id="@+id/weather_condition_spinner"

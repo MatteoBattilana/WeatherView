@@ -2,7 +2,6 @@ package com.github.matteobattilana.weather
 
 import android.content.Context
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.Rect
 import android.util.AttributeSet
 import android.widget.FrameLayout
@@ -19,16 +18,6 @@ import com.github.matteobattilana.weather.confetti.WeatherConfettoGenerator
  */
 
 class WeatherView(context: Context, attrs: AttributeSet?) : FrameLayout(context, attrs) {
-    companion object {
-        lateinit var RAIN_BITMAP: Bitmap
-        lateinit var SNOW_BITMAP: Bitmap
-
-        private fun initializeBitmaps(context: Context) {
-            RAIN_BITMAP = BitmapFactory.decodeResource(context.resources, R.drawable.rain)
-            SNOW_BITMAP = BitmapFactory.decodeResource(context.resources, R.drawable.snow)
-        }
-    }
-
     val confettiSource: MutableRectSource
     val confettiManager: ConfettiManager
 
@@ -38,6 +27,13 @@ class WeatherView(context: Context, attrs: AttributeSet?) : FrameLayout(context,
             angleRadians = Math.toRadians(value.toDouble())
             updateVelocities()
         }
+
+    var scaleFactor: Float = 1.0f
+    set(value)
+    {
+        field = value
+        confettoInfo.scaleFactor = value;
+    }
 
     var angleRadians: Double = 0.0
         private set
@@ -62,11 +58,14 @@ class WeatherView(context: Context, attrs: AttributeSet?) : FrameLayout(context,
             confettoInfo.precipType = value
         }
 
-    private val confettoInfo = ConfettoInfo(PrecipType.CLEAR)
+    fun setCustomBitmap(bitmap: Bitmap){
+        confettoInfo.precipType = PrecipType.CUSTOM
+        confettoInfo.customBitmap = bitmap
+    }
+
+    private val confettoInfo = ConfettoInfo(PrecipType.CLEAR, 1.0f)
 
     init {
-        initializeBitmaps(context)
-
         confettiSource = MutableRectSource(0, 0)
         confettiManager = ConfettiManager(context, WeatherConfettoGenerator(confettoInfo), confettiSource, this)
                 .setEmissionDuration(ConfettiManager.INFINITE_DURATION)

@@ -1,5 +1,6 @@
 package com.github.matteobattilana.demo
 
+import android.graphics.BitmapFactory
 import android.graphics.Typeface
 import android.os.Bundle
 import android.util.TypedValue
@@ -49,6 +50,13 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
             }
         })
 
+        particles_size_seekbar.setOnSeekBarChangeListener(object : ReducedOnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                if (fromUser)
+                    weather_view.scaleFactor = 1f + progress * (10f / seekBar.max.toFloat())
+            }
+        })
+
         speed_seekbar.setOnSeekBarChangeListener(object : ReducedOnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 if (fromUser)
@@ -79,7 +87,8 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                 when (position) {
                     0 -> setWeatherData(PrecipType.RAIN) // Runs at start
                     1 -> setWeatherData(PrecipType.SNOW)
-                    2 -> setWeatherData(PrecipType.CLEAR)
+                    2 -> setWeatherData(PrecipType.CUSTOM)
+                    3 -> setWeatherData(PrecipType.CLEAR)
                     else -> throw IllegalStateException("Invalid spinner position!")
                 }
             }
@@ -95,6 +104,10 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
 
     private fun setWeatherData(weatherData: WeatherData): Unit {
         weather_view.setWeatherData(weatherData)
+        if(weatherData.precipType == PrecipType.CUSTOM)
+        {
+            weather_view.setCustomBitmap(BitmapFactory.decodeResource(resources, R.mipmap.ic_launcher))
+        }
         speed_seekbar.setProgressCompat(weatherData.speed, true)
         emission_rate_seekbar.setProgressCompat(weatherData.emissionRate.toInt(), true)
 
@@ -103,6 +116,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                     PrecipType.CLEAR -> R.string.sun
                     PrecipType.RAIN -> R.string.rain
                     PrecipType.SNOW -> R.string.snow
+                    PrecipType.CUSTOM -> R.string.custom
                 }
         ))
     }
