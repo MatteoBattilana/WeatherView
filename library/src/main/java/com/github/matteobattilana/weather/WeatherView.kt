@@ -58,7 +58,7 @@ class WeatherView(context: Context, attrs: AttributeSet?) : FrameLayout(context,
             confettoInfo.precipType = value
         }
 
-    fun setCustomBitmap(bitmap: Bitmap?){
+    fun setCustomBitmap(bitmap: Bitmap){
         confettoInfo.precipType = PrecipType.CUSTOM
         confettoInfo.customBitmap = bitmap
     }
