@@ -2,8 +2,9 @@ package xyz.matteobattilana.weatherview;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
+
+import androidx.appcompat.widget.AppCompatTextView;
 
 @Deprecated
 public class HoloTextView extends AppCompatTextView {

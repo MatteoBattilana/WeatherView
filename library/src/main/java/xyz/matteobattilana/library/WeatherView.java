@@ -4,13 +4,14 @@ package xyz.matteobattilana.library;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
+
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 
 import com.github.matteobattilana.weather.R;
 import com.plattysoft.leonids.ParticleSystem;

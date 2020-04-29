@@ -39,9 +39,8 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     // Support lib
-    //noinspection GradleCompatible
-    implementation "com.android.support:support-compat:$support_library_version"
-    implementation "com.android.support:support-annotations:$support_library_version"
+    implementation 'androidx.core:core:1.2.0'
+    implementation 'androidx.annotation:annotation:1.1.0'
 
     implementation 'com.github.plattysoft:Leonids:1746429'
     implementation 'com.github.jinatonic.confetti:confetti:1.1.2'
