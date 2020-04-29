@@ -31,7 +31,31 @@ dependencies {
 }
 ```
 
-## Basic usage
+## Simple usage
+Simple use cases will look something like this:
+
+```Kotlin
+class MainActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+	
+	weather_view.setWeatherData(weatherData)
+     }
+ }
+```
+
+```Xml
+<com.github.matteobattilana.weather.WeatherView
+    android:id="@+id/weather_view"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+```
 
 For examples of usage, see the demo app.
 
