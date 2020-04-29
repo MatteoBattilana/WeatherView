@@ -35,7 +35,7 @@ class MotionBlurBitmapConfetto(val confettoInfo: ConfettoInfo) : Confetto() {
                 PrecipType.CLEAR -> {
                 }
                 PrecipType.RAIN -> {
-                    var rainStretch = RAIN_STRETCH * confettoInfo.scaleFactor / 2f;
+                    var rainStretch = RAIN_STRETCH * (confettoInfo.scaleFactor + 1.0f) / 2f;
                     val dX = currentVelocityX
                     val dY = currentVelocityY
                     val x1 = x - dX * rainStretch
