@@ -26,7 +26,7 @@ allprojects {
 Add the dependency:
 ```Gradle
 dependencies {
-    compile 'com.github.MatteoBattilana:WeatherView:3.0.0'
+    implementation 'com.github.MatteoBattilana:WeatherView:3.0.0'
 }
 ```
 
