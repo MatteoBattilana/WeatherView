@@ -10,9 +10,10 @@
 
 WeatherView is an Android Library that helps you make a cool weather animation for your app.<br/>
 This library is based on the [confetti](https://github.com/jinatonic/confetti) library.
-
-<img src="images/sample_video_rain_1.gif" width="320"> <img src="images/sample_video_snow_1.gif" width="320">
-
+<p align="center">
+	<img src="images/sample_video_rain_1.gif" width="320"> <img src="images/sample_video_snow_1.gif" width="320">
+<p>
+	
 ## Setup
 ### Android Studio / Gradle
 Add the following dependency in your root build.gradle at the end of repositories:
@@ -82,7 +83,6 @@ For examples of usage, see the demo app.
 	Since the modification exposed, now is possible to have more control of each single parameter. In the older version, the developer could set only the paramenter of the playing or setted animation. Please take a look to the wiki to discover more configuration options.
 	
 ## Screenshots
-
 <img src="images/sample_clear_1.png" width="250"> <img src="images/sample_rain_1.png" width="250"> <img src="images/sample_snow_1.png" width="250">
 
 ## License details
