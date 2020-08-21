@@ -35,6 +35,8 @@ dependencies {
 ## Simple usage
 Simple use cases will look something like this:
 
+### Kotlin
+
 ```Kotlin
 class MainActivity : AppCompatActivity() {
 
@@ -42,9 +44,25 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 	
-	weather_view.setWeatherData(weatherData)
+	weather_view.setWeatherData(PrecipType.RAIN)
      }
  }
+```
+
+### Java
+```Java
+public class Main2Activity extends AppCompatActivity
+{
+    @Override
+    protected void onCreate(Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        WeatherView weatherView = findViewById(R.id.weather_view);
+        weatherView.setWeatherData(PrecipType.RAIN);
+    }
+}
 ```
 
 ```Xml
