@@ -19,6 +19,10 @@ class MotionBlurBitmapConfetto(val confettoInfo: ConfettoInfo) : Confetto() {
         const val RAIN_STRETCH = 20f
     }
 
+    private val transparentWhite by lazy {
+        Color.argb(0, Color.red(Color.WHITE), Color.green(Color.WHITE), Color.blue(Color.WHITE))
+    }
+
     override fun getHeight(): Int = 0
 
     override fun getWidth(): Int = 0
@@ -52,9 +56,9 @@ class MotionBlurBitmapConfetto(val confettoInfo: ConfettoInfo) : Confetto() {
                     canvas.drawLine(x1, y1, x2, y2, paint)
                 }
                 PrecipType.SNOW -> {
-                    val sigmoid = (1f / (1f + Math.pow(Math.E, -(confettoInfo.scaleFactor.toDouble() - 1f)))).toFloat();
+                    val sigmoid = (1f / (1f + Math.pow(Math.E, -(confettoInfo.scaleFactor.toDouble() - 1f)))).toFloat()
                     paint.shader = RadialGradient(x, y, SNOW_RADIUS * confettoInfo.scaleFactor,
-                            intArrayOf(Color.WHITE, Color.WHITE, Color.TRANSPARENT, Color.TRANSPARENT),
+                            intArrayOf(Color.WHITE, Color.WHITE, transparentWhite, transparentWhite),
                             floatArrayOf(0f, 0.15f + sigmoid * 0.30f, 0.95f - sigmoid * 0.35f, 1f),
                             Shader.TileMode.CLAMP)
 
